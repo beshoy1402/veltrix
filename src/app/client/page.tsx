@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ArrowLeft, LogOut, RefreshCw } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_SUPABASE_URL;

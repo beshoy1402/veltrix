@@ -85,7 +85,7 @@ export default function AdminPage() {
 
   function signOut() { sessionStorage.removeItem("veltrix-admin-token"); setToken(""); setPassword(""); setData({ inquiries: [], services: [], bookings: [], newsletter: [], projects: [], events: [] }); }
 
-  async function patch(table: string, id: string, values: Row) {
+  async function patch(table: string, id: string, values: Record<string, unknown>) {
     setError(""); setMessage("");
     try {
       await api(`${table}?id=eq.${encodeURIComponent(id)}`, token, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify(values) });

@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import {useState, type FormEvent} from "react";
 import {ArrowDownRight,ArrowUpRight,ArrowRight,Globe2,Menu,X,Play,Check,Asterisk} from "lucide-react";
 
 const services=[
@@ -21,6 +21,24 @@ export default function Home(){
  const [filter,setFilter]=useState("All");
  const [preview,setPreview]=useState<(typeof projects)[number]|null>(null);
  const [quote,setQuote]=useState(false);
+ const [sending,setSending]=useState(false);
+ const [sent,setSent]=useState(false);
+ const [formError,setFormError]=useState("");
+ const [form,setForm]=useState({name:"",email:"",phone:"",company:"",service:"Business website",budget:"EGP 20,000–40,000",message:""});
+ async function submitInquiry(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();
+  setSending(true);setFormError("");
+  try{
+   const response=await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/inquiries`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??"","Authorization":`Bearer ${process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??""}`,"Prefer":"return=minimal"},
+    body:JSON.stringify({name:form.name,email:form.email,phone:form.phone,company:form.company,service_interest:form.service,budget:form.budget,message:form.message})
+   });
+   if(!response.ok){const detail=await response.text();throw new Error(detail||"Unable to submit your enquiry.");}
+   setSent(true);
+  }catch(error){setFormError(error instanceof Error?error.message:"Something went wrong. Please try again.");}
+  finally{setSending(false);}
+ }
  const ar=lang==="ar";
  const copy=ar?{
   nav:["خدماتنا","أعمالنا","من نحن","مقالات"],cta:"ابدأ مشروعك",eyebrow:"استوديو مستقل للابتكار الرقمي",
@@ -52,6 +70,6 @@ export default function Home(){
   <section className="contact" id="contact"><label>{copy.contact}</label><h2>{ar?<>لنصنع<br/><em>شيئاً مؤثراً.</em></>:<>Let&apos;s make<br/><em>something matter.</em></>}</h2><p>{copy.contactText}</p><button onClick={()=>setQuote(true)}>Tell us about your project <ArrowUpRight size={17}/></button><small>CAIRO, EGYPT · AVAILABLE WORLDWIDE</small><div className="contactRing"/></section>
   <footer><div className="footerTop"><a className="logo" href="#">VEL<span>TRIX</span><sup>®</sup></a><p>{ar?"تجارب رقمية تصنع الفرق.":"Digital experiences, made meaningful."}</p><a href="mailto:hello@veltrix.studio">LET&apos;S TALK <ArrowUpRight size={15}/></a></div><div className="footerBottom"><span>© {new Date().getFullYear()} VELTRIX. ALL RIGHTS RESERVED.</span><span>BUILT WITH INTENTION ✳</span><a href="#" onClick={e=>{e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})}}>BACK TO TOP ↑</a></div></footer>
   {preview&&<div className="overlay" role="dialog" aria-modal="true" onClick={()=>setPreview(null)}><div className="previewModal" onClick={e=>e.stopPropagation()}><div className="modalHead"><div><small>PROJECT CONCEPT</small><h3>{preview.name}</h3></div><button onClick={()=>setPreview(null)} aria-label="Close"><X/></button></div><div className={"previewCanvas "+preview.theme}><h2>{preview.name}</h2><p>{preview.desc}</p><small>ILLUSTRATIVE CONCEPT — LIVE PROJECT URL NOT YET ADDED</small></div><p className="modalNote">This is a visual concept preview. Real portfolio projects and embeddable live demos will be managed through the portfolio dashboard.</p></div></div>}
-  {quote&&<div className="overlay" role="dialog" aria-modal="true" onClick={()=>setQuote(false)}><div className="quoteModal" onClick={e=>e.stopPropagation()}><div className="modalHead"><div><small>LET&apos;S GET STARTED</small><h3>Tell us what you have in mind.</h3></div><button onClick={()=>setQuote(false)} aria-label="Close"><X/></button></div><p>A few details will help us understand the opportunity. This is an initial project brief, not a final quote.</p><label>What are you looking to build?<select><option>Business website</option><option>E-commerce website</option><option>Web application</option><option>UI/UX design</option><option>AI & automation</option><option>Custom digital platform</option></select></label><label>Estimated budget<select><option>EGP 20,000–40,000</option><option>EGP 40,000–60,000</option><option>EGP 60,000–120,000</option><option>EGP 120,000+</option><option>Let&apos;s discuss</option></select></label><div className="minimum"><Check size={15}/> Custom project engagements start from EGP 20,000.</div><button className="continue" onClick={()=>{setQuote(false);document.getElementById("contact")?.scrollIntoView({behavior:"smooth"})}}>Continue to project enquiry <ArrowRight size={16}/></button></div></div>}
+  {quote&&<div className="overlay" role="dialog" aria-modal="true" onClick={()=>setQuote(false)}><div className="quoteModal" onClick={e=>e.stopPropagation()}><div className="modalHead"><div><small>LET&apos;S GET STARTED</small><h3>{sent?"Thanks — we have your brief.":"Tell us what you have in mind."}</h3></div><button onClick={()=>{setQuote(false);setSent(false)}} aria-label="Close"><X/></button></div>{sent?<div className="successState"><Check size={28}/><p>Your enquiry has been sent to the VELTRIX team. We will review the details and get back to you.</p><button className="continue" onClick={()=>{setQuote(false);setSent(false);setForm({name:"",email:"",phone:"",company:"",service:"Business website",budget:"EGP 20,000–40,000",message:""})}}>Close</button></div>:<><p>Share a few details so we can understand your project and prepare the right next step.</p><form className="inquiryForm" onSubmit={submitInquiry}><div className="formPair"><label>Your name<input required minLength={2} maxLength={120} value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Full name"/></label><label>Email address<input required type="email" maxLength={254} value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="you@example.com"/></label></div><div className="formPair"><label>Phone (optional)<input type="tel" maxLength={40} value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} placeholder="+20"/></label><label>Company (optional)<input maxLength={120} value={form.company} onChange={e=>setForm({...form,company:e.target.value})} placeholder="Company name"/></label></div><div className="formPair"><label>Project type<select value={form.service} onChange={e=>setForm({...form,service:e.target.value})}><option>Business website</option><option>E-commerce website</option><option>Web application</option><option>UI/UX design</option><option>AI & automation</option><option>Custom digital platform</option></select></label><label>Estimated budget<select value={form.budget} onChange={e=>setForm({...form,budget:e.target.value})}><option>EGP 20,000–40,000</option><option>EGP 40,000–60,000</option><option>EGP 60,000–120,000</option><option>EGP 120,000+</option><option>Let&apos;s discuss</option></select></label></div><label>Tell us about the project<textarea required minLength={10} maxLength={5000} rows={4} value={form.message} onChange={e=>setForm({...form,message:e.target.value})} placeholder="What are you trying to achieve? What should we know?"/></label>{formError&&<p className="formError" role="alert">{formError}</p>}<div className="minimum"><Check size={15}/> Custom project engagements start from EGP 20,000.</div><button className="continue" type="submit" disabled={sending}>{sending?"Sending enquiry...":"Send project enquiry"} <ArrowRight size={16}/></button></form></>}</div></div>}
  </main>
 }

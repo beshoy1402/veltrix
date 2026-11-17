@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities */
 import {useState, useEffect, type FormEvent} from "react";
 import {ArrowDownRight,ArrowUpRight,ArrowRight,Globe2,Menu,X,Play,Check,Asterisk} from "lucide-react";
 

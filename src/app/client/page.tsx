@@ -40,9 +40,8 @@ export default function ClientPortal() {
     await load(authToken);
   }
 
-  useEffect(()=>{const saved=sessionStorage.getItem("veltrix-client-token");if(saved)authenticate(saved).catch(()=>{sessionStorage.removeItem("veltrix-client-token");setToken("");});;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  useEffect(()=>{const saved=sessionStorage.getItem("veltrix-client-token");if(saved)authenticate(saved).catch(()=>{sessionStorage.removeItem("veltrix-client-token");setToken("");});},[]);
 
   async function signIn(event:FormEvent){
     event.preventDefault();setLoading(true);setError("");

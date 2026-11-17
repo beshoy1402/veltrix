@@ -88,7 +88,17 @@ export default function Home(){
     <p>{ar?"نحوّل الأفكار الطموحة إلى تجارب رقمية واضحة، جريئة، ومصممة لتحقيق نتائج حقيقية.":"We turn ambitious ideas into digital experiences with a point of view — designed to move businesses, people and possibilities forward."}</p>
     <div className="stormHeroActions"><button onClick={()=>setQuote(true)}>{ar?"ابدأ محادثة":"Let's build something"}<ArrowUpRight size={17}/></button><a href="#work"><span>↘</span>{ar?"استكشف أعمالنا":"Explore selected work"}</a></div>
    </div>
-   <div className="stormHeroAside"><span className="stormHeroAsideTop">STRATEGY / DESIGN / ENGINEERING</span><div className="stormHeroMonogram">V<span>/</span></div><div className="stormHeroAsideBottom"><span>NOT ANOTHER<br/>DIGITAL AGENCY.</span><b>VLT—26</b></div></div>
+   <div className="stormHeroAside">
+    <span className="stormHeroAsideTop">STRATEGY / DESIGN / ENGINEERING</span>
+    <div className="storm3dScene" aria-hidden="true">
+     <div className="storm3dOrbit storm3dOrbit--one"/><div className="storm3dOrbit storm3dOrbit--two"/><div className="storm3dOrbit storm3dOrbit--three"/>
+     <div className="storm3dCore"><span>V</span><i/></div>
+     <div className="storm3dCube"><i/><i/><i/><i/><i/><i/></div>
+     <div className="storm3dShard storm3dShard--one"/><div className="storm3dShard storm3dShard--two"/><div className="storm3dShard storm3dShard--three"/>
+     <span className="storm3dLabel storm3dLabel--one">FORM / 001</span><span className="storm3dLabel storm3dLabel--two">DEPTH IS A LANGUAGE</span>
+    </div>
+    <div className="stormHeroAsideBottom"><span>NOT ANOTHER<br/>DIGITAL AGENCY.</span><b>VLT—26</b></div>
+   </div>
    <div className="stormHeroBottom"><span>SCROLL TO DISCOVER</span><i/><span>30° 03' N / 31° 14' E</span></div>
   </section>
   <div className="stormMarquee"><div>BUILT TO BREAK THROUGH <b>✳</b> STRATEGY WITH SUBSTANCE <b>✳</b> DESIGN THAT DOES MORE <b>✳</b> TECHNOLOGY WITH PURPOSE <b>✳</b> BUILT TO BREAK THROUGH <b>✳</b> STRATEGY WITH SUBSTANCE <b>✳</b></div></div>
@@ -112,7 +122,9 @@ export default function Home(){
   </section>
   <section className="stormStudio stormSection" id="studio">
    <div className="stormSectionTop"><span>03 — THE STUDIO</span><span>SMALL TEAM. BIG INTENT.</span></div>
-   <div className="stormStudioGrid"><div className="stormStudioArt"><div className="stormStudioWord">V<span>/</span></div><div className="stormStudioCoordinates">CAIRO BASED<br/>WORLD CONNECTED</div><div className="stormStudioCaption">INDEPENDENT THINKING<br/>COLLABORATIVE MAKING</div></div><div className="stormStudioCopy"><span className="stormMiniLabel">A DIFFERENT KIND OF PARTNER</span><h2>{ar?<>Small team.<br/><em>Serious intent.</em></>:<>We stay small<br/>to think <em>bigger.</em></>}</h2><p>{ar?"نحن فريق مستقل يجمع بين الرؤية التسويقية والتنفيذ التقني. نعمل عن قرب، ونتعامل مع كل مشروع كفرصة لبناء شيء له قيمة حقيقية.":"VELTRIX brings together strategic thinking and hands-on technology. Omar shapes the growth direction; Beshoy turns ambitious ideas into real digital products. Direct collaboration, considered decisions and no unnecessary layers."}</p><div className="stormPeople"><div><span>OA</span><b>Omar Ali</b><small>Marketing & Strategy</small></div><div><span>BR</span><b>Beshoy Ramy</b><small>Development & Engineering</small></div></div><a href="#contact">MEET YOUR NEXT DIGITAL PARTNER <ArrowUpRight size={15}/></a></div></div>
+   <div className="stormStudioGrid"><div className="stormStudioArt">
+    <div className="stormStudio3d" aria-hidden="true"><div className="stormStudioTorus"/><div className="stormStudioTorus stormStudioTorus--two"/><div className="stormStudioGlass"><span>V</span></div><div className="stormStudioPebble"/></div>
+    <div className="stormStudioWord">V<span>/</span></div><div className="stormStudioCoordinates">CAIRO BASED<br/>WORLD CONNECTED</div><div className="stormStudioCaption">INDEPENDENT THINKING<br/>COLLABORATIVE MAKING</div></div><div className="stormStudioCopy"><span className="stormMiniLabel">A DIFFERENT KIND OF PARTNER</span><h2>{ar?<>Small team.<br/><em>Serious intent.</em></>:<>We stay small<br/>to think <em>bigger.</em></>}</h2><p>{ar?"نحن فريق مستقل يجمع بين الرؤية التسويقية والتنفيذ التقني. نعمل عن قرب، ونتعامل مع كل مشروع كفرصة لبناء شيء له قيمة حقيقية.":"VELTRIX brings together strategic thinking and hands-on technology. Omar shapes the growth direction; Beshoy turns ambitious ideas into real digital products. Direct collaboration, considered decisions and no unnecessary layers."}</p><div className="stormPeople"><div><span>OA</span><b>Omar Ali</b><small>Marketing & Strategy</small></div><div><span>BR</span><b>Beshoy Ramy</b><small>Development & Engineering</small></div></div><a href="#contact">MEET YOUR NEXT DIGITAL PARTNER <ArrowUpRight size={15}/></a></div></div>
   </section>
   <section className="stormProcess stormSection">
    <div className="stormSectionTop"><span>04 — THE METHOD</span><span>GOOD WORK IS NEVER AN ACCIDENT</span></div><div className="stormProcessIntro"><h2>{ar?<>Clear plan.<br/><em>Bold execution.</em></>:<>Think clearly.<br/><em>Make boldly.</em></>}</h2><p>One focused process. No mystery, no needless complexity. Just the right people making the right decisions at every stage.</p></div>

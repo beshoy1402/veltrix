@@ -649,3 +649,62 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#5877ff}
  .storm3dOrbit,.storm3dCore,.storm3dCube,.storm3dShard,.stormStudioTorus,.stormStudioGlass,.stormStudioPebble,.stormContactOrb,.stormContactOrb:before,.stormContactOrb:after{animation:none!important}
  .stormProjectVisual,.stormServiceCard,.stormInsightCard{transition:none!important}
 }
+
+
+/* VELTRIX AGENCY COMPLETION — proof, editorial and conversion sections */
+.stormTrust,.stormTestimonials,.stormFaq{background:#080d18;color:#eef4ff}
+.stormTrustIntro,.stormFaqIntro{display:grid;grid-template-columns:1.1fr .7fr;align-items:end;gap:8%;padding:65px 0 45px}
+.stormTrustIntro h2,.stormFaqIntro h2{font:700 clamp(58px,7vw,96px)/.94 var(--display);letter-spacing:-.075em;margin:0}
+.stormTrustIntro h2 em,.stormFaqIntro h2 em,.stormTestimonialBody h2 em{font-style:normal;color:#80adff}
+.stormTrustIntro>p,.stormFaqIntro>p{max-width:410px;color:#9baac1;font-size:14px;line-height:1.9;margin:0 0 8px}
+.stormTrustGrid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ffffff25;border-bottom:1px solid #ffffff25}
+.stormTrustGrid article{padding:30px 28px 34px 0;border-right:1px solid #ffffff25}
+.stormTrustGrid article+article{padding-left:28px}
+.stormTrustGrid article:last-child{border:0}
+.stormTrustGrid article>span,.stormProofNote{font:9px var(--mono);letter-spacing:.14em;color:#80adff}
+.stormTrustGrid h3{font:600 22px var(--display);letter-spacing:-.04em;margin:28px 0 10px}
+.stormTrustGrid p,.stormTestimonialBody>p{font-size:13px;line-height:1.8;color:#9baac1;max-width:340px}
+.stormTestimonials{background:#0b1220}
+.stormTestimonialBody{padding:80px 0 25px;max-width:850px}
+.stormTestimonialBody h2{font:700 clamp(64px,9vw,120px)/.9 var(--display);letter-spacing:-.08em;margin:24px 0}
+.stormTestimonialBody>p{font-size:16px;max-width:600px}
+.stormProofNote{display:inline-block;margin-top:25px;padding:12px 15px;border:1px solid #80adff55}
+.stormInsights{background:#0b1220}
+.stormArticleGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.stormArticle{display:flex;flex-direction:column;text-align:left;min-height:290px;padding:26px;background:#111d30;color:#eef4ff;border:1px solid #ffffff16;transition:transform .35s,border-color .35s}
+.stormArticle:hover,.stormArticle.isOpen{transform:translateY(-5px);border-color:#80adff88}
+.stormArticle>span{font:9px var(--mono);letter-spacing:.12em;color:#8bb5ff}
+.stormArticle h3{font:600 24px/1.12 var(--display);letter-spacing:-.045em;margin:28px 0 12px}
+.stormArticle p{font-size:12px;line-height:1.8;color:#9baac1}
+.stormArticle button{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding:20px 0 0;border:0;border-top:1px solid #ffffff20;background:none;color:#dce9ff;font:9px var(--mono);letter-spacing:.1em;cursor:pointer}
+.stormFaq{background:#080d18}
+.stormFaqIntro{padding-bottom:38px}
+.stormFaqList{border-top:1px solid #ffffff30}
+.stormFaqItem{border-bottom:1px solid #ffffff30}
+.stormFaqItem>button{display:flex;align-items:center;justify-content:space-between;gap:25px;width:100%;padding:25px 0;background:none;border:0;color:#eef4ff;text-align:left;font:500 17px var(--display);cursor:pointer}
+.stormFaqItem>button svg{color:#80adff;flex:none}
+.stormFaqItem>p{max-width:700px;margin:0;padding:0 45px 25px 0;color:#9baac1;font-size:13px;line-height:1.9}
+.stormSite.arabic .stormTrustGrid article{padding:30px 0 34px 28px;border-right:0;border-left:1px solid #ffffff25}
+.stormSite.arabic .stormTrustGrid article+article{padding-right:28px;padding-left:0}
+.stormSite.arabic .stormTrustGrid article:last-child{border:0}
+.stormSite.arabic .stormArticle{text-align:right}
+.stormSite.arabic .stormFaqItem>button{text-align:right}
+.stormSite.arabic .stormFaqItem>p{padding:0 0 25px 45px}
+.caseStudyDetails{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.caseStudyDetails article{padding:18px;background:#f0f3f8;border:1px solid #d9e0eb}
+.caseStudyDetails small{font:9px var(--mono);letter-spacing:.12em;color:#4d6c9c}
+.caseStudyDetails p{font-size:12px;line-height:1.7;color:#253247}
+@media(max-width:700px){
+ .stormTrustIntro,.stormFaqIntro{display:block;padding:40px 0 30px}
+ .stormTrustIntro>p,.stormFaqIntro>p{margin-top:22px}
+ .stormTrustGrid{grid-template-columns:1fr}
+ .stormTrustGrid article,.stormTrustGrid article+article,.stormSite.arabic .stormTrustGrid article,.stormSite.arabic .stormTrustGrid article+article{padding:22px 0;border-right:0;border-left:0;border-bottom:1px solid #ffffff25}
+ .stormTrustGrid article:last-child{border-bottom:0}
+ .stormTrustGrid h3{margin:18px 0 8px}
+ .stormTestimonialBody{padding:55px 0 20px}
+ .stormTestimonialBody>p{font-size:13px}
+ .stormArticleGrid{grid-template-columns:1fr;gap:10px;margin-top:32px}
+ .stormArticle{min-height:245px;padding:22px}
+ .stormFaqItem>button{font-size:15px;padding:21px 0}
+ .caseStudyDetails{grid-template-columns:1fr}
+}

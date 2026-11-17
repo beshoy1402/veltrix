@@ -238,14 +238,13 @@
 
 
 /* VELTRIX visual refresh — midnight / ice / electric blue */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 :root{
   --paper:#f4f6fb;
   --ink:#101729;
   --orange:#5877ff;
   --muted:#778197;
   --line:#dce2ee;
-  --display:"Space Grotesk",Manrope,sans-serif;
+  --display:Manrope,sans-serif;
   --body:"DM Sans",sans-serif;
   --mono:"DM Mono",monospace;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ArrowLeft, CheckCircle2, LogOut, RefreshCw, ShieldCheck } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -34,7 +34,7 @@ export default function AdminPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [project, setProject] = useState({ client_user_id: "", name: "", summary: "", due_date: "" });
-  const [newService, setNewService] = useState({ category: "Websites", name: "", description: "", price_egp: "20000" });
+  const [newService, setNewService] = useState({ category: "Business Websites", name: "", description: "", price_egp: "20000" });
   const [updateDraft, setUpdateDraft] = useState({ project_id: "", title: "", body: "" });
 
   async function loadAll(authToken: string) {

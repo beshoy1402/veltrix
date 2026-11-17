@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-type Row = { id: string; name?: string; email?: string; phone?: string; company?: string; service_interest?: string; budget?: string; message?: string; status?: string; category?: string; description?: string; price_egp?: number | string; is_published?: boolean; sort_order?: number; client_user_id?: string; summary?: string; due_date?: string | null; progress?: number; created_at?: string; path?: string; event_type?: string; session_id?: string; [key: string]: unknown };
+type Row = { id: string; name?: string; email?: string; phone?: string; company?: string; service_interest?: string; budget?: string; message?: string; preferred_date?: string | null; preferred_time?: string; notes?: string; status?: string; category?: string; description?: string; price_egp?: number | string; is_published?: boolean; sort_order?: number; client_user_id?: string; summary?: string; due_date?: string | null; progress?: number; created_at?: string; path?: string; event_type?: string; session_id?: string; [key: string]: unknown };
 type Tab = "overview" | "inquiries" | "services" | "bookings" | "newsletter" | "projects";
 
 async function api(path: string, token: string, init: RequestInit = {}) {

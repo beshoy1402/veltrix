@@ -22,3 +22,99 @@
 @media(max-width:390px){.storeProducts{grid-template-columns:1fr}.storeProductImage{height:340px}.storeHeroCopy h1{font-size:53px}.storeIntro p{font-size:11px}}
 
 .openStoreDemo{display:inline-flex;align-items:center;gap:18px;background:var(--ink);color:white;padding:14px 18px;font-size:10px;margin:0 0 4px}.openStoreDemo:hover{background:var(--orange);color:var(--ink)}
+
+
+/* VELTRIX storefront art-direction pass */
+.storeDemo{--store-paper:#f7f5f0;--store-ink:#20211f;--store-accent:#9b7658;background:var(--store-paper);font-family:var(--body);color:var(--store-ink)}
+.storeDemo--noura-beauty{--store-paper:#f7f1eb;--store-ink:#34251f;--store-accent:#a9654f}
+.storeDemo--thread-house{--store-paper:#f5f5f2;--store-ink:#181a18;--store-accent:#596b5d}
+.storeDemo--kahwa-lab{--store-paper:#f3ede4;--store-ink:#30251d;--store-accent:#a65b35}
+.demoRibbon{padding-inline:5.2%;height:31px;min-height:31px;font-size:8px;letter-spacing:.15em}
+.storeAnnouncement{padding:11px 16px;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
+.storeHeader{height:76px;padding-inline:7%;border-bottom-color:color-mix(in srgb,var(--store-ink) 13%,transparent);background:var(--store-paper)}
+.storeWordmark{font-size:26px;letter-spacing:-.075em}
+.storeNav{gap:34px}.storeNav button{font-size:10px;letter-spacing:.04em}
+.storeBag{border:1px solid color-mix(in srgb,var(--store-ink) 25%,transparent);padding:11px 15px;letter-spacing:.06em;text-transform:uppercase;font-size:9px}
+.storeHero{padding:66px 7% 76px;grid-template-columns:.86fr 1.14fr;gap:6%;min-height:590px}
+.storeHeroCopy{padding:25px 0}.storeEyebrow{font-size:8px;letter-spacing:.2em}
+.storeHeroCopy h1{font-size:clamp(52px,6vw,82px);line-height:.98;letter-spacing:-.075em;max-width:570px;margin:25px 0 21px}
+.storeHeroCopy p{font-size:13px;line-height:1.85;max-width:360px}
+.storeHeroCopy>a{font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-top:28px;padding:0 0 11px;border-bottom:1px solid var(--store-ink)}
+.storeHeroCopy>small{font-size:7px;letter-spacing:.17em;margin-top:75px}
+.storeHeroImage{height:510px;background:color-mix(in srgb,var(--store-accent) 12%,var(--store-paper))}
+.storeHeroImage img{object-position:center 45%;transition:transform .8s}
+.storeHeroImage:hover img{transform:scale(1.025)}
+.heroImageTag{right:18px;bottom:18px;padding:14px 17px;font-size:10px;letter-spacing:.12em;line-height:1.35}
+.storeIntro{padding:24px 7%;background:var(--store-ink);gap:20px}
+.storeIntro span{font-size:7px;letter-spacing:.18em}.storeIntro p{font-size:17px;letter-spacing:-.025em}
+.storeShop{padding:92px 7% 105px}
+.storeShopHead h2{font-size:clamp(38px,4.6vw,58px);font-weight:600;letter-spacing:-.07em;margin-top:13px}
+.storeSearch{min-width:260px;border-bottom-color:color-mix(in srgb,var(--store-ink) 25%,transparent)}
+.storeSearch input{font-size:10px}
+.storeFilters{margin:34px 0 25px;padding-bottom:13px;border-bottom-color:color-mix(in srgb,var(--store-ink) 15%,transparent)}
+.storeFilters button{font-size:9px;letter-spacing:.05em;padding:9px 15px}
+.storeFilters button.selected{background:var(--store-ink);color:var(--store-paper)}
+.storeFilters>span{font-size:7px;letter-spacing:.14em}
+.storeProducts{grid-template-columns:repeat(3,minmax(0,1fr));gap:38px 22px}
+.storeProductImage{height:auto;aspect-ratio:4/5;background:#e7e2da}
+.storeProductImage img{object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.storeProductImage>span{left:13px;top:13px;font-size:7px;letter-spacing:.13em;padding:8px 10px}
+.storeProductImage>i{width:36px;height:36px;right:13px;bottom:13px}
+.storeProductInfo{padding:15px 0 11px;align-items:flex-start}
+.storeProductInfo span{font-size:7px;letter-spacing:.15em}
+.storeProductInfo h3{font-size:14px;font-weight:600;letter-spacing:-.025em;margin:7px 0 0}
+.storeProductInfo strong{font-size:10px;padding-top:17px}
+.storeAdd{padding:13px 14px;font-size:8px;letter-spacing:.13em;border-color:color-mix(in srgb,var(--store-ink) 22%,transparent);transition:background .2s,color .2s}
+.storeStory{padding:90px 9%;grid-template-columns:.9fr 1.1fr;gap:9%;align-items:center;background:color-mix(in srgb,var(--store-accent) 9%,var(--store-paper))}
+.storeStory h2{font-size:clamp(43px,5vw,65px);line-height:1.02;letter-spacing:-.075em;margin:22px 0}
+.storeStory h2 em{color:var(--store-accent)}
+.storeStory p{font-size:12px;line-height:1.9;max-width:380px}
+.storeStory a{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border-bottom-color:var(--store-ink)}
+.storeStoryVisual{height:420px;background:var(--store-accent);position:relative;overflow:hidden}
+.storeStoryVisual img{width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform .8s}
+.storeStoryVisual:hover img{transform:scale(1.04)}
+.storeStoryVisual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,#0005)}
+.storeStoryVisual>span{z-index:1;right:18px;bottom:12px;position:absolute;font-size:42px;letter-spacing:-.09em;color:white;text-shadow:0 2px 15px #0005}
+.storeFooter{padding:55px 7% 25px;grid-template-columns:1fr 1fr;background:#1c1e1b}
+.storeFooter .storeWordmark{color:#f7f5f0}
+.storeFooter p{font-size:10px;line-height:1.7}
+.storeFooter b{font-size:7px;letter-spacing:.16em}
+.storeFooter input{font-size:10px}
+.storeFooter>small{font-size:7px;letter-spacing:.14em}
+.storeProductModal{box-shadow:0 24px 90px #0003}.storeProductModal>img{height:460px}.storeProductModal>div{padding:48px 38px}
+.storeProductModal h2{font-size:35px;line-height:1.05}
+.storeProductModal p{font-size:11px;line-height:1.9}
+.storeCart{box-shadow:-20px 0 60px #0002}.storeCartHead h2{letter-spacing:-.04em}
+.storeCartBottom>button{letter-spacing:.13em}
+.storeDemoNote{font-size:7px;letter-spacing:.14em;padding:13px}
+.storeToast{border:1px solid #ffffff24;letter-spacing:.03em}
+.storeMissing{background:var(--paper);color:var(--ink)}
+.storeDemo--thread-house .storeHeroImage{background:#d9dcd6}
+.storeDemo--thread-house .storeHeroCopy h1{max-width:480px}
+.storeDemo--kahwa-lab .storeHeroImage{background:#d8c6b3}
+.storeDemo--kahwa-lab .storeHeroCopy h1{max-width:500px}
+.storeDemo--noura-beauty .storeHeroImage{background:#e6d7cd}
+@media(max-width:760px){
+ .demoRibbon{height:auto;min-height:31px;padding:9px 13px}
+ .storeHeader{height:66px;padding:0 18px}
+ .storeHero{padding:43px 20px 52px;grid-template-columns:1fr;gap:27px;min-height:0}
+ .storeHeroCopy h1{font-size:clamp(50px,13vw,68px);max-width:500px}
+ .storeHeroCopy p{font-size:12px}
+ .storeHeroCopy>small{margin-top:36px}
+ .storeHeroImage{height:auto;aspect-ratio:1/1.08}
+ .storeIntro{padding:18px 20px;align-items:flex-start;flex-direction:column;gap:7px}
+ .storeIntro p{font-size:14px}
+ .storeShop{padding:63px 20px 72px}
+ .storeShopHead h2{font-size:39px;line-height:1.05}
+ .storeSearch{min-width:0;width:100%}
+ .storeProducts{grid-template-columns:repeat(2,minmax(0,1fr));gap:27px 12px}
+ .storeProductImage{aspect-ratio:3/4}
+ .storeProductInfo h3{font-size:12px}
+ .storeProductInfo strong{font-size:9px}
+ .storeStory{padding:58px 20px;grid-template-columns:1fr;gap:28px}
+ .storeStory h2{font-size:48px}
+ .storeStoryVisual{height:auto;aspect-ratio:1/1}
+ .storeFooter{padding:40px 20px 20px;gap:27px}
+ .storeProductModal>img{height:260px}
+}
+@media(max-width:390px){.storeProducts{grid-template-columns:1fr}.storeProductImage{aspect-ratio:4/4.5}}

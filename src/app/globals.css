@@ -563,3 +563,89 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#5877ff}
  .stormSite.arabic .stormSectionTop span:last-child{text-align:left}
 }
 @media(prefers-reduced-motion:reduce){.stormSite *{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* STORM 3D MOTION SYSTEM — layered CSS geometry, no WebGL dependency */
+.stormHeroAside{perspective:1100px;transform-style:preserve-3d;isolation:isolate}
+.stormHeroAside:before,.stormHeroAside:after{pointer-events:none;transform-style:preserve-3d}
+.storm3dScene{position:absolute;inset:0;display:grid;place-items:center;perspective:1000px;transform-style:preserve-3d;z-index:1}
+.storm3dOrbit{position:absolute;width:88%;height:54%;border:1px solid #a4caff80;border-radius:50%;transform-style:preserve-3d;box-shadow:0 0 28px #5e9dff19,inset 0 0 25px #5e9dff10}
+.storm3dOrbit--one{transform:rotateX(68deg) rotateZ(-25deg);animation:stormOrbitA 13s linear infinite}
+.storm3dOrbit--two{width:70%;height:82%;border-color:#83d5ff65;transform:rotateY(68deg) rotateZ(24deg);animation:stormOrbitB 17s linear infinite}
+.storm3dOrbit--three{width:105%;height:32%;border-style:dashed;border-color:#a6c8ff50;transform:rotateX(74deg) rotateZ(55deg);animation:stormOrbitC 22s linear infinite}
+.storm3dCore{position:absolute;width:142px;height:142px;border-radius:34%;display:grid;place-items:center;transform-style:preserve-3d;transform:translateZ(65px) rotateX(-18deg) rotateY(24deg);background:linear-gradient(145deg,#d9edff 0%,#83baff 17%,#2c5ca4 53%,#10213c 100%);box-shadow:inset 12px 12px 24px #ffffffb5,inset -18px -22px 30px #06152cbd,0 22px 60px #4a91ff70,0 0 90px #468aff40;animation:stormCoreFloat 6s ease-in-out infinite}
+.storm3dCore:before{content:"";position:absolute;inset:9px;border:1px solid #e7f4ff9c;border-radius:30%;transform:translateZ(20px)}
+.storm3dCore:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #b8dcff45;border-radius:50%;transform:translateZ(-45px);box-shadow:0 0 40px #65a9ff35}
+.storm3dCore span{font:800 96px/.8 var(--display);letter-spacing:-.15em;color:#f5faff;text-shadow:0 7px 20px #08172b99;transform:translateZ(36px) translateX(-5px)}
+.storm3dCore i{position:absolute;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#a9ddff 28%,#4284db 65%,#102b54);right:-12px;top:-12px;transform:translateZ(48px);box-shadow:0 0 30px #8bcaff}
+.storm3dCube{position:absolute;width:52px;height:52px;left:19%;top:24%;transform-style:preserve-3d;transform:rotateX(-28deg) rotateY(38deg) translateZ(115px);animation:stormCubeSpin 11s linear infinite}
+.storm3dCube i{position:absolute;inset:0;border:1px solid #c6e4ffb0;background:linear-gradient(145deg,#a6d7ff5c,#3f79c22b);box-shadow:inset 0 0 18px #b7e4ff33}
+.storm3dCube i:nth-child(1){transform:translateZ(26px)}.storm3dCube i:nth-child(2){transform:rotateY(180deg) translateZ(26px)}.storm3dCube i:nth-child(3){transform:rotateY(90deg) translateZ(26px)}.storm3dCube i:nth-child(4){transform:rotateY(-90deg) translateZ(26px)}.storm3dCube i:nth-child(5){transform:rotateX(90deg) translateZ(26px)}.storm3dCube i:nth-child(6){transform:rotateX(-90deg) translateZ(26px)}
+.storm3dShard{position:absolute;width:24px;height:24px;background:linear-gradient(135deg,#d7efff,#5d9fe8 48%,#15365f);clip-path:polygon(50% 0,100% 100%,0 75%);filter:drop-shadow(0 8px 12px #4c8eea80);transform-style:preserve-3d}
+.storm3dShard--one{right:18%;top:23%;animation:stormShardOne 7s ease-in-out infinite}
+.storm3dShard--two{left:21%;bottom:25%;width:17px;height:32px;animation:stormShardTwo 9s ease-in-out infinite}
+.storm3dShard--three{right:22%;bottom:24%;width:13px;height:20px;animation:stormShardThree 8s ease-in-out infinite}
+.storm3dLabel{position:absolute;font:7px var(--mono);letter-spacing:.18em;color:#a9c9f5}
+.storm3dLabel--one{left:8%;top:47%;transform:translateZ(100px) rotate(-90deg)}
+.storm3dLabel--two{right:4%;top:50%;writing-mode:vertical-rl;opacity:.65}
+.stormHeroAsideTop,.stormHeroAsideBottom{z-index:4}
+.stormProjectVisual{perspective:1000px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.75,.2,1),box-shadow .7s}
+.stormProjectVisual img{transform:translateZ(0) scale(1.015);will-change:transform}
+.stormProjectVisual:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 15%,#d5eaff20 35%,transparent 55%);transform:translateX(-120%) skewX(-15deg);transition:transform .9s}
+.stormProjectVisual:hover{transform:perspective(1000px) rotateX(3deg) rotateY(-3deg) translateY(-8px) translateZ(16px);box-shadow:0 28px 55px #0b1b332b}
+.stormProjectVisual:hover:before{transform:translateX(120%) skewX(-15deg)}
+.stormProjectVisual:hover img{transform:translateZ(28px) scale(1.07)}
+.stormProjectNumber,.stormProjectOpen,.stormProjectOverlay{transform:translateZ(32px)}
+.stormProjectOpen{transition:transform .4s,background .4s}.stormProjectVisual:hover .stormProjectOpen{transform:translateZ(55px) translateY(-3px);background:#6c9dff;color:#07101f}
+.stormServiceGrid{perspective:1300px}
+.stormServiceCard{transform-style:preserve-3d;position:relative;overflow:hidden;will-change:transform}
+.stormServiceCard:before{content:"";position:absolute;inset:-1px;opacity:0;background:radial-gradient(circle at 15% 10%,#8ec5ff2d,transparent 48%);transition:opacity .35s;pointer-events:none}
+.stormServiceCard:after{content:"";position:absolute;width:140px;height:140px;border:1px solid #9fcaff20;border-radius:28px;right:-80px;top:55px;transform:rotate(35deg) translateZ(30px);transition:transform .6s,border-color .6s;pointer-events:none}
+.stormServiceCard:hover{transform:perspective(900px) rotateX(3deg) rotateY(-3deg) translateZ(14px) translateY(-5px);box-shadow:0 25px 50px #0005}
+.stormServiceCard:hover:before{opacity:1}.stormServiceCard:hover:after{transform:rotate(65deg) translate(-20px,-15px) translateZ(55px);border-color:#8fc2ff70}
+.stormServiceTop,.stormServiceCard h3,.stormServiceCard p,.stormServiceBottom,.stormServiceCard>button{position:relative;z-index:1;transform:translateZ(18px)}
+.stormServiceTop svg{transition:transform .45s}.stormServiceCard:hover .stormServiceTop svg{transform:translate3d(5px,-5px,18px) rotate(45deg)}
+.stormStudioArt{perspective:1100px;transform-style:preserve-3d}
+.stormStudio3d{position:absolute;inset:0;display:grid;place-items:center;transform-style:preserve-3d;perspective:1000px}
+.stormStudioTorus{position:absolute;width:78%;height:42%;border:18px solid #83baffaa;border-radius:50%;transform:rotateX(68deg) rotateZ(-28deg) translateZ(30px);box-shadow:0 0 35px #69a8ff55,inset 0 0 30px #b7dfff44;animation:stormTorus 15s linear infinite}
+.stormStudioTorus--two{width:60%;height:76%;border-width:8px;border-color:#e1f3ff99;transform:rotateY(65deg) rotateZ(30deg) translateZ(10px);animation:stormTorusTwo 18s linear infinite}
+.stormStudioGlass{width:150px;height:150px;border-radius:35%;display:grid;place-items:center;transform:translateZ(85px) rotateX(-20deg) rotateY(25deg);background:linear-gradient(140deg,#e9f7ffdd,#79b5ff9c 32%,#244b80cc 75%);border:1px solid #e4f5ffb0;box-shadow:inset 14px 14px 28px #ffffffb0,inset -20px -22px 40px #102d52b5,0 35px 60px #0007,0 0 65px #74b8ff77;backdrop-filter:blur(4px);animation:stormGlassFloat 7s ease-in-out infinite}
+.stormStudioGlass span{font:800 94px var(--display);letter-spacing:-.15em;color:#f6fbff;text-shadow:0 8px 18px #0b1a31aa;transform:translateX(-5px) translateZ(35px)}
+.stormStudioPebble{position:absolute;width:42px;height:42px;border-radius:35%;right:18%;top:24%;background:linear-gradient(135deg,#fff,#8dc9ff 45%,#28558c);transform:translateZ(135px) rotateX(30deg) rotateY(45deg);box-shadow:0 15px 30px #0005;animation:stormPebble 5.5s ease-in-out infinite}
+.stormStudioWord{z-index:2;opacity:.18;mix-blend-mode:screen;transform:translateZ(130px) scale(1.08)}
+.stormStudioCoordinates,.stormStudioCaption{z-index:3;transform:translateZ(70px)}
+.stormInsightCard{perspective:900px;transform-style:preserve-3d;transition:transform .65s,box-shadow .65s}
+.stormInsightCard:hover{transform:perspective(900px) rotateY(-7deg) rotateX(4deg) translateZ(18px);box-shadow:22px 30px 60px #0006}
+.stormInsightCard>b,.stormInsightCard>span,.stormInsightCard>small,.stormInsightCard>svg{transform:translateZ(35px)}
+.stormInsightCard:before{content:"";position:absolute;inset:20px;border:1px solid #8bbcff30;transform:translateZ(22px) rotate(-8deg);pointer-events:none}
+.stormContactOrb{transform-style:preserve-3d;filter:drop-shadow(0 30px 45px #142e5b55);animation:stormPlanetFloat 9s ease-in-out infinite}
+.stormContactOrb:before{inset:-60px;border-width:2px;box-shadow:0 0 25px #e7f6ff90;animation:stormOrbitA 24s linear infinite}
+.stormContactOrb:after{inset:30px -40px;border-width:1px;animation:stormOrbitB 19s linear infinite}
+.stormContactContent{transform-style:preserve-3d}
+.stormContactActions button{transform:translateZ(0);transition:transform .3s,box-shadow .3s,background .3s}
+.stormContactActions button:hover{transform:translateY(-5px) translateZ(15px);box-shadow:0 15px 28px #183b7040}
+@keyframes stormOrbitA{from{transform:rotateX(68deg) rotateZ(-25deg)}to{transform:rotateX(68deg) rotateZ(335deg)}}
+@keyframes stormOrbitB{from{transform:rotateY(68deg) rotateZ(24deg)}to{transform:rotateY(68deg) rotateZ(-336deg)}}
+@keyframes stormOrbitC{from{transform:rotateX(74deg) rotateZ(55deg)}to{transform:rotateX(74deg) rotateZ(415deg)}}
+@keyframes stormCoreFloat{0%,100%{transform:translate3d(0,0,65px) rotateX(-18deg) rotateY(24deg)}50%{transform:translate3d(0,-17px,90px) rotateX(-8deg) rotateY(42deg)}}
+@keyframes stormCubeSpin{0%{transform:rotateX(-28deg) rotateY(38deg) translateZ(115px)}100%{transform:rotateX(332deg) rotateY(398deg) translateZ(115px)}}
+@keyframes stormShardOne{0%,100%{transform:translate3d(0,0,65px) rotate(0)}50%{transform:translate3d(15px,-25px,110px) rotate(120deg)}}
+@keyframes stormShardTwo{0%,100%{transform:translate3d(0,0,45px) rotate(15deg)}50%{transform:translate3d(-20px,20px,95px) rotate(100deg)}}
+@keyframes stormShardThree{0%,100%{transform:translate3d(0,0,55px) rotate(0)}50%{transform:translate3d(8px,-22px,105px) rotate(-100deg)}}
+@keyframes stormTorus{from{transform:rotateX(68deg) rotateZ(-28deg) translateZ(30px)}to{transform:rotateX(68deg) rotateZ(332deg) translateZ(30px)}}
+@keyframes stormTorusTwo{from{transform:rotateY(65deg) rotateZ(30deg) translateZ(10px)}to{transform:rotateY(65deg) rotateZ(390deg) translateZ(10px)}}
+@keyframes stormGlassFloat{0%,100%{transform:translate3d(0,0,85px) rotateX(-20deg) rotateY(25deg)}50%{transform:translate3d(0,-18px,115px) rotateX(-12deg) rotateY(40deg)}}
+@keyframes stormPebble{0%,100%{transform:translate3d(0,0,135px) rotateX(30deg) rotateY(45deg)}50%{transform:translate3d(-12px,-24px,165px) rotateX(70deg) rotateY(145deg)}}
+@keyframes stormPlanetFloat{0%,100%{transform:translate3d(0,0,0) rotate(-4deg)}50%{transform:translate3d(-18px,-20px,30px) rotate(5deg)}}
+@media(max-width:900px){
+ .storm3dCore{width:115px;height:115px}.storm3dCore span{font-size:78px}.storm3dCube{width:42px;height:42px}.storm3dCube i:nth-child(1){transform:translateZ(21px)}.storm3dCube i:nth-child(2){transform:rotateY(180deg) translateZ(21px)}.storm3dCube i:nth-child(3){transform:rotateY(90deg) translateZ(21px)}.storm3dCube i:nth-child(4){transform:rotateY(-90deg) translateZ(21px)}.storm3dCube i:nth-child(5){transform:rotateX(90deg) translateZ(21px)}.storm3dCube i:nth-child(6){transform:rotateX(-90deg) translateZ(21px)}
+}
+@media(max-width:650px){
+ .stormHeroAside{overflow:hidden}.storm3dCore{width:92px;height:92px}.storm3dCore span{font-size:64px}.storm3dCore:after{width:125px;height:125px}.storm3dCube{left:14%;top:20%;width:34px;height:34px}.storm3dCube i:nth-child(1){transform:translateZ(17px)}.storm3dCube i:nth-child(2){transform:rotateY(180deg) translateZ(17px)}.storm3dCube i:nth-child(3){transform:rotateY(90deg) translateZ(17px)}.storm3dCube i:nth-child(4){transform:rotateY(-90deg) translateZ(17px)}.storm3dCube i:nth-child(5){transform:rotateX(90deg) translateZ(17px)}.storm3dCube i:nth-child(6){transform:rotateX(-90deg) translateZ(17px)}
+ .storm3dLabel{font-size:6px}.stormStudioGlass{width:120px;height:120px}.stormStudioGlass span{font-size:76px}.stormStudioTorus{border-width:11px}.stormStudioTorus--two{border-width:6px}
+ .stormProjectVisual:hover{transform:translateY(-3px)}.stormServiceCard:hover{transform:translateY(-3px)}.stormInsightCard:hover{transform:translateY(-3px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .storm3dOrbit,.storm3dCore,.storm3dCube,.storm3dShard,.stormStudioTorus,.stormStudioGlass,.stormStudioPebble,.stormContactOrb,.stormContactOrb:before,.stormContactOrb:after{animation:none!important}
+ .stormProjectVisual,.stormServiceCard,.stormInsightCard{transition:none!important}
+}

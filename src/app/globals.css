@@ -197,3 +197,41 @@
  .brandStoryImage,.brandStory--thread-house .brandStoryImage{height:auto;aspect-ratio:4/4.5}
  .brandStoryCopy h2{font-size:48px}
 }
+
+
+/* Selected work — visual case-study cards */
+.work{padding-top:118px;padding-bottom:110px}
+.work .sectionHead{margin-bottom:35px}
+.work .sectionHead h2{font-size:clamp(48px,6vw,76px)}
+.projectGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.project:nth-child(3){grid-column:auto}
+.projectCase{min-width:0}
+.projectCase .projectArt{height:auto;aspect-ratio: .78;display:block;background:#d8d6ce;overflow:hidden;box-shadow:0 12px 35px #1110000d;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.projectCase .projectArt:hover{transform:translateY(-8px);box-shadow:0 25px 55px #1112}
+.caseBrowser{position:absolute;inset:0;background:#e9e6df;padding:9px;display:flex;flex-direction:column}
+.caseBrowserTop{height:27px;flex:0 0 27px;display:flex;align-items:center;justify-content:space-between;padding:0 7px;color:#5e5e57;font:7px var(--mono);letter-spacing:.1em}
+.caseBrowserTop b{font:700 8px var(--display);letter-spacing:.04em}
+.caseViewport{position:relative;overflow:hidden;flex:1;background:#d8d4cb}
+.caseViewport>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.projectCase .projectArt:hover .caseViewport>img{transform:scale(1.07)}
+.caseOverlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:10%;background:linear-gradient(90deg,#171a17b8 0%,#171a1755 62%,transparent);color:#fff;text-align:left}
+.caseOverlay small{font:7px var(--mono);letter-spacing:.18em;opacity:.85}
+.caseOverlay strong{font:600 clamp(25px,3vw,43px)/.98 var(--display);letter-spacing:-.075em;max-width:90%;margin:18px 0 22px}
+.caseOverlay span{font:7px var(--mono);letter-spacing:.13em;border-bottom:1px solid #ffffffaa;padding-bottom:7px}
+.caseBadge{position:absolute;top:17px;right:17px;background:#f5f1e9;color:#272720;padding:9px 11px;font:7px var(--mono);letter-spacing:.12em}
+.projectCase--noura-beauty .caseOverlay{background:linear-gradient(90deg,#4b3027a8,#4b302733 75%,transparent)}
+.projectCase--thread-house .caseOverlay{background:linear-gradient(90deg,#171a18a8,#171a1833 75%,transparent)}
+.projectCase--kahwa-lab .caseOverlay{background:linear-gradient(90deg,#21160fd1,#21160f42 75%,transparent)}
+.projectCase--noura-beauty .caseBadge{background:#f4e9df;color:#8a5140}
+.projectCase--thread-house .caseBadge{background:#f2f2ed;color:#34473a}
+.projectCase--kahwa-lab .caseBadge{background:#33231a;color:#f4e8d9}
+.projectCase .preview{right:19px;bottom:19px;padding:12px 15px;background:var(--orange);color:#171a17;opacity:0;transform:translateY(7px);transition:.3s}
+.projectCase .projectArt:hover .preview{opacity:1;transform:translateY(0)}
+.projectCase .projectInfo{align-items:flex-start;padding:19px 1px 8px}
+.projectCase .projectInfo small{font-size:8px;letter-spacing:.11em}
+.projectCase .projectInfo h3{font-size:22px;letter-spacing:-.055em;margin:8px 0}
+.projectCase .projectInfo p{font-size:11px;line-height:1.65;color:#777870;max-width:290px;margin:0}
+.projectCase .projectInfo button{flex:0 0 39px;margin-top:3px}
+.workFoot{margin-top:38px;padding-top:20px}
+@media(max-width:900px){.projectGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 18px}.projectCase .projectArt{aspect-ratio:.86}}
+@media(max-width:600px){.work{padding:76px 20px}.work .sectionHead{display:block}.work .sectionHead>p{margin-top:18px}.projectGrid{grid-template-columns:1fr;gap:30px}.projectCase .projectArt{aspect-ratio:.92}.caseOverlay strong{font-size:42px}.projectCase .projectInfo h3{font-size:21px}.projectCase .preview{opacity:1;transform:none}.workFoot{align-items:flex-start;flex-direction:column}.workFoot small{order:0;width:auto}}

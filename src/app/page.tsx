@@ -11,9 +11,9 @@ const services=[
  {n:"06",name:"Digital growth & care",desc:"Ongoing optimization, visibility and support after launch.",price:"20,000",tag:"SEO · PERFORMANCE · SUPPORT"}
 ];
 const projects=[
- {name:"Northstar Education",type:"Education platform",category:"Platforms",theme:"blue",desc:"A connected digital experience for modern learning communities."},
- {name:"MONO Objects",type:"E-commerce experience",category:"Commerce",theme:"sand",desc:"A considered storefront built around product, story and simplicity."},
- {name:"Forma Studio",type:"Brand website",category:"Websites",theme:"violet",desc:"A confident digital home for an independent creative practice."}
+ {name:"NOURA Beauty",type:"Skincare storefront · Local brand concept",category:"Commerce",theme:"sand",slug:"noura-beauty",desc:"A warm, editorial skincare shop with product discovery, collections and a working demo cart."},
+ {name:"THREAD HOUSE",type:"Fashion storefront · Local brand concept",category:"Commerce",theme:"blue",slug:"thread-house",desc:"A modern fashion storefront with category browsing, product details and cart interactions."},
+ {name:"KAHWA LAB",type:"Coffee storefront · Local brand concept",category:"Commerce",theme:"violet",slug:"kahwa-lab",desc:"A specialty coffee shop concept with blends, brewing gear and bundle shopping."}
 ];
 export default function Home(){
  const [lang,setLang]=useState<"en"|"ar">("en");

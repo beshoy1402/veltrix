@@ -2108,3 +2108,18 @@ html:before{content:"";position:fixed;z-index:999;top:0;left:0;height:2px;width:
 .adminPaymentActions button:disabled{opacity:.5}
 .adminPaymentActions .adminPrimary{background:#211f1b;color:#fff;border-color:#211f1b}
 @media(max-width:640px){.vxPaymentNav{height:68px}.vxPaymentFields{grid-template-columns:1fr}.vxPaymentHero{padding-top:55px}.adminPaymentMeta{grid-template-columns:1fr 1fr}.adminPaymentActions button{flex:1}.adminPaymentTop{align-items:center}}
+
+
+/* One-click live support quick replies */
+.adminQuickReplies{margin:14px 0 12px;padding:14px;border:1px solid #e7e0d6;background:#f8f6f1}
+.adminQuickRepliesHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.adminQuickRepliesHead>div{display:grid;gap:4px}
+.adminQuickRepliesHead b{font-size:12px;color:#332d26}
+.adminQuickRepliesHead small{font-size:10px;color:#8b8175}
+.adminQuickRepliesHead>span{font:8px var(--mono,monospace);letter-spacing:.12em;color:#8a7359}
+.adminQuickReplyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.adminQuickReplyGrid button{min-height:42px;display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid #e2dbd0;background:#fffdfa;color:#51483e;text-align:left;font-size:10px;cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
+.adminQuickReplyGrid button:hover:not(:disabled){border-color:#a78d70;background:#f0e9df;transform:translateY(-1px)}
+.adminQuickReplyGrid button:disabled{opacity:.45;cursor:not-allowed}
+.adminQuickReplyGrid button span{font-size:14px;color:#9a8063}
+@media(max-width:680px){.adminQuickReplyGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.adminQuickReplies{padding:11px}}

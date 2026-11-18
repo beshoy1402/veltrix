@@ -10,7 +10,7 @@ const projectTypes=[
  {id:"application",name:"Web application",base:55000},
  {id:"design",name:"UI/UX design",base:20000},
  {id:"ai",name:"AI & automation",base:45000},
- {id:"custom",name:"Custom platform",base:65000}
+ {id:"custom",name:"Custom platform",base:65000},\n {id:"growth",name:"Digital growth & care",base:20000}
 ];
 const features=[{id:"cms",label:"Content management",price:5000},{id:"auth",label:"User accounts & roles",price:9000},{id:"payments",label:"Payments & checkout",price:12000},{id:"dashboard",label:"Custom dashboard",price:12000},{id:"integrations",label:"Third-party integrations",price:7000},{id:"multilingual",label:"English & Arabic",price:5000},{id:"motion",label:"Advanced motion & 3D",price:10000},{id:"seo",label:"SEO foundations",price:4000}];
 const money=(value:number)=>new Intl.NumberFormat("en-EG",{style:"currency",currency:"EGP",maximumFractionDigits:0}).format(value);
@@ -21,7 +21,7 @@ export default function QuoteEstimator(){
  const [complexity,setComplexity]=useState("standard");
  const [timeline,setTimeline]=useState("flexible");
  const [copied,setCopied]=useState(false);
- useEffect(()=>{const slug=new URLSearchParams(window.location.search).get("service");const map:Record<string,string>={websites:"website",ecommerce:"ecommerce","web-applications":"application","ui-ux":"design","ai-automation":"ai","digital-growth":"website"};if(slug&&map[slug])setType(map[slug]);},[]);
+ useEffect(()=>{const slug=new URLSearchParams(window.location.search).get("service");const map:Record<string,string>={websites:"website",ecommerce:"ecommerce","web-applications":"application","ui-ux":"design","ai-automation":"ai","digital-growth":"growth"};if(slug&&map[slug])setType(map[slug]);},[]);
  const base=projectTypes.find(p=>p.id===type)?.base??30000;
  const multiplier=complexity==="essential" ? 0.9 : complexity==="premium" ? 1.55 : 1.2;
  const total=useMemo(()=>Math.round((base+features.filter(f=>selected.includes(f.id)).reduce((sum,f)=>sum+f.price,0))*multiplier*(timeline==="rush"?1.2:1)),[base,selected,multiplier,timeline]);

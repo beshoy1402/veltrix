@@ -56,26 +56,26 @@ export async function POST(request: NextRequest) {
     let body = typeof input.body === "string" ? input.body.trim().slice(0, 4000) : "";
     const access = typeof input.access_token === "string" ? input.access_token : "";
     let attachmentPath = "";
+    const isAdmin = await admin(request);
+    if (!id || (!body && !(input.attachment && typeof input.attachment.data === "string"))) return NextResponse.json({ error: "Write a message or attach an image." }, { status: 400 });
+    if (!isAdmin) {
+      if (!access) return NextResponse.json({ error: "Conversation access is required." }, { status: 401 });
+      const check = await fetch(\`${URL}/rest/v1/support_conversations?select=id&id=eq.\${encodeURIComponent(id)}&access_token=eq.\${encodeURIComponent(access)}&status=neq.closed&limit=1\`, { headers: headers(), cache: "no-store" });
+      const rows = await check.json();
+      if (!check.ok || !rows?.length) return NextResponse.json({ error: "This conversation is unavailable or closed." }, { status: 403 });
+    }
     if (input.attachment && typeof input.attachment.data === "string") {
       const file = input.attachment;
-      const name = typeof file.name === "string" ? file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0,120) : "image";
+      const name = typeof file.name === "string" ? file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0,120) : "image.jpg";
       const mime = typeof file.type === "string" ? file.type : "";
       const base64 = file.data.replace(/^data:[^,]+,/, "");
       const bytes = Buffer.from(base64, "base64");
       const valid = mime === "image/jpeg" && bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255 || mime === "image/png" && bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])) || mime === "image/webp" && bytes.toString("ascii",0,4)==="RIFF" && bytes.toString("ascii",8,12)==="WEBP";
-      if (!valid || bytes.length > 6 * 1024 * 1024) return NextResponse.json({ error: "Attach a JPG, PNG or WEBP image up to 6 MB." }, { status: 400 });
-      attachmentPath = `${id}/${crypto.randomUUID()}-${name}`;
-      const upload = await fetch(`${URL}/storage/v1/object/support-attachments/${attachmentPath.split("/").map(encodeURIComponent).join("/")}`, { method:"POST", headers:{apikey:SECRET,Authorization:`Bearer ${SECRET}`,"Content-Type":mime,"x-upsert":"false"}, body:bytes });
+      if (!valid || bytes.length > 2500 * 1024) return NextResponse.json({ error: "Attach a JPG, PNG or WEBP image up to 2.5 MB after compression." }, { status: 400 });
+      attachmentPath = \`\${id}/\${crypto.randomUUID()}-\${name}\`;
+      const upload = await fetch(\`${URL}/storage/v1/object/support-attachments/\${attachmentPath.split("/").map(encodeURIComponent).join("/")}\`, { method:"POST", headers:{apikey:SECRET,Authorization:\`Bearer \${SECRET}\`,"Content-Type":mime,"x-upsert":"false"}, body:bytes });
       if (!upload.ok) throw new Error("Image upload failed: " + await upload.text());
-      body = `[[VELTRIX_IMAGE:${attachmentPath}|${name}|${mime}]]\n${body}`;
-    }
-    const isAdmin = await admin(request);
-    if (!id || (!body && !attachmentPath)) return NextResponse.json({ error: "Write a message or attach an image." }, { status: 400 });
-    if (!isAdmin) {
-      if (!access) return NextResponse.json({ error: "Conversation access is required." }, { status: 401 });
-      const check = await fetch(`${URL}/rest/v1/support_conversations?select=id&id=eq.${encodeURIComponent(id)}&access_token=eq.${encodeURIComponent(access)}&status=neq.closed&limit=1`, { headers: headers(), cache: "no-store" });
-      const rows = await check.json();
-      if (!check.ok || !rows?.length) return NextResponse.json({ error: "This conversation is unavailable or closed." }, { status: 403 });
+      body = \`[[VELTRIX_IMAGE:\${attachmentPath}|\${name}|\${mime}]]\\n\${body}\`;
     }
     const sender = isAdmin ? "admin" : "customer";
     const inserted = await fetch(URL + "/rest/v1/support_messages", {

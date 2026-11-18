@@ -14,7 +14,7 @@ const services=[
 ];
 const projects=[
  {name:"NOURA Beauty",type:"Skincare storefront · Local brand concept",category:"Commerce",theme:"sand",slug:"noura-beauty",desc:"A warm, editorial skincare shop with product discovery, collections and a working demo cart.",challenge:"Create a calm, premium shopping experience for a fictional skincare label.",approach:"Use editorial product imagery, clear collections and a simple cart journey.",deliverables:"Responsive storefront · Product discovery · Collection pages · Demo cart"},
- {name:"THREAD HOUSE",type:"Fashion storefront · Local brand concept",category:"Commerce",theme:"blue",slug:"thread-house",desc:"A modern fashion storefront with category browsing, product details and cart interactions.",challenge:"Give a fictional fashion label a focused digital storefront that lets its collection lead.",approach:"Build a bold visual system with category browsing and concise product pages.",deliverables:"Responsive storefront · Category navigation · Product detail pages · Demo cart"},
+ {name:"THREAD HOUSE",type:"Fashion storefront · Local brand concept",category:"Commerce",theme:"stone",slug:"thread-house",desc:"A modern fashion storefront with category browsing, product details and cart interactions.",challenge:"Give a fictional fashion label a focused digital storefront that lets its collection lead.",approach:"Build a bold visual system with category browsing and concise product pages.",deliverables:"Responsive storefront · Category navigation · Product detail pages · Demo cart"},
  {name:"KAHWA LAB",type:"Coffee storefront · Local brand concept",category:"Commerce",theme:"violet",slug:"kahwa-lab",desc:"A specialty coffee shop concept with blends, brewing gear and bundle shopping.",challenge:"Present a fictional specialty coffee range in a clear, discoverable way.",approach:"Organize blends, brewing equipment and bundles into a coherent shopping journey.",deliverables:"Responsive storefront · Product categories · Bundle discovery · Demo cart"}
 ];
 export default function Home(){
@@ -85,13 +85,13 @@ export default function Home(){
    <div className="stormHeroImage" aria-hidden="true"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=2000&q=90" alt=""/></div>
    <div className="stormHeroNoise"/>
    <div className="stormHeroCopy">
-    <div className="stormEyebrow"><span/> {ar?"وكالة إبداعية للتجارب الرقمية":"INDEPENDENT CREATIVE COMPANY"} <b>— 01 / 04</b></div>
-    <h1>{ar?<>نصنع فرقاً رقمياً.<br/><em>بلا حدود.</em></>:<>We make digital<br/><em>feel different.</em></>}</h1>
-    <p>{ar?"نحوّل طموح العلامات التجارية إلى تجارب رقمية قوية تجمع بين الاستراتيجية والإبداع والتكنولوجيا.":"We bring strategy, design and technology together to help ambitious brands stand out, connect with people and grow."}</p>
+    <div className="stormEyebrow"><span/> {ar?"وكالة إبداعية للتجارب الرقمية":"INDEPENDENT DIGITAL STUDIO"} <b>— 01 / 04</b></div>
+    <h1>{ar?<>نصنع فرقاً رقمياً.<br/><em>بلا حدود.</em></>:<>We shape digital<br/><em>with intent.</em></>}</h1>
+    <p>{ar?"نحوّل طموح العلامات التجارية إلى تجارب رقمية قوية تجمع بين الاستراتيجية والإبداع والتكنولوجيا.":"We build distinctive digital experiences where considered design, intelligent technology and business ambition meet."}</p>
     <div className="stormHeroActions"><button onClick={()=>setQuote(true)}>{ar?"ابدأ مشروعك":"LET'S MAKE IT HAPPEN"}<ArrowUpRight size={17}/></button><a href="#work"><span>↘</span>{ar?"اكتشف أعمالنا":"EXPLORE OUR WORK"}</a></div>
    </div>
    <div className="stormHeroAside">
-    <span className="stormHeroAsideTop">STRATEGY / DESIGN / ENGINEERING</span>
+    <span className="stormHeroAsideTop">STRATEGY · DESIGN · ENGINEERING</span>
     <div className="storm3dScene" aria-hidden="true">
      <div className="storm3dOrbit storm3dOrbit--one"/><div className="storm3dOrbit storm3dOrbit--two"/><div className="storm3dOrbit storm3dOrbit--three"/>
      <div className="storm3dCore"><span>V</span><i/></div>

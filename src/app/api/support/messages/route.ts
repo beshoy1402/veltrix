@@ -8,7 +8,7 @@ function headers() { return { apikey: SECRET || "", Authorization: `Bearer ${SEC
 async function hydrateAttachments(rows: Record<string, unknown>[]) {
   return Promise.all((rows || []).map(async (row) => {
     const body = typeof row.body === "string" ? row.body : "";
-    const match = body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
+    const match = body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/);
     if (!match) return row;
     const path = match[1];
     const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: headers(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });

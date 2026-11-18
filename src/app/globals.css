@@ -2050,3 +2050,61 @@ html:before{content:"";position:fixed;z-index:999;top:0;left:0;height:2px;width:
 .adminSupportReply .adminPrimary{display:flex;align-items:center;justify-content:center;gap:8px}
 @media(max-width:850px){.adminSupportLayout{grid-template-columns:1fr}.adminSupportMessages{max-height:42vh}}
 @media(max-width:520px){.adminSupportList .adminPanelHead{display:grid}.adminSupportConversation{gap:8px}.adminSupportConversation .status{font-size:7px}.vxAgentHandoffForm{padding:10px}}
+
+
+/* VELTRIX standalone InstaPay proof page */
+.vxPaymentPage{min-height:100vh;background:#e9e1d4;color:#211f1b;padding:0 clamp(20px,6vw,88px);font-family:var(--font-body,Arial,sans-serif)}
+.vxPaymentNav{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #cfc5b7}
+.vxPaymentBrand{font:700 15px var(--font-display,Arial,sans-serif);letter-spacing:.13em;color:#211f1b;text-decoration:none}
+.vxPaymentBrand span{font-size:9px;color:#8a7a68}
+.vxPaymentBack{display:flex;gap:8px;align-items:center;font-size:11px;color:#5d554c;text-decoration:none}
+.vxPaymentHero{max-width:720px;padding:clamp(48px,9vw,104px) 0 36px}
+.vxPaymentEyebrow{font:10px var(--font-mono,monospace);letter-spacing:.16em;color:#8b7158}
+.vxPaymentHero h1{font:500 clamp(54px,9vw,108px)/.92 var(--font-display,Georgia,serif);letter-spacing:-.065em;margin:20px 0}
+.vxPaymentHero h1 i{font-weight:400;color:#9b8066}
+.vxPaymentHero>p:last-child{max-width:480px;font-size:14px;line-height:1.8;color:#71675b}
+.vxPaymentForm,.vxPaymentSuccess{max-width:760px;margin:0 0 90px;padding:clamp(20px,4vw,38px);background:#f6f2eb;border:1px solid #d9d0c3;box-shadow:0 20px 70px #211f1b0b}
+.vxPaymentNotice{display:flex;gap:12px;align-items:flex-start;padding:14px;background:#eee8de;color:#62594f;font-size:11px;line-height:1.7;margin-bottom:15px}
+.vxPaymentNotice svg{flex:none;margin-top:2px}
+.vxPaymentHandle{display:grid;gap:7px;padding:17px;background:#211f1b;color:#eee5d8;margin-bottom:22px}
+.vxPaymentHandle small{font:9px var(--font-mono,monospace);letter-spacing:.14em;color:#bda88f}
+.vxPaymentHandle strong{font:600 19px var(--font-display,Georgia,serif);overflow-wrap:anywhere}
+.vxPaymentHandle span{font-size:10px;color:#c9beb0}
+.vxPaymentFields{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:23px 0}
+.vxPaymentFields label,.vxPaymentNotes{display:grid;gap:7px;font-size:10px;letter-spacing:.04em;color:#5e554b}
+.vxPaymentFields input{width:100%;padding:13px 12px;border:1px solid #d9d0c4;background:#fffdfa;color:#211f1b;font-size:12px;outline:none}
+.vxPaymentFields input:focus,.vxPaymentUpload:focus-within{border-color:#9c8064}
+.vxPaymentUpload{min-height:142px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border:1px dashed #b5a48f;background:#f0ebe3;color:#51473d;cursor:pointer;text-align:center;padding:18px}
+.vxPaymentUpload input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.vxPaymentUpload strong{font-size:12px;overflow-wrap:anywhere}
+.vxPaymentUpload span{font-size:10px;color:#8b8074}
+.vxPaymentSubmit{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:16px 20px;background:#211f1b;color:#f4eee5;border:0;text-decoration:none;font-size:11px;letter-spacing:.08em;cursor:pointer;transition:background .2s}
+.vxPaymentSubmit:hover{background:#5c4b3b}
+.vxPaymentSubmit:disabled{opacity:.55;cursor:wait}
+.vxPaymentFine{font-size:10px;line-height:1.7;color:#82776b;margin-top:14px}
+.vxPaymentError{font-size:11px;color:#a33b2c;margin:12px 0}
+.vxPaymentSuccess{text-align:center;padding:50px 25px}
+.vxPaymentSuccess>svg{color:#71816a;margin-bottom:18px}
+.vxPaymentSuccess h2{font:500 clamp(27px,5vw,42px) var(--font-display,Georgia,serif);margin:12px 0}
+.vxPaymentSuccess p{font-size:12px;line-height:1.8;color:#72685d}
+.vxPaymentSuccess strong{display:inline-block;margin:12px;padding:13px 20px;background:#e9e1d4;font:700 18px var(--font-mono,monospace);letter-spacing:.1em}
+.vxPaymentFooter{padding:22px 0 32px;border-top:1px solid #cfc5b7;color:#897e71;font-size:9px;letter-spacing:.08em}
+.adminPaymentList{display:grid;gap:14px}
+.adminPaymentCard{display:grid;gap:16px}
+.adminPaymentTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.adminPaymentRef{font:9px var(--mono);letter-spacing:.12em;color:#927a61}
+.adminPaymentTop h3{font-size:17px;margin:6px 0 3px}
+.adminPaymentTop p{font-size:10px;color:#7b746b;overflow-wrap:anywhere}
+.adminPaymentMeta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:14px 0;border-top:1px solid #e9e4dc;border-bottom:1px solid #e9e4dc}
+.adminPaymentMeta span{display:grid;gap:6px;min-width:0}
+.adminPaymentMeta small{font:8px var(--mono);letter-spacing:.08em;color:#898075}
+.adminPaymentMeta b{font-size:10px;overflow-wrap:anywhere}
+.adminPaymentPreview{display:flex;align-items:center;gap:14px;text-decoration:none;color:#5c4b3b;font-size:10px}
+.adminPaymentPreview img{width:104px;height:104px;object-fit:cover;border:1px solid #e2dbd1;background:#eee}
+.adminPaymentNotes{display:grid;gap:7px;font-size:10px;color:#777}
+.adminPaymentNotes textarea{width:100%;padding:10px;border:1px solid #ded8ce;background:#fbfaf7;color:#211f1b;font:11px/1.6 var(--body)}
+.adminPaymentActions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.adminPaymentActions button{padding:10px 13px;border:1px solid #d9d2c8;background:transparent;color:#51483e;font-size:10px;cursor:pointer}
+.adminPaymentActions button:disabled{opacity:.5}
+.adminPaymentActions .adminPrimary{background:#211f1b;color:#fff;border-color:#211f1b}
+@media(max-width:640px){.vxPaymentNav{height:68px}.vxPaymentFields{grid-template-columns:1fr}.vxPaymentHero{padding-top:55px}.adminPaymentMeta{grid-template-columns:1fr 1fr}.adminPaymentActions button{flex:1}.adminPaymentTop{align-items:center}}

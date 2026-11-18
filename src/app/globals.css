@@ -1094,3 +1094,318 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#5877ff}
 @media(prefers-reduced-motion:reduce){
  .stormHeroAside,.stormHero h1 em,.stormSectionTop,.stormWorkIntro,.stormServicesIntro,.stormStudioGrid,.stormProcessIntro,.stormSteps,.stormProject,.stormServiceCard,.veltrixInlineForm{animation:none!important}
 }
+
+
+/* VELTRIX — LUXURY EXPERIMENTAL DIGITAL / FRONTEND ART DIRECTION */
+:root{
+ --paper:#eeeae1;--ink:#171715;--orange:#b9a98e;--muted:#89857d;--line:#c9c3b8;
+ --veltrix-ivory:#eeeae1;--veltrix-ink:#171715;--veltrix-metal:#b9b3a8;--veltrix-stone:#77736b;
+}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{background:var(--veltrix-ivory);color:var(--veltrix-ink)}
+button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
+.stormSite{--storm-blue:#b9b3a8;--storm-cyan:#ded8cd;--storm-bg:#171715;--storm-paper:#eeeae1;--storm-ink:#171715;background:var(--veltrix-ivory);color:var(--veltrix-ink);font-family:"DM Sans",sans-serif}
+.stormSite *{scroll-margin-top:100px}
+.stormAnnouncement{height:30px;padding:0 5.4%;background:#171715;color:#c8c2b7;font:8px "DM Mono",monospace;letter-spacing:.19em}
+.stormLiveDot{width:5px;height:5px;background:#c5b89f;box-shadow:0 0 0 4px #c5b89f22}
+.stormAnnouncementLine{background:#eeeae13d}
+.stormAnnouncementRight{color:#a9a49a;font-size:8px}
+.stormHeader{height:86px;padding:0 5.4%;background:#eeeae1f2;color:#171715;border-bottom:1px solid #17171524;backdrop-filter:blur(18px)}
+.stormLogo{font:800 26px "Manrope",sans-serif;letter-spacing:-.105em;color:#171715}
+.stormLogo span{color:#9e927d}
+.stormNav{gap:clamp(18px,3vw,42px);font:9px "DM Mono",monospace;letter-spacing:.12em;color:#66635c}
+.stormNav a{transition:color .3s,opacity .3s}
+.stormNav a:hover{color:#9e927d}
+.stormHeaderActions{gap:18px}
+.stormLang{color:#171715;font:9px "DM Mono",monospace;letter-spacing:.1em}
+.stormHeaderCta{background:#171715;color:#eeeae1;border:1px solid #171715;border-radius:0;padding:15px 19px;font:9px "DM Mono",monospace;letter-spacing:.09em;transition:background .35s,color .35s,transform .35s}
+.stormHeaderCta:hover{background:#b9b3a8;color:#171715;transform:translateY(-2px)}
+.stormMenu{color:#171715}
+.stormMobileMenu{background:#eeeae1;border-bottom:1px solid #17171530;box-shadow:0 25px 50px #17171518}
+.stormMobileMenu a{padding:17px 2px;border-bottom:1px solid #17171520;font:11px "DM Mono",monospace;text-transform:uppercase}
+.stormMobileMenu button{background:#171715;color:#eeeae1}
+.stormHero{min-height:min(850px,calc(100svh - 116px));padding:100px 7% 110px;background:#171715;color:#eeeae1;grid-template-columns:1fr;isolation:isolate;overflow:hidden}
+.stormHero:before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 77% 49%,#a99c8420,transparent 34%),linear-gradient(115deg,#171715 10%,#1d1c19 58%,#24221e)}
+.stormHero:after{content:"";position:absolute;inset:0;z-index:0;opacity:.17;pointer-events:none;background-image:linear-gradient(#eeeae10b 1px,transparent 1px),linear-gradient(90deg,#eeeae10b 1px,transparent 1px);background-size:84px 84px;mask-image:linear-gradient(90deg,transparent,#000 55%,#000)}
+.stormHeroImage{inset:0;opacity:.08;mix-blend-mode:screen}
+.stormHeroImage img{filter:grayscale(1) sepia(.22) contrast(1.3);object-position:center 48%}
+.stormHeroNoise{z-index:1;opacity:.12;background-image:radial-gradient(#eeeae1 .6px,transparent .7px);background-size:5px 5px}
+.stormHeroCopy{z-index:4;max-width:1160px;padding-top:15px}
+.stormEyebrow{color:#b9b3a8;font:9px "DM Mono",monospace;letter-spacing:.2em}
+.stormEyebrow>span{background:#b9b3a8}
+.stormEyebrow b{color:#77736b;font-weight:400}
+.stormHero h1{max-width:1200px;margin:58px 0 35px;font:600 clamp(76px,11.8vw,174px)/.82 "Manrope",sans-serif;letter-spacing:-.105em;text-transform:uppercase;color:#eeeae1}
+.stormHero h1 em{color:#b9b3a8;font-style:normal;display:inline-block;animation:veltrixTitleIn 1.15s cubic-bezier(.16,1,.3,1) both}
+.stormHeroCopy>p{max-width:420px;margin-left:7px;color:#aaa69d;font-size:14px;line-height:1.95}
+.stormHeroActions{margin:35px 0 0 7px;gap:27px}
+.stormHeroActions button{background:#eeeae1;color:#171715;border:1px solid #eeeae1;border-radius:0;padding:17px 22px;font:9px "DM Mono",monospace;letter-spacing:.12em;transition:all .35s}
+.stormHeroActions button:hover{background:#b9b3a8;border-color:#b9b3a8;color:#171715;transform:translateY(-4px);box-shadow:0 16px 35px #0005}
+.stormHeroActions a{color:#eeeae1;font:9px "DM Mono",monospace;letter-spacing:.1em}
+.stormHeroActions a span{color:#b9b3a8}
+.stormHeroAside{right:8%;bottom:10%;width:clamp(220px,26vw,360px);height:clamp(220px,26vw,360px);border:1px solid #b9b3a830;border-radius:50%;background:radial-gradient(circle at 50% 50%,#b9b3a817,transparent 67%);box-shadow:0 0 0 35px #b9b3a808,0 0 0 70px #b9b3a805;opacity:.95}
+.stormHeroAside:before,.stormHeroAside:after{border-color:#b9b3a82c}
+.stormHeroAsideTop,.storm3dLabel{color:#b9b3a8;font:8px "DM Mono",monospace;letter-spacing:.16em}
+.stormHeroAsideBottom{color:#c8c2b7;font:8px "DM Mono",monospace;letter-spacing:.12em}
+.storm3dScene{transform:scale(.92)}
+.storm3dCore{background:radial-gradient(circle at 32% 24%,#fffdf4,#c9c2b5 23%,#8c867a 54%,#34332f 78%);box-shadow:inset -20px -25px 35px #171715a6,inset 12px 12px 20px #ffffffb0,0 20px 75px #0009,0 0 65px #c9c2b51a}
+.storm3dCore span{color:#24231f}
+.storm3dOrbit--one,.storm3dOrbit--two,.storm3dOrbit--three{border-color:#c9c2b54f}
+.storm3dShard{background:linear-gradient(135deg,#f3eee4,#aaa394 48%,#4c4942);box-shadow:inset -8px -9px 18px #17171580,0 15px 30px #0006}
+.stormHeroBottom{left:7%;right:7%;color:#88847b;font:8px "DM Mono",monospace;letter-spacing:.16em}
+.stormHeroBottom i{background:#b9b3a8}
+.stormMarquee{height:62px;margin:0;background:#b9b3a8;color:#171715;transform:none;overflow:hidden}
+.stormMarquee div{font:700 12px "DM Mono",monospace;letter-spacing:.16em}
+.stormMarquee b{color:#eeeae1}
+.veltrixFacts{padding:43px 7%;background:#eeeae1;border-bottom:1px solid #17171525}
+.veltrixFacts>div{border-color:#17171526}
+.veltrixFacts strong{font:500 clamp(42px,5vw,66px) "Manrope",sans-serif;letter-spacing:-.08em;color:#171715}
+.veltrixFacts span{font:8px "DM Mono",monospace;letter-spacing:.12em;color:#77736b}
+.stormSection{padding:125px 7%}
+.stormSectionTop{padding-bottom:16px;border-color:#17171535;color:#77736b;font:8px "DM Mono",monospace;letter-spacing:.17em}
+.stormWork{background:#eeeae1}
+.stormWorkIntro{grid-template-columns:1.2fr .5fr;gap:9%;margin:64px 0 72px}
+.stormWorkIntro h2,.stormServicesIntro h2,.stormProcessIntro h2{font:600 clamp(66px,9.4vw,136px)/.82 "Manrope",sans-serif;letter-spacing:-.105em;color:#171715;text-transform:uppercase}
+.stormWorkIntro h2 em,.stormServicesIntro h2 em,.stormProcessIntro h2 em{color:#928875;font-style:normal}
+.stormWorkIntro p,.stormServicesIntro p,.stormProcessIntro p{max-width:350px;color:#77736b;font-size:13px;line-height:2}
+.stormProjectGrid{grid-template-columns:1.08fr .92fr;gap:76px 30px}
+.stormProject:nth-child(2){margin-top:155px}
+.stormProject:nth-child(3){grid-column:1/2;margin-top:-85px}
+.stormProjectVisual,.stormProject--feature .stormProjectVisual{aspect-ratio:1.18;border-radius:0;background:#d6d0c5}
+.stormProjectVisual:after{background:linear-gradient(180deg,transparent 40%,#171715aa)}
+.stormProjectVisual img{filter:grayscale(.42) sepia(.16) saturate(.62);transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .9s}
+.stormProjectVisual:hover img{transform:scale(1.055);filter:grayscale(.05) sepia(.08) saturate(.85)}
+.stormProjectNumber,.stormProjectOpen{font:8px "DM Mono",monospace;letter-spacing:.15em}
+.stormProjectOverlay small{font:8px "DM Mono",monospace;letter-spacing:.15em}
+.stormProjectOverlay b{font:600 clamp(34px,5vw,68px)/.9 "Manrope",sans-serif;letter-spacing:-.08em}
+.stormProjectMeta{padding:18px 0;border-bottom:1px solid #17171524}
+.stormProjectMeta h3{font:600 21px "Manrope",sans-serif;letter-spacing:-.055em;color:#171715}
+.stormProjectMeta>div>span{font:8px "DM Mono",monospace;letter-spacing:.11em;color:#858076}
+.stormProjectMeta>button{border:1px solid #17171550;color:#171715;border-radius:50%;transition:all .3s}
+.stormProjectMeta>button:hover{background:#171715;color:#eeeae1;border-color:#171715}
+.stormWorkFoot{margin-top:60px;border-color:#17171530;color:#77736b;font:8px "DM Mono",monospace;letter-spacing:.12em}
+.stormWorkFoot a{color:#171715;border-bottom:1px solid #9b907d;padding-bottom:5px}
+.stormServices{background:#1b1b18;color:#eeeae1}
+.stormServices:before{border-color:#b9b3a80f;box-shadow:0 0 0 55px #b9b3a808,0 0 0 110px #b9b3a805}
+.stormServices .stormSectionTop{border-color:#eeeae133;color:#a39e93}
+.stormServicesIntro{grid-template-columns:1.2fr .5fr;gap:9%;margin:64px 0 70px}
+.stormServicesIntro h2{color:#eeeae1}
+.stormServicesIntro h2 em{color:#b9b3a8}
+.stormServicesIntro p{color:#aaa69d}
+.stormServiceGrid{display:block;border-top:1px solid #eeeae13b;background:transparent}
+.stormServiceCard{display:grid;grid-template-columns:48px 1.08fr 1.25fr 145px 190px;gap:20px;align-items:center;min-height:0;padding:30px 12px;background:transparent;border:0;border-bottom:1px solid #eeeae13b;border-radius:0;box-shadow:none;transition:background .4s,padding .4s}
+.stormServiceCard:hover{background:#eeeae1;color:#171715;transform:none;padding-left:25px;padding-right:25px}
+.stormServiceTop{color:#b9b3a8}
+.stormServiceCard:hover .stormServiceTop,.stormServiceCard:hover h3,.stormServiceCard:hover p,.stormServiceCard:hover .stormServiceBottom span,.stormServiceCard:hover .stormServiceBottom b,.stormServiceCard:hover>button{color:#171715}
+.stormServiceCard h3{font:600 21px "Manrope",sans-serif;letter-spacing:-.055em;color:#eeeae1;margin:0}
+.stormServiceCard p{font-size:11px;line-height:1.8;color:#a8a399;margin:0}
+.stormServiceBottom{border:0;display:flex;flex-direction:column;gap:6px}
+.stormServiceBottom span{font:8px "DM Mono",monospace;color:#969187}
+.stormServiceBottom b{font:500 13px "Manrope",sans-serif;color:#eeeae1}
+.stormServiceCard>button{border:0;color:#b9b3a8;justify-content:flex-end;font:8px "DM Mono",monospace;letter-spacing:.11em}
+.stormPriceNote{color:#9b968c;font:8px "DM Mono",monospace;letter-spacing:.08em;line-height:1.8}
+.stormStudio{background:#dcd7cd}
+.stormStudio .stormSectionTop{border-color:#17171535}
+.stormStudioGrid{grid-template-columns:1fr 1fr;gap:9%}
+.stormStudioArt{min-height:580px;background:#bcb5a8;border-radius:0;overflow:hidden}
+.stormStudioArt:before{border-color:#17171535;box-shadow:0 0 0 45px #bcb5a8,0 0 0 46px #17171525,0 0 0 90px #bcb5a8,0 0 0 91px #17171520}
+.stormStudioWord{color:#171715;font:800 clamp(150px,22vw,300px) "Manrope",sans-serif}
+.stormStudioCoordinates,.stormStudioCaption{color:#171715;font:8px "DM Mono",monospace;letter-spacing:.15em}
+.stormStudioTorus{border-color:#171715;background:transparent}
+.stormStudioTorus--two{border-color:#17171570}
+.stormStudioGlass{background:radial-gradient(circle at 30% 24%,#fffdf2,#c7c0b3 40%,#6f6b62 80%);box-shadow:inset 12px 12px 20px #ffffff9c,inset -18px -22px 30px #24231f66,0 20px 60px #17171540}
+.stormStudioGlass span{color:#24231f}
+.stormStudioCopy h2{font:600 clamp(58px,7vw,96px)/.87 "Manrope",sans-serif;letter-spacing:-.1em;text-transform:uppercase;color:#171715}
+.stormStudioCopy h2 em{color:#8f8472}
+.stormStudioCopy>p{color:#666158;line-height:2;font-size:13px}
+.stormPeople>div>span{background:#171715;color:#eeeae1}
+.stormPeople b{color:#171715}
+.stormPeople small{color:#77736b}
+.stormStudioCopy>a{border-color:#171715;color:#171715;font:9px "DM Mono",monospace;letter-spacing:.12em}
+.stormStudioCopy>a:hover{padding-left:8px;border-color:#8f8472}
+.stormProcess{background:#eeeae1}
+.stormProcessIntro{grid-template-columns:1.2fr .5fr;gap:9%;margin:64px 0 70px}
+.stormSteps{grid-template-columns:repeat(5,1fr);border-top:1px solid #17171540}
+.stormSteps article{padding:27px 18px 20px 0;border-right:1px solid #17171524}
+.stormSteps article+article{padding-left:18px}
+.stormSteps article>span{font:9px "DM Mono",monospace;color:#8f8472}
+.stormSteps article>i{background:#c6c0b5}
+.stormSteps article>i:after{background:#8f8472}
+.stormSteps h3{font:600 18px "Manrope",sans-serif;color:#171715;letter-spacing:-.04em}
+.stormSteps p{font-size:11px;line-height:1.85;color:#77736b}
+.stormTrust{background:#dcd7cd}
+.stormTrust .stormSectionTop,.stormTestimonials .stormSectionTop,.stormInsights .stormSectionTop,.stormFaq .stormSectionTop{border-color:#17171532}
+.stormTrustIntro,.stormFaqIntro{display:grid;grid-template-columns:1.1fr .55fr;align-items:end;gap:8%;margin:55px 0 60px}
+.stormTrustIntro h2,.stormFaqIntro h2,.stormTestimonialBody h2,.stormInsightsBody h2{font:600 clamp(60px,8vw,112px)/.84 "Manrope",sans-serif;letter-spacing:-.1em;text-transform:uppercase;color:#171715}
+.stormTrustIntro h2 em,.stormFaqIntro h2 em,.stormTestimonialBody h2 em,.stormInsightsBody h2 em{font-style:normal;color:#8f8472}
+.stormTrustIntro p,.stormFaqIntro p{font-size:13px;line-height:1.9;color:#716c63;max-width:360px}
+.stormTrustGrid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #17171535}
+.stormTrustGrid article{padding:25px 24px 20px 0;border-right:1px solid #17171525}
+.stormTrustGrid article+article{padding-left:24px}
+.stormTrustGrid article>span{font:8px "DM Mono",monospace;letter-spacing:.13em;color:#8f8472}
+.stormTrustGrid h3{font:600 20px "Manrope",sans-serif;letter-spacing:-.05em}
+.stormTrustGrid p{font-size:11px;line-height:1.9;color:#716c63;max-width:290px}
+.stormTestimonials{background:#eeeae1}
+.stormTestimonialBody{max-width:900px;padding:65px 0 25px}
+.stormTestimonialBody h2{font-size:clamp(76px,11vw,150px);margin:35px 0}
+.stormTestimonialBody>p{max-width:470px;font-size:13px;line-height:2;color:#77736b}
+.stormProofNote{display:inline-block;margin-top:28px;padding-top:13px;border-top:1px solid #17171535;font:8px "DM Mono",monospace;letter-spacing:.13em;color:#8f8472}
+.stormInsights{background:#1b1b18;color:#eeeae1}
+.stormInsights .stormSectionTop{border-color:#eeeae135;color:#a39e93}
+.stormInsightsBody{display:grid;grid-template-columns:1fr .62fr;gap:10%;align-items:center;margin:55px 0 65px}
+.stormInsightsBody h2{color:#eeeae1;font-size:clamp(62px,8vw,112px);margin:25px 0}
+.stormInsightsBody h2 em{color:#b9b3a8}
+.stormInsightsBody p{font-size:12px;line-height:1.9;color:#a8a399;max-width:390px}
+.stormInsightCard{min-height:300px;border:1px solid #eeeae13b;background:radial-gradient(circle at 50% 55%,#b9b3a812,transparent 65%);color:#b9b3a8;padding:28px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;position:relative;overflow:hidden}
+.stormInsightCard:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #b9b3a84c;border-radius:50%;right:-65px;bottom:-90px;box-shadow:0 0 0 28px #b9b3a80a,0 0 0 58px #b9b3a80a}
+.stormInsightCard span,.stormInsightCard small{font:8px "DM Mono",monospace;letter-spacing:.15em;color:#aaa69d}
+.stormInsightCard b{font:700 clamp(35px,4vw,55px)/.88 "Manrope",sans-serif;letter-spacing:-.08em;color:#eeeae1}
+.stormInsightCard b em{color:#b9b3a8;font-style:normal}
+.stormInsightCard svg{position:absolute;right:25px;top:25px}
+.stormArticleGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid #eeeae13b}
+.stormArticle{padding:24px 22px 20px 0;border-right:1px solid #eeeae126}
+.stormArticle+.stormArticle{padding-left:22px}
+.stormArticle>span{font:8px "DM Mono",monospace;color:#b9b3a8;letter-spacing:.13em}
+.stormArticle h3{font:600 18px "Manrope",sans-serif;letter-spacing:-.045em;color:#eeeae1}
+.stormArticle p{font-size:11px;line-height:1.85;color:#aaa69d}
+.stormArticle button{margin-top:12px;padding:0 0 7px;background:none;border:0;border-bottom:1px solid #b9b3a85c;color:#b9b3a8;font:8px "DM Mono",monospace;letter-spacing:.12em}
+.stormFaq{background:#dcd7cd}
+.stormFaqIntro h2{font-size:clamp(62px,8vw,112px)}
+.stormFaqList{border-top:1px solid #17171545}
+.stormFaqItem{border-bottom:1px solid #17171535}
+.stormFaqItem>button{width:100%;padding:23px 2px;background:none;border:0;display:flex;align-items:center;justify-content:space-between;text-align:left;color:#171715;font:500 18px "Manrope",sans-serif;letter-spacing:-.04em}
+.stormFaqItem>button svg{color:#8f8472;flex-shrink:0}
+.stormFaqItem>p{max-width:650px;margin:0;padding:0 45px 23px 2px;color:#716c63;font-size:12px;line-height:1.9}
+.stormContact{background:#b9b3a8;color:#171715;grid-template-columns:.8fr 1.2fr;gap:8%;padding-top:120px;padding-bottom:125px}
+.stormContact .stormSectionTop{color:#171715;border-color:#17171555}
+.stormContactOrb{opacity:.3;filter:grayscale(1);mix-blend-mode:multiply}
+.stormContactContent .stormMiniLabel{color:#171715;font:8px "DM Mono",monospace;letter-spacing:.17em}
+.stormContact h2{color:#171715;font:600 clamp(65px,8vw,112px)/.82 "Manrope",sans-serif;letter-spacing:-.105em;text-transform:uppercase}
+.stormContact h2 em{color:#eeeae1}
+.stormContactContent>p{color:#45433e;font-size:13px;line-height:1.9}
+.stormContactActions button{background:#171715;color:#eeeae1;border:1px solid #171715;border-radius:0;font:9px "DM Mono",monospace;letter-spacing:.1em;padding:16px 19px}
+.stormContactActions button:hover{background:#eeeae1;color:#171715}
+.stormContactActions .stormSecondaryAction{background:transparent;color:#171715;border:1px solid #17171580}
+.stormContactContent>small{color:#45433e;font:8px "DM Mono",monospace;letter-spacing:.15em}
+.veltrixInlineForm{background:#eeeae1;border:1px solid #17171535;padding:35px;box-shadow:14px 14px 0 #171715;border-radius:0}
+.veltrixFormTitle{color:#171715;border-color:#17171535;font:8px "DM Mono",monospace;letter-spacing:.15em}
+.veltrixFormTitle b{color:#8f8472}
+.veltrixInlineForm label{color:#716c63;font:8px "DM Mono",monospace;letter-spacing:.12em}
+.veltrixInlineForm input,.veltrixInlineForm select,.veltrixInlineForm textarea{border:1px solid #c8c1b5;background:#f8f6f0;color:#171715;border-radius:0;font:12px "DM Sans",sans-serif}
+.veltrixInlineForm input:focus,.veltrixInlineForm select:focus,.veltrixInlineForm textarea:focus{border-color:#8f8472;box-shadow:0 0 0 3px #b9b3a833;outline:0}
+.veltrixFormSubmit{background:#171715;color:#eeeae1;border-radius:0;font:9px "DM Mono",monospace;letter-spacing:.12em}
+.veltrixFormSubmit:hover{background:#5e594f}
+.stormFooter{background:#171715;color:#eeeae1}
+.stormFooterTop{padding-bottom:55px}
+.stormFooterSignup p,.stormFooterTop p{color:#aaa69d;font-size:11px;line-height:1.8}
+.stormFooterSignup b{font:8px "DM Mono",monospace;letter-spacing:.16em}
+.stormFooterSignup form{border-color:#eeeae15a}
+.stormFooterSignup input{color:#eeeae1;font-size:11px}
+.stormFooterSignup button{color:#b9b3a8}
+.stormFooterBottom{border-color:#eeeae12c;color:#99948a;font:8px "DM Mono",monospace;letter-spacing:.11em}
+.stormFooterTalk{color:#b9b3a8;border-color:#b9b3a8;font:9px "DM Mono",monospace;letter-spacing:.12em}
+.stormFooterTalk:hover{background:#b9b3a8;color:#171715}
+.overlay{background:#11110fed;backdrop-filter:blur(16px)}
+.previewModal,.quoteModal{background:#eeeae1;color:#171715;border:1px solid #17171520;box-shadow:0 35px 100px #0006}
+.modalHead small{color:#8b857a;font:8px "DM Mono",monospace;letter-spacing:.14em}
+.modalHead h3{font:600 25px "Manrope",sans-serif;letter-spacing:-.06em}
+.modalHead>button{border:1px solid #17171530;color:#171715}
+.previewCanvas{background:#d4cec2!important;color:#171715}
+.previewCanvas.blue,.previewCanvas.stone{background:linear-gradient(135deg,#d9d3c8,#9d9689)!important}
+.previewCanvas.violet{background:linear-gradient(135deg,#d9d3c8,#9d9689)!important}
+.openStoreDemo{background:#171715;color:#eeeae1}
+.openStoreDemo:hover{background:#b9b3a8;color:#171715}
+.inquiryForm label{color:#716c63}
+.inquiryForm input,.inquiryForm select,.inquiryForm textarea{background:#f8f6f0;border-color:#c8c1b5;color:#171715}
+.inquiryForm input:focus,.inquiryForm select:focus,.inquiryForm textarea:focus{outline:2px solid #b9b3a855;border-color:#8f8472}
+.minimum{background:#e0dbd1;color:#5f5a51}
+.minimum svg,.successState>svg{color:#777b68}
+.continue{background:#171715;color:#eeeae1}
+.continue:hover{background:#8f8472;color:#171715}
+.formError{background:#f2e3df;color:#8d3027}
+.inlineSuccess{color:#445d4b}
+.stormSite.arabic .stormHeroCopy>p{margin-right:7px;margin-left:0}
+.stormSite.arabic .stormProject:nth-child(2){margin-top:155px}
+.stormSite.arabic .stormServiceCard{direction:rtl}
+.stormSite.arabic .stormStudioCopy{text-align:right}
+.stormSite.arabic .stormSteps article{padding:27px 0 20px 18px;border-right:0;border-left:1px solid #17171524}
+.stormSite.arabic .stormSteps article+article{padding-right:18px;padding-left:0}
+.stormSite.arabic .stormContact{text-align:right}
+.stormSite.arabic .stormContactActions{justify-content:flex-start}
+@keyframes veltrixMetalDrift{0%,100%{transform:translate3d(0,0,0) rotate(-4deg)}50%{transform:translate3d(0,-15px,0) rotate(4deg)}}
+.stormHeroAside{animation:veltrixMetalDrift 9s ease-in-out infinite}
+.stormProject,.stormServiceCard,.stormTrustGrid article,.stormArticle,.stormFaqItem{transition:transform .45s cubic-bezier(.16,1,.3,1),background .4s}
+.stormProject:hover{transform:translateY(-5px)}
+.stormArticle:hover{background:#eeeae10a}
+.stormFaqItem>button:hover{color:#8f8472}
+@supports(animation-timeline:view()){
+ .stormProject,.stormTrustGrid article,.stormArticle,.stormSteps article{animation:veltrixReveal linear both;animation-timeline:view();animation-range:entry 0% entry 35%}
+}
+@media(max-width:1000px){
+ .stormHero{min-height:720px;padding:85px 6% 110px}
+ .stormHeroAside{right:4%;width:250px;height:250px;opacity:.5}
+ .stormServiceCard{grid-template-columns:40px 1fr 1fr 110px;gap:15px}
+ .stormServiceCard>button{grid-column:2/-1;justify-content:flex-start}
+ .stormProjectGrid{gap:50px 20px}
+ .stormProject:nth-child(2){margin-top:100px}
+ .stormTrustIntro,.stormFaqIntro{grid-template-columns:1fr .65fr}
+}
+@media(max-width:700px){
+ .stormAnnouncement{font-size:7px;letter-spacing:.1em;padding:0 18px}
+ .stormAnnouncementRight{display:none}
+ .stormHeader{height:70px;padding:0 20px}
+ .stormHero{min-height:790px;padding:68px 22px 105px;align-items:start}
+ .stormHero h1{font-size:clamp(62px,14.5vw,98px);margin:55px 0 27px;line-height:.84;letter-spacing:-.095em}
+ .stormHeroCopy>p{font-size:12px;max-width:88%}
+ .stormHeroAside{width:185px;height:185px;right:16px;bottom:90px;opacity:.35}
+ .stormHeroBottom{left:22px;right:22px;font-size:7px}
+ .stormMarquee{height:52px}.stormMarquee div{font-size:10px}
+ .veltrixFacts{grid-template-columns:1fr 1fr;padding:24px 22px}
+ .veltrixFacts>div{padding:15px 10px}
+ .stormSection{padding:82px 22px}
+ .stormWorkIntro,.stormServicesIntro,.stormProcessIntro,.stormTrustIntro,.stormFaqIntro{display:block;margin:42px 0}
+ .stormWorkIntro h2,.stormServicesIntro h2,.stormProcessIntro h2{font-size:clamp(56px,13vw,88px)}
+ .stormWorkIntro p,.stormServicesIntro p,.stormProcessIntro p,.stormTrustIntro p,.stormFaqIntro p{margin-top:23px}
+ .stormProjectGrid{grid-template-columns:1fr;gap:34px}
+ .stormProject:nth-child(2),.stormProject:nth-child(3){grid-column:auto;margin-top:0}
+ .stormProjectVisual,.stormProject--feature .stormProjectVisual{aspect-ratio:1.04}
+ .stormServiceCard{grid-template-columns:32px 1fr;gap:12px;padding:23px 4px}
+ .stormServiceTop{grid-row:1/3;align-self:start}
+ .stormServiceCard h3{font-size:18px}
+ .stormServiceCard p{grid-column:2;font-size:11px}
+ .stormServiceBottom{grid-column:2;display:flex;flex-direction:row;align-items:center;gap:10px}
+ .stormServiceCard>button{grid-column:2}
+ .stormServiceCard:hover{padding-left:12px;padding-right:12px}
+ .stormStudioGrid{grid-template-columns:1fr;gap:40px}
+ .stormStudioArt{min-height:390px}
+ .stormStudioCopy h2{font-size:clamp(55px,13vw,82px)}
+ .stormSteps{grid-template-columns:1fr;border-top:0}
+ .stormSteps article,.stormSteps article+article{display:grid;grid-template-columns:40px 16px 1fr;gap:10px;align-items:center;padding:18px 0;border:0;border-bottom:1px solid #17171530}
+ .stormSteps article>i{grid-column:2;grid-row:1/3}
+ .stormSteps h3{margin:0}.stormSteps p{grid-column:3;margin:0}
+ .stormTrustGrid{grid-template-columns:1fr}
+ .stormTrustGrid article,.stormTrustGrid article+article{padding:21px 0;border-right:0;border-bottom:1px solid #17171525}
+ .stormTestimonialBody{padding:40px 0 15px}
+ .stormTestimonialBody h2{font-size:clamp(68px,15vw,100px)}
+ .stormInsightsBody{grid-template-columns:1fr;gap:28px;margin:40px 0}
+ .stormInsightCard{min-height:245px}
+ .stormArticleGrid{grid-template-columns:1fr}
+ .stormArticle,.stormArticle+.stormArticle{padding:22px 0;border-right:0;border-bottom:1px solid #eeeae128}
+ .stormFaqItem>button{font-size:15px;padding:20px 0}
+ .stormFaqItem>p{padding-right:15px;font-size:11px}
+ .stormContact{grid-template-columns:1fr;gap:35px;padding-top:82px;padding-bottom:88px}
+ .stormContact h2{font-size:clamp(60px,14vw,88px)}
+ .veltrixInlineForm{padding:22px;box-shadow:8px 8px 0 #171715}
+ .veltrixInlineForm .formPair{grid-template-columns:1fr}
+ .stormFooterTop{gap:30px;flex-wrap:wrap}
+ .stormFooterSignup{width:100%}
+ .stormFooterBottom{flex-wrap:wrap;gap:14px}
+ .stormSite.arabic .stormSteps article,.stormSite.arabic .stormSteps article+article{grid-template-columns:1fr 16px 40px;text-align:right}
+}
+@media(max-width:390px){
+ .stormHero h1{font-size:58px}
+ .stormHeroAside{width:155px;height:155px}
+ .stormHeroActions{gap:15px;flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+ .stormHeroAside,.stormHero h1 em,.stormProject,.stormServiceCard,.stormTrustGrid article,.stormArticle,.stormSteps article{animation:none!important;transition:none!important}
+}

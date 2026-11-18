@@ -15,10 +15,11 @@ export async function GET(request:NextRequest){
  try{
   const [tasksResponse,membersResponse,projectsResponse]=await Promise.all([
    fetch(URL+"/rest/v1/team_tasks?select=*&order=created_at.desc&limit=300",{headers:headers(),cache:"no-store"}),
-   fetch(URL+"/auth/v1/admin/users?page=1&per_page=200",{headers:headers(),cache:"no-store"}),\n   fetch(URL+"/rest/v1/client_projects?select=id,name&order=created_at.desc",{headers:headers(),cache:"no-store"})
+   fetch(URL+"/auth/v1/admin/users?page=1&per_page=200",{headers:headers(),cache:"no-store"}),
+   fetch(URL+"/rest/v1/client_projects?select=id,name&order=created_at.desc",{headers:headers(),cache:"no-store"})
   ]);
-  const tasks=await tasksResponse.json();const users=await membersResponse.json();
-  if(!tasksResponse.ok||!membersResponse.ok)throw new Error("Could not load team assignments.");
+  const tasks=await tasksResponse.json();const users=await membersResponse.json();const projects=await projectsResponse.json();
+  if(!tasksResponse.ok||!membersResponse.ok||!projectsResponse.ok)throw new Error("Could not load team assignments.");
   const members=(users.users||[]).filter((u:Record<string,unknown>)=>["marketing","developer","designer"].includes(String((u.app_metadata as Record<string,unknown>|undefined)?.role||""))).map((u:Record<string,unknown>)=>({id:u.id,email:u.email,name:(u.user_metadata as Record<string,unknown>|undefined)?.full_name||u.email,role:(u.app_metadata as Record<string,unknown>|undefined)?.role}));
   return NextResponse.json({tasks,members,projects});
  }catch{return NextResponse.json({error:"Could not load team assignments."},{status:502});}

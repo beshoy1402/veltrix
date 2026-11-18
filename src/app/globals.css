@@ -2012,3 +2012,41 @@ html:before{content:"";position:fixed;z-index:999;top:0;left:0;height:2px;width:
 .vxAgentMessage{max-width:88%;padding:11px 13px;border-radius:13px;font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}.vxAgentMessage p{margin:0}.vxAgentMessage.user{align-self:flex-end;background:#e4d9ca;color:#29251f;border-bottom-right-radius:4px}.vxAgentMessage.assistant{align-self:flex-start;background:white;border:1px solid #ece5dc;color:#332f29;border-bottom-left-radius:4px}.vxAgentTyping{display:flex;align-items:center;gap:8px;font-size:11px;color:#8b7a66}
 .vxAgentComposer{margin:0 13px 10px;padding:6px;display:flex;gap:7px;border:1px solid #d9d0c4;border-radius:13px;background:white}.vxAgentComposer input{flex:1;min-width:0;border:0;outline:0;background:transparent;padding:9px 7px;font:12px var(--body,sans-serif);color:#211f1b}.vxAgentComposer button{width:39px;height:39px;display:grid;place-items:center;border:0;border-radius:9px;background:#211f1b;color:white}.vxAgentComposer button:disabled{opacity:.35;cursor:not-allowed}.vxAgentFoot{text-align:center;padding:0 12px 11px;font-size:9px;color:#8b8379}
 @media(max-width:600px){.vxAgentRoot{right:14px;bottom:14px}.vxAgentLauncher{height:53px;padding:0 17px}.vxAgentPanel{right:-1px;bottom:64px;width:calc(100vw - 28px);height:min(620px,calc(100dvh - 95px));min-height:390px;border-radius:16px}.vxAgentHeader{height:66px}.vxAgentMessage{max-width:92%}}
+
+
+/* VELTRIX live human support */
+.vxAgentHandoff{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;padding:11px 13px;margin:0 0 9px;border:1px solid #a88f75;background:#f3eee7;color:#211f1b;font-size:11px;cursor:pointer;transition:background .2s,color .2s}
+.vxAgentHandoff:hover{background:#211f1b;color:#f3eee7}
+.vxAgentHandoffForm{display:grid;gap:8px;padding:13px;margin:0 0 9px;background:#f3eee7;color:#211f1b}
+.vxAgentHandoffForm>b{font-size:12px;margin-bottom:3px}
+.vxAgentHandoffForm input{width:100%;min-width:0;padding:10px 11px;border:1px solid #d6cec2;background:#fff;color:#211f1b;font-size:11px;outline:none}
+.vxAgentHandoffForm>button{border:0;background:#211f1b;color:#fff;padding:11px;font-size:10px;cursor:pointer}
+.vxAgentHandoffForm>button:disabled{opacity:.55;cursor:wait}
+.vxAgentHandoffForm>button.vxAgentCancel{background:transparent;color:#625b52;padding:5px}
+.vxAgentHandoffForm>small,.vxAgentSupportError{color:#a33b2c;font-size:10px}
+.vxAgentMessage.system{align-self:stretch;background:#eee9e1;color:#6b6258;text-align:center;font-size:10px}
+.vxAgentMessage.admin{background:#e9e1d4;color:#211f1b;align-self:flex-start}
+.vxAgentMessage.admin small{display:block;margin-top:6px;font-size:9px;opacity:.65}
+.adminSupportBadge{display:inline-grid;place-items:center;min-width:19px;height:19px;margin-left:auto;padding:0 5px;border-radius:20px;background:#b33d2c;color:#fff;font:700 10px var(--mono);font-style:normal}
+.adminSupportLayout{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.5fr);gap:16px;align-items:start}
+.adminSupportList,.adminSupportThread{min-width:0}
+.adminSupportList .adminPanelHead{align-items:flex-start;gap:12px}
+.adminSupportConversation{width:100%;display:flex;align-items:center;gap:11px;text-align:left;padding:13px 0;border:0;border-top:1px solid #e8e4dc;background:transparent;color:inherit;cursor:pointer}
+.adminSupportConversation.active{background:#f3eee7;padding-inline:10px}
+.adminSupportConversation>span:nth-child(2){display:grid;gap:4px;min-width:0;flex:1}
+.adminSupportConversation b{font-size:12px}
+.adminSupportConversation small{font-size:9px;color:#777;overflow-wrap:anywhere}
+.adminSupportAvatar{width:34px;height:34px;display:grid;place-items:center;background:#e9e1d4;color:#5e5142;flex:none}
+.adminSupportConversation .status{font-size:8px;white-space:nowrap}
+.adminSupportMessages{min-height:260px;max-height:52vh;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:14px 0}
+.adminSupportMessage{max-width:88%;padding:12px 14px;background:#f1eee8;color:#28241f}
+.adminSupportMessage.admin{align-self:flex-end;background:#28241f;color:#fff}
+.adminSupportMessage.system{max-width:100%;align-self:stretch;background:#f7f5f0;color:#777}
+.adminSupportMessage small{font:8px var(--mono);letter-spacing:.12em;opacity:.65}
+.adminSupportMessage p{font-size:11px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;margin:6px 0}
+.adminSupportMessage time{font-size:8px;opacity:.55}
+.adminSupportReply{display:grid;gap:9px;border-top:1px solid #e7e2da;padding-top:14px}
+.adminSupportReply textarea{width:100%;resize:vertical;border:1px solid #ded9d0;background:#fbfaf7;padding:12px;color:#211f1b;font:12px/1.6 var(--body)}
+.adminSupportReply .adminPrimary{display:flex;align-items:center;justify-content:center;gap:8px}
+@media(max-width:850px){.adminSupportLayout{grid-template-columns:1fr}.adminSupportMessages{max-height:42vh}}
+@media(max-width:520px){.adminSupportList .adminPanelHead{display:grid}.adminSupportConversation{gap:8px}.adminSupportConversation .status{font-size:7px}.vxAgentHandoffForm{padding:10px}}

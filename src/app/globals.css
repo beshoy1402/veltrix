@@ -1409,3 +1409,101 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
 @media(prefers-reduced-motion:reduce){
  .stormHeroAside,.stormHero h1 em,.stormProject,.stormServiceCard,.stormTrustGrid article,.stormArticle,.stormSteps article{animation:none!important;transition:none!important}
 }
+
+
+/* VELTRIX — mobile layout refinement */
+.stormSite{width:100%;max-width:100%;overflow-x:clip}
+.stormSite img,.stormSite svg{max-width:100%}
+.stormSite button,.stormSite a{-webkit-tap-highlight-color:transparent}
+@media(max-width:900px){
+ .stormHeader{padding-inline:24px}
+ .stormNav{gap:16px;margin-left:0;font-size:10px}
+ .stormHeaderActions{gap:12px}
+ .stormHeaderCta{gap:12px;padding:12px 13px;font-size:9px}
+ .stormHero{grid-template-columns:minmax(0,1.1fr) minmax(230px,.9fr);gap:24px;padding-inline:5%}
+ .stormHero h1{font-size:clamp(64px,8.5vw,92px)}
+ .stormHeroAside{width:100%;max-width:340px;height:340px}
+ .stormSection{padding-inline:5%}
+ .stormProjectGrid{min-width:0}
+ .stormProject{min-width:0}
+ .stormContact{grid-template-columns:1fr 1fr;gap:28px}
+ .veltrixInlineForm{min-width:0}
+}
+@media(max-width:700px){
+ .stormHeader{height:70px;padding:0 18px}
+ .stormHeaderActions{gap:10px}
+ .stormLang{min-height:44px;padding:8px}
+ .stormMenu{display:grid;place-items:center;width:44px;height:44px;padding:0;color:#211F1B}
+ .stormMobileMenu{top:70px;max-height:calc(100dvh - 70px);overflow-y:auto;padding:16px 22px 24px;box-shadow:0 18px 36px #211F1B22}
+ .stormMobileMenu a{min-height:48px;display:flex;align-items:center;padding:13px 2px;font-size:11px}
+ .stormMobileMenu button{min-height:48px;margin-top:16px;padding:14px 16px}
+ .stormHero{display:block;min-height:0;padding:62px 20px 94px}
+ .stormHero h1{font-size:clamp(58px,13.6vw,88px);line-height:.88;letter-spacing:-.09em;margin:34px 0 23px;overflow-wrap:anywhere}
+ .stormHeroCopy>p{max-width:100%;font-size:13px;line-height:1.75}
+ .stormHeroActions{gap:14px;margin-top:27px;align-items:flex-start}
+ .stormHeroActions button{min-height:48px;padding:14px 15px;gap:14px}
+ .stormHeroActions a{min-height:48px}
+ .stormHeroAside{position:relative;right:auto;bottom:auto;justify-self:auto;width:100%;max-width:none;height:220px;margin:34px 0 0;padding:16px;opacity:.85}
+ .stormHeroAside:before{width:250px;height:250px}
+ .stormHeroAside:after{width:185px;height:185px}
+ .stormHeroBottom{left:20px;right:20px;bottom:20px;gap:8px;font-size:7px;letter-spacing:.08em}
+ .stormHeroBottom i{width:24px;flex:0 0 24px}
+ .stormMarquee{margin-top:0}
+ .veltrixFacts{grid-template-columns:repeat(2,minmax(0,1fr));padding:18px 16px}
+ .veltrixFacts>div{min-width:0;padding:13px 9px}
+ .veltrixFacts strong{font-size:clamp(27px,8vw,38px)}
+ .veltrixFacts span{font-size:7px;letter-spacing:.08em}
+ .stormSection{padding:68px 20px}
+ .stormSectionTop{font-size:7px;letter-spacing:.1em;gap:10px}
+ .stormWorkIntro,.stormServicesIntro,.stormProcessIntro,.stormTrustIntro,.stormFaqIntro{margin:34px 0}
+ .stormWorkIntro h2,.stormServicesIntro h2,.stormProcessIntro h2,.stormTrustIntro h2,.stormFaqIntro h2{font-size:clamp(48px,12.5vw,76px);line-height:.9;overflow-wrap:anywhere}
+ .stormWorkIntro p,.stormServicesIntro p,.stormProcessIntro p,.stormTrustIntro p,.stormFaqIntro p{font-size:12px;line-height:1.8}
+ .stormProjectGrid{grid-template-columns:minmax(0,1fr);gap:28px}
+ .stormProjectVisual,.stormProject--feature .stormProjectVisual{width:100%;aspect-ratio:1.08}
+ .stormProjectMeta{gap:12px}
+ .stormProjectMeta h3{font-size:18px}
+ .stormServiceCard{grid-template-columns:28px minmax(0,1fr);gap:10px;padding:20px 2px}
+ .stormServiceCard h3{font-size:17px}
+ .stormServiceCard p{font-size:11px;line-height:1.7}
+ .stormServiceBottom{flex-wrap:wrap}
+ .stormStudioGrid{grid-template-columns:minmax(0,1fr);gap:30px}
+ .stormStudioArt{width:100%;min-height:300px}
+ .stormStudioCopy h2{font-size:clamp(48px,12vw,74px);line-height:.92}
+ .stormSteps{grid-template-columns:minmax(0,1fr)}
+ .stormSteps article,.stormSteps article+article{grid-template-columns:30px 12px minmax(0,1fr);gap:9px}
+ .stormSteps p{font-size:11px;line-height:1.7}
+ .stormTrustGrid{grid-template-columns:minmax(0,1fr)}
+ .stormTestimonialBody h2{font-size:clamp(58px,14vw,90px);overflow-wrap:anywhere}
+ .stormInsightsBody{grid-template-columns:minmax(0,1fr)}
+ .stormInsightCard{min-width:0}
+ .stormArticleGrid{grid-template-columns:minmax(0,1fr)}
+ .stormFaqItem>button{gap:15px;font-size:14px;line-height:1.45}
+ .stormFaqItem>button svg{width:18px;height:18px;flex:0 0 18px}
+ .stormContact{grid-template-columns:minmax(0,1fr);gap:26px;padding:68px 20px 76px}
+ .stormContact h2{font-size:clamp(52px,13vw,78px);line-height:.9;overflow-wrap:anywhere}
+ .stormContactActions{display:flex;flex-wrap:wrap;gap:10px}
+ .stormContactActions button{min-height:48px;padding:14px 15px}
+ .veltrixInlineForm{width:100%;padding:18px;box-shadow:7px 7px 0 #211F1B}
+ .veltrixInlineForm input,.veltrixInlineForm select,.veltrixInlineForm textarea{min-width:0;width:100%;font-size:16px}
+ .veltrixInlineForm .formPair{grid-template-columns:minmax(0,1fr)}
+ .stormFooter{padding:38px 20px 20px}
+ .stormFooterTop{grid-template-columns:minmax(0,1fr);gap:24px;padding-bottom:32px}
+ .stormFooterTop>div,.stormFooterSignup{width:100%;max-width:none;min-width:0}
+ .stormFooterSignup form{width:100%}
+ .stormFooterSignup input{min-width:0}
+ .stormFooterBottom{font-size:7px;line-height:1.6}
+ .overlay{padding:12px}
+ .previewModal,.quoteModal{width:100%;max-width:100%;max-height:calc(100dvh - 24px);overflow-y:auto;padding:18px}
+ .previewCanvas{height:210px;padding:18px}
+ .inquiryForm input,.inquiryForm select,.inquiryForm textarea{font-size:16px}
+}
+@media(max-width:390px){
+ .stormHero{padding-inline:17px}
+ .stormHero h1{font-size:clamp(52px,13.2vw,60px)}
+ .stormHeroBottom{left:17px;right:17px;font-size:6px}
+ .stormSection{padding-inline:17px}
+ .stormContact{padding-inline:17px}
+ .stormFooter{padding-inline:17px}
+ .stormProjectMeta h3{font-size:16px}
+ .stormContactActions button{font-size:8px}
+}

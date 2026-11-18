@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     const input = messages.map((item: { role: "user" | "assistant"; content: string }) => ({
       role: item.role,
-      content: [{ type: item.role === "assistant" ? "output_text" : "input_text", text: item.content.trim() }],
+      content: item.content.trim(),
     }));
 
     const upstream = await fetch("https://api.openai.com/v1/responses", {

@@ -5,15 +5,16 @@ const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 const SECRET = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 function headers() { return { apikey: SECRET || "", Authorization: `Bearer ${SECRET || ""}`, "Content-Type": "application/json" }; }
-async function hydrateAttachments(rows: any[]) {
+async function hydrateAttachments(rows: Record<string, unknown>[]) {
   return Promise.all((rows || []).map(async (row) => {
-    const match = typeof row.body === "string" ? row.body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
+    const body = typeof row.body === "string" ? row.body : "";
+    const match = body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
     if (!match) return row;
     const path = match[1];
     const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: headers(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });
     const result = await signed.json().catch(() => ({}));
     const url = signed.ok ? (result.signedURL?.startsWith("http") ? result.signedURL : URL + "/storage/v1" + result.signedURL) : null;
-    return { ...row, body: row.body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
+    return { ...row, body: body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
   }));
 }
 

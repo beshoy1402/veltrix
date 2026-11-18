@@ -1672,3 +1672,47 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
 .stormServiceCardActions>button:hover{color:#A88F75}
 .estimateHelper{font-size:10px;line-height:1.7;color:#777066;margin-top:12px}
 @media(max-width:700px){.stormServiceCardActions{grid-column:2;gap:14px}.stormServiceCardActions>button,.stormServiceCardActions>a{font-size:7px}}
+
+
+/* VELTRIX — STUDIO / FOUNDERS EXPERIENCE */
+.stormStudioLinks{display:flex;gap:22px;flex-wrap:wrap}
+.stormStudioLinks a{display:inline-flex;align-items:center;gap:9px;color:#211F1B;text-decoration:none;font:8px "DM Mono",monospace;letter-spacing:.12em;border-bottom:1px solid #A88F75;padding:0 0 10px}
+.stormStudioLinks a:hover{color:#A88F75}
+.veltrixStudioHero{position:relative;overflow:hidden;min-height:720px;padding:100px 10vw;background:#211F1B;color:#E9E1D4}
+.veltrixStudioHero>span,.veltrixStudioManifesto>span,.veltrixFoundersHeading>span,.veltrixFounders article>div>small,.veltrixStudioMethod>span,.veltrixStudioEnd>span{font:8px "DM Mono",monospace;letter-spacing:.15em;color:#A88F75}
+.veltrixStudioHero h1{font-size:clamp(70px,11vw,160px);letter-spacing:-.1em;line-height:.83;margin:55px 0 30px;max-width:950px;position:relative;z-index:1}
+.veltrixStudioHero>p{max-width:510px;font-size:14px;line-height:1.9;color:#E9E1D4a8;position:relative;z-index:1}
+.veltrixStudioOrbit{position:absolute;right:4vw;bottom:-170px;width:510px;aspect-ratio:1;border:1px solid #A88F7550;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 0 45px #A88F7508,0 0 0 90px #A88F7505}
+.veltrixStudioOrbit:before,.veltrixStudioOrbit:after{content:"";position:absolute;inset:12%;border:1px solid #A88F7540;border-radius:50%;transform:rotateX(65deg) rotate(25deg)}
+.veltrixStudioOrbit:after{transform:rotateX(65deg) rotate(-45deg)}
+.veltrixStudioOrbit>div{width:190px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 25%,#d6c3a8,#8f755f 40%,#211F1B 76%);display:grid;place-items:center;box-shadow:inset -25px -25px 45px #0009,0 25px 70px #0008;transform:translateZ(60px)}
+.veltrixStudioOrbit>div span{font:italic 125px Georgia,serif;color:#211F1B}
+.veltrixStudioOrbit>i{position:absolute;width:72%;height:28%;border:1px solid #A88F75;border-radius:50%;transform:rotate(-25deg)}
+.veltrixStudioOrbit>b{position:absolute;bottom:70px;font:8px "DM Mono",monospace;letter-spacing:.14em;color:#A88F75}
+.veltrixStudioManifesto{padding:125px 12vw;display:grid;grid-template-columns:.5fr 1.5fr .5fr;gap:35px;align-items:start}
+.veltrixStudioManifesto h2{font-size:clamp(34px,4.5vw,66px);line-height:1.08;letter-spacing:-.065em;margin:0}
+.veltrixStudioManifesto>p{font:8px "DM Mono",monospace;letter-spacing:.12em;color:#777066;line-height:1.8}
+.veltrixFounders{padding:110px 12vw;background:#D8CDBD}
+.veltrixFoundersHeading{display:grid;grid-template-columns:.5fr 1fr;gap:5vw;margin-bottom:65px}
+.veltrixFoundersHeading h2,.veltrixStudioMethod h2,.veltrixStudioEnd h2{font-size:clamp(48px,7vw,100px);line-height:.9;letter-spacing:-.08em;margin:0}
+.veltrixFoundersHeading h2 em,.veltrixStudioMethod h2 em,.veltrixStudioEnd h2 em{font-family:Georgia,serif;font-weight:400}
+.veltrixFounders article{display:grid;grid-template-columns:.75fr 1fr;gap:8vw;padding:35px 0;border-top:1px solid #211F1B35}
+.veltrixFounderMonogram{height:310px;background:linear-gradient(140deg,#B9A48B,#75614f);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.veltrixFounderMonogram:before,.veltrixFounderMonogram:after{content:"";position:absolute;width:78%;aspect-ratio:1;border:1px solid #211F1B45;border-radius:50%;transform:rotateX(65deg) rotate(30deg)}
+.veltrixFounderMonogram:after{transform:rotateX(65deg) rotate(-35deg);width:60%}
+.veltrixFounderMonogram>span{font-size:100px;font-weight:700;letter-spacing:-.12em;color:#211F1B;position:relative;z-index:1}
+.veltrixFounderMonogram>i{position:absolute;left:18px;bottom:17px;font:8px "DM Mono",monospace;letter-spacing:.13em;color:#211F1B}
+.veltrixFounderMonogram.founderAlt{background:linear-gradient(140deg,#8D9487,#4C574E)}
+.veltrixFounders article>div:last-child{align-self:center;max-width:540px}
+.veltrixFounders article h3{font-size:clamp(42px,5vw,72px);letter-spacing:-.08em;margin:20px 0}
+.veltrixFounders article p{font-size:13px;line-height:1.9;color:#625b51}
+.veltrixFounders article>div:last-child>span{font:8px "DM Mono",monospace;letter-spacing:.12em;color:#777066}
+.veltrixStudioMethod{padding:115px 12vw;display:grid;grid-template-columns:.6fr 1fr 1fr;gap:5vw}
+.veltrixStudioMethod>div{grid-column:2/-1;border-top:1px solid #211F1B30}
+.veltrixStudioMethod>div p{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #211F1B30;font-size:12px;line-height:1.7;color:#777066}
+.veltrixStudioMethod>div b{font:8px "DM Mono",monospace;color:#A88F75}
+.veltrixStudioEnd{padding:110px 12vw;background:#211F1B;color:#E9E1D4;display:grid;grid-template-columns:.6fr 1fr 1fr;gap:5vw;align-items:start}
+.veltrixStudioEnd h2{font-size:clamp(52px,7vw,100px)}
+.veltrixStudioEnd>a{grid-column:2/-1;display:flex;align-items:center;gap:12px;width:max-content;color:#E9E1D4;text-decoration:none;border-bottom:1px solid #A88F75;padding-bottom:12px;font:8px "DM Mono",monospace;letter-spacing:.14em}
+@media(max-width:800px){.veltrixStudioHero{min-height:620px;padding:85px 7vw}.veltrixStudioOrbit{width:350px;right:-90px;bottom:-110px;opacity:.7}.veltrixStudioManifesto,.veltrixFoundersHeading,.veltrixFounders article,.veltrixStudioMethod,.veltrixStudioEnd{grid-template-columns:1fr;padding:75px 7vw;gap:25px}.veltrixStudioMethod>div,.veltrixStudioEnd>a{grid-column:1}.veltrixFounderMonogram{height:260px}}
+@media(max-width:600px){.veltrixStudioHero{padding:70px 22px;min-height:590px}.veltrixStudioHero h1{font-size:clamp(58px,14vw,90px);margin:40px 0 24px}.veltrixStudioOrbit{width:260px;right:-85px;bottom:-80px}.veltrixStudioOrbit>div{width:110px}.veltrixStudioOrbit>div span{font-size:75px}.veltrixStudioManifesto,.veltrixFounders,.veltrixStudioMethod,.veltrixStudioEnd{padding:65px 22px}.veltrixFoundersHeading{padding:0;gap:20px}.veltrixFoundersHeading h2,.veltrixStudioMethod h2,.veltrixStudioEnd h2{font-size:clamp(44px,12vw,70px)}.veltrixFounders article{padding:28px 0;gap:25px}.veltrixFounderMonogram{height:230px}.veltrixFounders article h3{font-size:48px}.veltrixStudioMethod>div p{grid-template-columns:1fr;gap:8px}}

@@ -3,6 +3,7 @@
 import {useState, useEffect, type FormEvent} from "react";
 import {ArrowDownRight,ArrowUpRight,ArrowRight,Globe2,Menu,X,Play,Check,Asterisk} from "lucide-react";
 import AgencySections from "./components/AgencySections";
+import CinematicEnhancements from "./components/CinematicEnhancements";
 
 const services=[
  {n:"01",name:"Websites & digital experiences",desc:"Distinctive, high-performing websites that turn attention into action.",price:"30,000",tag:"WEBSITES · BRAND · EXPERIENCE"},
@@ -74,12 +75,13 @@ export default function Home(){
  };
  const shown=filter==="All"?projects:projects.filter(p=>p.category===filter);
  return <main className={ar?"site stormSite arabic":"site stormSite"} dir={ar?"rtl":"ltr"}>
+  <CinematicEnhancements/>
   <header className="stormHeader">
    <a className="stormLogo" href="#">VELTRIX<span>®</span></a>
-   <nav className="stormNav"><a href="#work">{ar?"الأعمال":"Selected work"}</a><a href="#services">{ar?"الخدمات":"Capabilities"}</a><a href="#studio">{ar?"الاستوديو":"The studio"}</a><a href="#insights">{ar?"الأفكار":"Perspectives"}</a></nav>
+   <nav className="stormNav"><a href="#work">{ar?"الأعمال":"Selected work"}</a><a href="#services">{ar?"الخدمات":"Capabilities"}</a><a href="#studio">{ar?"الاستوديو":"The studio"}</a><a href="#insights">{ar?"الأفكار":"Perspectives"}</a><a href="/quote-estimator">{ar?"تقدير التكلفة":"Project estimate"}</a></nav>
    <div className="stormHeaderActions"><button className="stormLang" onClick={()=>setLang(ar?"en":"ar")}><Globe2 size={15}/>{ar?"EN":"AR"}</button><button className="stormHeaderCta" onClick={()=>setQuote(true)}>{ar?"ابدأ مشروعك":"Start a project"}<ArrowUpRight size={16}/></button><button className="stormMenu" onClick={()=>setMenu(!menu)} aria-label="Toggle menu">{menu?<X/>:<Menu/>}</button></div>
   </header>
-  {menu&&<div className="stormMobileMenu"><a href="#work" onClick={()=>setMenu(false)}>{ar?"الأعمال":"Selected work"}</a><a href="#services" onClick={()=>setMenu(false)}>{ar?"الخدمات":"Capabilities"}</a><a href="#studio" onClick={()=>setMenu(false)}>{ar?"الاستوديو":"The studio"}</a><a href="#insights" onClick={()=>setMenu(false)}>{ar?"الأفكار":"Perspectives"}</a><button onClick={()=>{setMenu(false);setQuote(true)}}>{ar?"ابدأ مشروعك":"Start a project"}<ArrowUpRight size={16}/></button></div>}
+  {menu&&<div className="stormMobileMenu"><a href="#work" onClick={()=>setMenu(false)}>{ar?"الأعمال":"Selected work"}</a><a href="#services" onClick={()=>setMenu(false)}>{ar?"الخدمات":"Capabilities"}</a><a href="#studio" onClick={()=>setMenu(false)}>{ar?"الاستوديو":"The studio"}</a><a href="#insights" onClick={()=>setMenu(false)}>{ar?"الأفكار":"Perspectives"}</a><a href="/quote-estimator" onClick={()=>setMenu(false)}>{ar?"تقدير التكلفة":"Project estimate"}</a><button onClick={()=>{setMenu(false);setQuote(true)}}>{ar?"ابدأ مشروعك":"Start a project"}<ArrowUpRight size={16}/></button></div>}
   <section className="stormHero">
    <div className="stormHeroImage" aria-hidden="true"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=2000&q=90" alt=""/></div>
    <div className="stormHeroNoise"/>
@@ -112,14 +114,14 @@ export default function Home(){
      <img src={p.slug==="noura-beauty"?"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=1300&q=90":p.slug==="thread-house"?"https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1300&q=90":"https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1300&q=90"} alt={p.name+" concept preview"}/>
      <span className="stormProjectNumber">0{i+1} / CONCEPT</span><span className="stormProjectOpen">OPEN CASE <ArrowUpRight size={15}/></span><span className="stormProjectOverlay"><small>{p.category} / DIGITAL EXPERIENCE</small><b>{p.name}</b></span>
     </button>
-    <div className="stormProjectMeta"><div><span>{p.type}</span><h3>{p.name}</h3></div><button onClick={()=>setPreview(p)} aria-label={"View "+p.name}><ArrowUpRight size={19}/></button></div>
+    <div className="stormProjectMeta"><div><span>{p.type}</span><h3>{p.name}</h3></div><div className="stormProjectMetaActions"><a href={"/work/"+p.slug} aria-label={"Read "+p.name+" case study"}>{ar?"دراسة الحالة":"CASE STUDY"} <ArrowUpRight size={15}/></a><button onClick={()=>setPreview(p)} aria-label={"View "+p.name}><ArrowUpRight size={19}/></button></div></div>
    </article>)}</div>
    <div className="stormWorkFoot"><span>CONCEPT WORK / FICTIONAL BRANDS</span><span>HAVE A PROJECT IN MIND?</span><a href="#contact">Let's talk <ArrowUpRight size={15}/></a></div>
   </section>
   <section className="stormServices stormSection" id="services">
    <div className="stormSectionTop"><span>02 — {ar?"خدماتنا":"OUR SERVICES"}</span><span>{ar?"من الفكرة إلى التنفيذ":"IDEA / STRATEGY / EXECUTION"}</span></div>
    <div className="stormServicesIntro"><h2>{ar?<>نصمم بهدف.<br/><em>وننفذ بتأثير.</em></>:<>Creative by nature.<br/><em>Built for impact.</em></>}</h2><p>{ar?"من المواقع والمتاجر إلى التطبيقات والذكاء الاصطناعي، نبني حلولاً رقمية متكاملة تناسب أهدافك.":"From high-impact websites and online stores to custom platforms and AI solutions, we build the digital tools your business needs to move forward."}</p></div>
-   <div className="stormServiceGrid">{services.map((s,i)=><article className="stormServiceCard" key={s.n}><div className="stormServiceTop"><span>{s.n}</span><ArrowUpRight size={18}/></div><h3>{ar?["المواقع والتجارب الرقمية","التجارة الإلكترونية","تطبيقات ومنصات الويب","تصميم UI/UX والمنتجات","الذكاء الاصطناعي والأتمتة","النمو الرقمي والدعم"][i]:s.name}</h3><p>{ar?["مواقع سريعة ومميزة تحول الزوار إلى عملاء.","متاجر رقمية وتجارب شراء مصممة للنمو.","بوابات ولوحات تحكم ومنصات لسير العمل.","واجهات واضحة تجعل المنتجات سهلة الاستخدام.","حلول ذكية وأتمتة تساعد أعمالك على التطور.","تحسين مستمر وأداء أفضل ودعم بعد الإطلاق."][i]:s.desc}</p><div className="stormServiceBottom"><span>{ar?"يبدأ من":"FROM"}</span><b>EGP {getStartingPrice(s).toLocaleString("en-US")}+</b></div><button onClick={()=>{setForm({...form,service:s.name});setQuote(true)}}>{ar?"ناقش هذه الخدمة":"DISCUSS THIS SERVICE"} <ArrowUpRight size={13}/></button></article>)}</div>
+   <div className="stormServiceGrid">{services.map((s,i)=><article className="stormServiceCard" key={s.n}><div className="stormServiceTop"><span>{s.n}</span><ArrowUpRight size={18}/></div><h3>{ar?["المواقع والتجارب الرقمية","التجارة الإلكترونية","تطبيقات ومنصات الويب","تصميم UI/UX والمنتجات","الذكاء الاصطناعي والأتمتة","النمو الرقمي والدعم"][i]:s.name}</h3><p>{ar?["مواقع سريعة ومميزة تحول الزوار إلى عملاء.","متاجر رقمية وتجارب شراء مصممة للنمو.","بوابات ولوحات تحكم ومنصات لسير العمل.","واجهات واضحة تجعل المنتجات سهلة الاستخدام.","حلول ذكية وأتمتة تساعد أعمالك على التطور.","تحسين مستمر وأداء أفضل ودعم بعد الإطلاق."][i]:s.desc}</p><div className="stormServiceBottom"><span>{ar?"يبدأ من":"FROM"}</span><b>EGP {getStartingPrice(s).toLocaleString("en-US")}+</b></div><div className="stormServiceCardActions"><button onClick={()=>{setForm({...form,service:s.name});setQuote(true)}}>{ar?"ناقش هذه الخدمة":"DISCUSS THIS SERVICE"} <ArrowUpRight size={13}/></button><a href={"/services/"+["websites","ecommerce","web-applications","ui-ux","ai-automation","digital-growth"][i]}>{ar?"تفاصيل الخدمة":"EXPLORE SERVICE"} <ArrowUpRight size={13}/></a></div></article>)}</div>
    <p className="stormPriceNote">{ar?"الأسعار المبدئية إرشادية. يتم تحديد نطاق كل مشروع وفق أهدافك ومتطلباتك.":"Starting prices are indicative. Every engagement is scoped around your goals, timeline and requirements."}</p>
   </section>
   <section className="stormStudio stormSection" id="studio">

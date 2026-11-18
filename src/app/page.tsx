@@ -74,7 +74,6 @@ export default function Home(){
  };
  const shown=filter==="All"?projects:projects.filter(p=>p.category===filter);
  return <main className={ar?"site stormSite arabic":"site stormSite"} dir={ar?"rtl":"ltr"}>
-  <div className="stormAnnouncement"><span className="stormLiveDot"/> DIGITAL STUDIO <span className="stormAnnouncementLine"/> CAIRO, EGYPT <span className="stormAnnouncementRight">INDEPENDENT BY DESIGN · BUILT FOR WHAT'S NEXT</span></div>
   <header className="stormHeader">
    <a className="stormLogo" href="#">VELTRIX<span>®</span></a>
    <nav className="stormNav"><a href="#work">{ar?"الأعمال":"Selected work"}</a><a href="#services">{ar?"الخدمات":"Capabilities"}</a><a href="#studio">{ar?"الاستوديو":"The studio"}</a><a href="#insights">{ar?"الأفكار":"Perspectives"}</a></nav>

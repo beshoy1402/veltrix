@@ -47,7 +47,8 @@ export default function Home(){
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({name:form.name,email:form.email,phone:form.phone,company:form.company,service_interest:form.service,budget:form.budget,message:form.message})
    });
-   const result=await response.json();\n   if(!response.ok)throw new Error(result.error||"Unable to submit your enquiry.");
+   const result=await response.json();
+   if(!response.ok)throw new Error(result.error||"Unable to submit your enquiry.");
    setSent(true);
    try{let sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"inquiry_submit",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}
   }catch(error){setFormError(error instanceof Error?error.message:"Something went wrong. Please try again.");}

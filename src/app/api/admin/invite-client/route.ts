@@ -30,25 +30,23 @@ export async function POST(request: NextRequest) {
     const name = String(input.name || "").trim();
     const email = String(input.email || "").trim().toLowerCase();
     const projectName = String(input.project_name || "").trim();
+    const password = String(input.password || "");
     const summary = String(input.summary || "").trim();
     const dueDate = input.due_date ? String(input.due_date) : null;
     if (!name || !email || !projectName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Enter a valid client name, email, and project name." }, { status: 400 });
     }
 
-    const inviteUrl = new URL(`${url}/auth/v1/invite`);
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin;
-    inviteUrl.searchParams.set("redirect_to", `${siteUrl}/client`);
-    const invite = await fetch(inviteUrl, {
+    const createUser = await fetch(`${url}/auth/v1/admin/users`, {
       method: "POST",
       headers: { apikey: secretKey, Authorization: `Bearer ${secretKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ email, data: { full_name: name, account_type: "client" } }),
+      body: JSON.stringify({ email, password, email_confirm: true, user_metadata: { full_name: name, account_type: "client" } }),
       cache: "no-store",
     });
-    const invited = await invite.json();
-    if (!invite.ok) {
-      const detail = invited.msg || invited.message || invited.error_description || "Invitation could not be sent.";
-      return NextResponse.json({ error: detail }, { status: invite.status });
+    const invited = await createUser.json();
+    if (!createUser.ok) {
+      const detail = invited.msg || invited.message || invited.error_description || invited.code || "Client account could not be created.";
+      return NextResponse.json({ error: detail }, { status: createUser.status });
     }
 
     const userId = invited.id;
@@ -65,7 +63,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: `The client account was invited, but project creation failed. Check the client in Supabase Auth; database response: ${detail}` }, { status: 502 });
     }
 
-    return NextResponse.json({ message: `Invitation sent to ${email}. The client can set their password from the email and sign in at /client.`, user_id: userId });
+    return NextResponse.json({ message: `Client account created for ${email}. They can sign in at /client using the credentials you provide.`, user_id: userId });
   } catch (error) {
     console.error("Client invitation failed", error);
     return NextResponse.json({ error: "Unexpected server error while inviting this client." }, { status: 500 });

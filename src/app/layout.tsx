@@ -1,5 +1,6 @@
 import type {Metadata,Viewport} from "next";
 import "./globals.css";
+import VeltrixAgent from "./components/VeltrixAgent";
 
 const siteUrl="https://veltrix-lac.vercel.app";
 export const metadata:Metadata={
@@ -15,4 +16,4 @@ export const metadata:Metadata={
  robots:{index:true,follow:true,googleBot:{index:true,follow:true,"max-image-preview":"large","max-snippet":-1,"max-video-preview":-1}}
 };
 export const viewport:Viewport={themeColor:"#211F1B",colorScheme:"light"};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>;}
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}<VeltrixAgent/></body></html>;}

@@ -338,11 +338,11 @@ export default function AdminPage() {
     const columns = Array.from(new Set(rows.flatMap(row => Object.keys(row))));
     const cell = (value: unknown) => {
       const raw = value == null ? "" : typeof value === "object" ? JSON.stringify(value) : String(value);
-      return `"${raw.replace(/"/g, '""')}"`;
+      return \`"\${raw.split('"').join('""')}"\`;
     };
     const csv = [columns.map(cell).join(","), ...rows.map(row => columns.map(key => cell(row[key])).join(","))].join("\\r\\n");
     const url = URL.createObjectURL(new Blob(["\\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
-    const anchor = document.createElement("a"); anchor.href = url; anchor.download = `veltrix-${label}-${new Date().toISOString().slice(0,10)}.csv`; anchor.click(); URL.revokeObjectURL(url);
+    const anchor = document.createElement("a"); anchor.href = url; anchor.download = \`veltrix-\${label}-\${new Date().toISOString().slice(0,10)}.csv\`; anchor.click(); URL.revokeObjectURL(url);
   }
 
   const pageViews = data.events.filter(x => x.event_type === "page_view");

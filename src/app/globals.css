@@ -1666,3 +1666,9 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
  .estimatorFeatures button{padding:15px 10px}.estimateContact{grid-template-columns:1fr}.estimatePrice{padding:20px}.estimatePrice strong{font-size:28px}.estimatorNav{gap:10px}.estimatorNav .next{padding:14px}
 }
 @media(prefers-reduced-motion:reduce){.veltrixAtmosphere span{animation:none}.storm3dScene{transition:none}.veltrix-reveal{opacity:1;transform:none;transition:none}}
+
+
+.stormServiceCardActions>button{display:flex;align-items:center;gap:8px;background:transparent;border:0;color:#211F1B;padding:10px 0;font:8px "DM Mono",monospace;letter-spacing:.12em;cursor:pointer}
+.stormServiceCardActions>button:hover{color:#A88F75}
+.estimateHelper{font-size:10px;line-height:1.7;color:#777066;margin-top:12px}
+@media(max-width:700px){.stormServiceCardActions{grid-column:2;gap:14px}.stormServiceCardActions>button,.stormServiceCardActions>a{font-size:7px}}

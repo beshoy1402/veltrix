@@ -5,6 +5,18 @@ const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 const SECRET = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 function headers() { return { apikey: SECRET || "", Authorization: `Bearer ${SECRET || ""}`, "Content-Type": "application/json" }; }
+async function hydrateAttachments(rows: any[]) {
+  return Promise.all((rows || []).map(async (row) => {
+    const match = typeof row.body === "string" ? row.body.match(/^\\[\\[VELTRIX_IMAGE:([^|]+)\\|([^|]*)\\|([^|]*)\\]\\]\\n?/) : null;
+    if (!match) return row;
+    const path = match[1];
+    const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: headers(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });
+    const result = await signed.json().catch(() => ({}));
+    const url = signed.ok ? (result.signedURL?.startsWith("http") ? result.signedURL : URL + "/storage/v1" + result.signedURL) : null;
+    return { ...row, body: row.body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
+  }));
+}
+
 async function admin(request: NextRequest) {
   const auth = request.headers.get("authorization") || "";
   if (!URL || !PUBLIC_KEY || !auth.startsWith("Bearer ")) return false;
@@ -30,7 +42,7 @@ export async function GET(request: NextRequest) {
     const r = await fetch(`${URL}/rest/v1/support_messages?select=*&conversation_id=eq.${encodeURIComponent(id)}&order=created_at.asc&limit=300`, { headers: headers(), cache: "no-store" });
     const messages = await r.json();
     if (!r.ok) throw new Error(JSON.stringify(messages));
-    return NextResponse.json({ messages });
+    return NextResponse.json({ messages: await hydrateAttachments(messages) });
   } catch (error) {
     console.error("Support messages load failed", error);
     return NextResponse.json({ error: "Could not load messages." }, { status: 500 });
@@ -41,10 +53,24 @@ export async function POST(request: NextRequest) {
   try {
     const input = await request.json();
     const id = typeof input.id === "string" ? input.id : "";
-    const body = typeof input.body === "string" ? input.body.trim().slice(0, 4000) : "";
+    let body = typeof input.body === "string" ? input.body.trim().slice(0, 4000) : "";
     const access = typeof input.access_token === "string" ? input.access_token : "";
+    let attachmentPath = "";
+    if (input.attachment && typeof input.attachment.data === "string") {
+      const file = input.attachment;
+      const name = typeof file.name === "string" ? file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0,120) : "image";
+      const mime = typeof file.type === "string" ? file.type : "";
+      const base64 = file.data.replace(/^data:[^,]+,/, "");
+      const bytes = Buffer.from(base64, "base64");
+      const valid = mime === "image/jpeg" && bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255 || mime === "image/png" && bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])) || mime === "image/webp" && bytes.toString("ascii",0,4)==="RIFF" && bytes.toString("ascii",8,12)==="WEBP";
+      if (!valid || bytes.length > 6 * 1024 * 1024) return NextResponse.json({ error: "Attach a JPG, PNG or WEBP image up to 6 MB." }, { status: 400 });
+      attachmentPath = `${id}/${crypto.randomUUID()}-${name}`;
+      const upload = await fetch(`${URL}/storage/v1/object/support-attachments/${attachmentPath.split("/").map(encodeURIComponent).join("/")}`, { method:"POST", headers:{apikey:SECRET,Authorization:`Bearer ${SECRET}`,"Content-Type":mime,"x-upsert":"false"}, body:bytes });
+      if (!upload.ok) throw new Error("Image upload failed: " + await upload.text());
+      body = `[[VELTRIX_IMAGE:${attachmentPath}|${name}|${mime}]]\\n${body}`;
+    }
     const isAdmin = await admin(request);
-    if (!id || !body) return NextResponse.json({ error: "Write a message first." }, { status: 400 });
+    if (!id || (!body && !attachmentPath)) return NextResponse.json({ error: "Write a message or attach an image." }, { status: 400 });
     if (!isAdmin) {
       if (!access) return NextResponse.json({ error: "Conversation access is required." }, { status: 401 });
       const check = await fetch(`${URL}/rest/v1/support_conversations?select=id&id=eq.${encodeURIComponent(id)}&access_token=eq.${encodeURIComponent(access)}&status=neq.closed&limit=1`, { headers: headers(), cache: "no-store" });

@@ -32,14 +32,14 @@ export async function GET(request: NextRequest) {
   try {
     const uid = encodeURIComponent(session.user.id);
     const tasks = await read("team_tasks?select=*&assigned_to=eq." + uid + "&order=due_date.asc.nullslast,created_at.desc&limit=100");
-    const announcements = await read("team_announcements?select=*&order=created_at.desc&limit=30");
+    const announcements = await read("team_announcements?select=*&or=(audience.eq.all,audience.eq." + session.role + ")&order=created_at.desc&limit=30");
     const result: Record<string, unknown> = { role: session.role, profile: { id: session.user.id, email: session.user.email, name: session.user.user_metadata?.full_name || "" }, tasks, announcements };
     if (session.role === "marketing" || session.role === "admin") {
       result.inquiries = await read("inquiries?select=id,name,email,phone,company,service_interest,budget,status,created_at&order=created_at.desc&limit=100");
       result.campaigns = await read("marketing_campaigns?select=*&order=created_at.desc&limit=100");
     }
     if (session.role === "designer" || session.role === "admin") result.assets = await read("design_assets?select=*&order=created_at.desc&limit=100");
-    if (session.role === "developer" || session.role === "admin") result.projects = await read("client_projects?select=id,name,summary,status,progress,due_date,updated_at&order=updated_at.desc&limit=100");
+    if (session.role === "developer" || session.role === "admin") {\n      const projectIds = [...new Set((tasks as Array<Record<string, unknown>>).map(task => String(task.project_id || "")).filter(Boolean))];\n      result.projects = projectIds.length ? await read("client_projects?select=id,name,summary,status,progress,due_date,updated_at&id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=updated_at.desc") : [];\n    }
     return NextResponse.json(result);
   } catch (error) {
     console.error("Team workspace load failed", error);
@@ -85,7 +85,7 @@ export async function PATCH(request: NextRequest) {
     const id = String(input.id || "");
     const status = String(input.status || "");
     if (!id || !["todo", "in_progress", "review", "done"].includes(status)) return NextResponse.json({ error: "Invalid task update." }, { status: 400 });
-    const response = await fetch(URL + "/rest/v1/team_tasks?id=eq." + encodeURIComponent(id) + "&assigned_to=eq." + encodeURIComponent(session.user.id), {
+    const response = await fetch(URL + "/rest/v1/team_tasks?id=eq." + encodeURIComponent(id) + "&assigned_to=eq." + encodeURIComponent(session.user.id) + "&department=eq." + session.role, {
       method: "PATCH", headers: headers({ "Content-Type": "application/json", Prefer: "return=representation" }),
       body: JSON.stringify({ status, updated_at: new Date().toISOString() }),
     });

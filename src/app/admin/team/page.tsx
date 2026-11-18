@@ -62,6 +62,7 @@ export default function TeamManagementPage(){
       <label>Department<select value={taskForm.department} onChange={e=>setTaskForm({...taskForm,department:e.target.value,assigned_to:""})}><option value="marketing">Marketing</option><option value="developer">Developer</option><option value="designer">Designer</option></select></label>
       <label>Assign to<select required value={taskForm.assigned_to} onChange={e=>setTaskForm({...taskForm,assigned_to:e.target.value})}><option value="">Choose member</option>{members.filter(member=>member.role===taskForm.department).map(member=><option key={member.id} value={member.id}>{member.name||member.email}</option>)}</select></label>
      </div>
+     <label>Linked client project<select value={taskForm.project_id} onChange={e=>setTaskForm({...taskForm,project_id:e.target.value})}><option value="">No project link</option>{projects.map(project=><option key={project.id} value={project.id}>{project.name}</option>)}</select></label>
      <div className="teamFormRow">
       <label>Priority<select value={taskForm.priority} onChange={e=>setTaskForm({...taskForm,priority:e.target.value})}><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></label>
       <label>Due date<input type="date" value={taskForm.due_date} onChange={e=>setTaskForm({...taskForm,due_date:e.target.value})}/></label>

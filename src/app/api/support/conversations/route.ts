@@ -21,7 +21,19 @@ async function isAdmin(request: NextRequest) {
 function clean(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
-export async function GET(request: NextRequest) {
+
+async function hydrateAttachments(rows: any[]) {
+  return Promise.all((rows || []).map(async (row) => {
+    const match = typeof row.body === "string" ? row.body.match(/^\\[\\[VELTRIX_IMAGE:([^|]+)\\|([^|]*)\\|([^|]*)\\]\\]\\n?/) : null;
+    if (!match) return row;
+    const path = match[1];
+    const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: dbHeaders(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });
+    const result = await signed.json().catch(() => ({}));
+    const url = signed.ok ? (result.signedURL?.startsWith("http") ? result.signedURL : URL + "/storage/v1" + result.signedURL) : null;
+    return { ...row, body: row.body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
+  }));
+}
+\nexport async function GET(request: NextRequest) {
   if (!(await isAdmin(request))) return NextResponse.json({ error: "Administrator access required." }, { status: 401 });
   if (!URL || !SECRET) return NextResponse.json({ error: "Support inbox is not configured on the server." }, { status: 503 });
   const id = request.nextUrl.searchParams.get("id");
@@ -29,7 +41,7 @@ export async function GET(request: NextRequest) {
     if (id) {
       const r = await fetch(`${URL}/rest/v1/support_messages?select=*&conversation_id=eq.${encodeURIComponent(id)}&order=created_at.asc&limit=300`, { headers: dbHeaders(), cache: "no-store" });
       if (!r.ok) throw new Error(await r.text());
-      return NextResponse.json({ messages: await r.json() });
+      return NextResponse.json({ messages: await hydrateAttachments(await r.json()) });
     }
     const r = await fetch(`${URL}/rest/v1/support_conversations?select=*&order=last_message_at.desc&limit=100`, { headers: dbHeaders(), cache: "no-store" });
     if (!r.ok) throw new Error(await r.text());

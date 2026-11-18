@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
-import { ArrowLeft, BarChart3, Bot, CheckCircle2, Download, LogOut, RefreshCw, Send, Settings, ShieldCheck, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { ArrowLeft, BarChart3, Bot, CheckCircle2, Download, LogOut, RefreshCw, Send, Settings, ShieldCheck, Sparkles, Headset, Bell, MessageSquare } from "lucide-react";
 import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 type Row = { id: string; name?: string; email?: string; phone?: string; company?: string; service_interest?: string; budget?: string; message?: string; preferred_date?: string | null; preferred_time?: string; notes?: string; status?: string; category?: string; description?: string; price_egp?: number | string; is_published?: boolean; sort_order?: number; client_user_id?: string; summary?: string; due_date?: string | null; progress?: number; created_at?: string; path?: string; event_type?: string; session_id?: string; [key: string]: unknown };
-type Tab = "overview" | "inquiries" | "services" | "bookings" | "newsletter" | "projects" | "analytics" | "ai" | "settings";
+type Tab = "overview" | "support" | "inquiries" | "services" | "bookings" | "newsletter" | "projects" | "analytics" | "ai" | "settings";
+type SupportConversation = { id:string; customer_name:string; customer_email:string; customer_phone?:string; status:string; last_message_at:string; created_at:string };
+type SupportMessage = { id:string; conversation_id:string; sender:"customer"|"admin"|"system"; body:string; created_at:string };
 
 async function api(path: string, token: string, init: RequestInit = {}) {
   const response = await fetch(`${API}/rest/v1/${path}`, {
@@ -43,6 +45,81 @@ export default function AdminPage() {
   const [aiInput, setAiInput] = useState("");
   const [aiBusy, setAiBusy] = useState(false);
   const [aiMessages, setAiMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
+  const [supportConversations, setSupportConversations] = useState<SupportConversation[]>([]);
+  const [selectedSupportId, setSelectedSupportId] = useState("");
+  const [supportMessages, setSupportMessages] = useState<SupportMessage[]>([]);
+  const [supportReply, setSupportReply] = useState("");
+  const [supportBusy, setSupportBusy] = useState(false);
+  const [notificationPermission, setNotificationPermission] = useState("default");
+  const supportSeen = useRef<Record<string,string>>({});
+  const supportInitialized = useRef(false);
+
+  function pageAdmin(customerName: string) {
+    try {
+      const Audio = window.AudioContext || (window as unknown as {webkitAudioContext: typeof AudioContext}).webkitAudioContext;
+      const audio = new Audio();
+      const oscillator = audio.createOscillator();
+      const gain = audio.createGain();
+      oscillator.type = "sine"; oscillator.frequency.value = 880;
+      gain.gain.setValueAtTime(0.0001, audio.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.16, audio.currentTime + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + 0.45);
+      oscillator.connect(gain); gain.connect(audio.destination); oscillator.start(); oscillator.stop(audio.currentTime + 0.48);
+    } catch {}
+    if ("Notification" in window && Notification.permission === "granted") new Notification("VELTRIX — Customer needs you", { body: customerName + " is waiting for a reply.", tag: "veltrix-support-" + customerName });
+  }
+
+  async function loadSupportInbox(authToken: string) {
+    try {
+      const response = await fetch("/api/support/conversations", { headers: { Authorization: `Bearer ${authToken}` }, cache: "no-store" });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not load support inbox.");
+      const conversations: SupportConversation[] = result.conversations || [];
+      if (supportInitialized.current) {
+        const urgent = conversations.find(item => item.status === "waiting_admin" && item.last_message_at && (!supportSeen.current[item.id] || new Date(item.last_message_at).getTime() > new Date(supportSeen.current[item.id]).getTime()));
+        if (urgent) pageAdmin(urgent.customer_name);
+      }
+      supportSeen.current = Object.fromEntries(conversations.map(item => [item.id, item.last_message_at]));
+      supportInitialized.current = true;
+      setSupportConversations(conversations);
+      if (!selectedSupportId && conversations.length) setSelectedSupportId(conversations[0].id);
+    } catch (e) { console.error("Support inbox polling failed", e); }
+  }
+
+  async function loadSupportThread(id: string, authToken = token) {
+    if (!id || !authToken) return;
+    try {
+      const response = await fetch("/api/support/conversations?id=" + encodeURIComponent(id), { headers: { Authorization: `Bearer ${authToken}` }, cache: "no-store" });
+      const result = await response.json();
+      if (response.ok) setSupportMessages(result.messages || []);
+    } catch {}
+  }
+
+  async function sendSupportReply(event: FormEvent) {
+    event.preventDefault();
+    const body = supportReply.trim();
+    if (!body || !selectedSupportId || supportBusy) return;
+    setSupportBusy(true); setError("");
+    try {
+      const response = await fetch("/api/support/messages", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ id: selectedSupportId, body }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Reply could not be sent.");
+      setSupportReply("");
+      await loadSupportThread(selectedSupportId);
+      await loadSupportInbox(token);
+    } catch (e) { setError(e instanceof Error ? e.message : "Reply could not be sent."); }
+    finally { setSupportBusy(false); }
+  }
+
+  async function updateSupportStatus(status: string) {
+    if (!selectedSupportId) return;
+    try {
+      const response = await fetch("/api/support/conversations", { method: "PATCH", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ id: selectedSupportId, status }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not update conversation.");
+      await loadSupportInbox(token);
+    } catch (e) { setError(e instanceof Error ? e.message : "Could not update conversation."); }
+  }
 
   async function loadAll(authToken: string) {
     setLoading(true); setError("");
@@ -67,6 +144,7 @@ export default function AdminPage() {
     if (user?.app_metadata?.role !== "admin") throw new Error("This account does not have administrator access.");
     setToken(authToken); sessionStorage.setItem("veltrix-admin-token", authToken);
     await loadAll(authToken);
+    await loadSupportInbox(authToken);
     try { const rows = await api("site_settings?select=value&key=eq.agent_knowledge_base", authToken); setAgentKnowledge(rows?.[0]?.value?.content ?? ""); } catch { setAgentKnowledge(""); }
     try { const status = await fetch("/api/admin/ai", { headers: { Authorization: `Bearer ${authToken}` } }); if (status.ok) { const result = await status.json(); setAiConfigured(Boolean(result.configured)); } } catch { setAiConfigured(false); }
   }
@@ -76,6 +154,21 @@ export default function AdminPage() {
     if (saved) verify(saved).catch(() => { sessionStorage.removeItem("veltrix-admin-token"); setToken(""); });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!token) return;
+    const timer = window.setInterval(() => { void loadSupportInbox(token); }, 5000);
+    return () => window.clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  useEffect(() => {
+    if (!token || !selectedSupportId || tab !== "support") return;
+    void loadSupportThread(selectedSupportId, token);
+    const timer = window.setInterval(() => { void loadSupportThread(selectedSupportId, token); }, 3500);
+    return () => window.clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, selectedSupportId, tab]);
 
   async function signIn(event: FormEvent) {
     event.preventDefault(); setLoading(true); setError("");
@@ -182,8 +275,10 @@ export default function AdminPage() {
   const pageViews = data.events.filter(x => x.event_type === "page_view");
   const uniqueVisitors = new Set(pageViews.map(x => x.session_id).filter(Boolean)).size;
   const topPages = Object.entries(pageViews.reduce((acc: Record<string, number>, x) => { const path = x.path || "/"; acc[path] = (acc[path] || 0) + 1; return acc; }, {})).sort((a,b) => b[1]-a[1]).slice(0,5);
+  const pendingSupport = supportConversations.filter(x => x.status === "waiting_admin" || x.status === "open").length;
   const counts = [
     ["New enquiries", data.inquiries.filter(x => x.status === "new").length],
+    ["Customer support waiting", pendingSupport],
     ["Pending bookings", data.bookings.filter(x => x.status === "pending").length],
     ["Active projects", data.projects.filter(x => !["completed", "on_hold"].includes(x.status ?? "")).length],
     ["Subscribers", data.newsletter.filter(x => x.status === "active").length],
@@ -192,8 +287,9 @@ export default function AdminPage() {
 
   if (!token) return <main className="adminShell"><Link className="adminBack" href="/"><ArrowLeft size={16}/> Back to VELTRIX</Link><form className="adminLogin" onSubmit={signIn}><div className="adminMark"><ShieldCheck size={25}/></div><small>VELTRIX / PRIVATE AREA</small><h1>Studio administration.</h1><p>Sign in with your Supabase administrator account.</p><label>Email<input type="email" required value={email} onChange={e => setEmail(e.target.value)} autoComplete="username"/></label><label>Password<input type="password" required value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password"/></label>{error && <div className="adminError">{error}</div>}<button className="adminPrimary" disabled={loading}>{loading ? "Signing in..." : "Sign in securely"}</button><small className="adminHint">Access is controlled by the administrator role in Supabase app metadata.</small></form></main>;
 
-  return <main className="adminShell"><header className="adminTop"><Link className="adminBrand" href="/">VEL<span>TRIX</span><small> / STUDIO ADMIN</small></Link><div><button onClick={() => loadAll(token)} className="adminIcon" aria-label="Refresh"><RefreshCw size={16}/></button><button onClick={signOut} className="adminLogout"><LogOut size={15}/> Sign out</button></div></header><div className="adminLayout"><aside className="adminSide"><small>WORKSPACE</small>{(["overview","inquiries","services","bookings","newsletter","projects","analytics","ai","settings"] as Tab[]).map(x=><button key={x} className={tab===x ? "selected" : ""} onClick={() => setTab(x)}>{x==="ai"?"AI Studio":x==="settings"?"Settings":x[0].toUpperCase()+x.slice(1)}</button>)}<Link href="/">← View website</Link></aside><section className="adminContent"><div className="adminPageHead"><div><small>VELTRIX / {tab.toUpperCase()}</small><h1>{tab==="overview"?"Studio overview":tab[0].toUpperCase()+tab.slice(1)}</h1></div>{loading && <span className="adminLoading">Refreshing…</span>}</div>{error && <div className="adminError">{error}</div>}{message && <div className="adminSuccess"><CheckCircle2 size={16}/>{message}</div>}
+  return <main className="adminShell"><header className="adminTop"><Link className="adminBrand" href="/">VEL<span>TRIX</span><small> / STUDIO ADMIN</small></Link><div><button onClick={() => loadAll(token)} className="adminIcon" aria-label="Refresh"><RefreshCw size={16}/></button><button onClick={signOut} className="adminLogout"><LogOut size={15}/> Sign out</button></div></header><div className="adminLayout"><aside className="adminSide"><small>WORKSPACE</small>{(["overview","inquiries","services","bookings","newsletter","projects","analytics","ai","settings"] as Tab[]).map(x=><button key={x} className={tab===x ? "selected" : ""} onClick={() => setTab(x)}>{x==="ai"?"AI Studio":x==="settings"?"Settings":x[0].toUpperCase()+x.slice(1)}</button>)}<Link href="/">← View website</Link></aside><section className="adminContent"><div className="adminPageHead"><div><small>VELTRIX / {tab.toUpperCase()}</small><h1>{tab==="overview"?"Studio overview":tab==="support"?"Customer support":tab[0].toUpperCase()+tab.slice(1)}</h1></div>{loading && <span className="adminLoading">Refreshing…</span>}</div>{error && <div className="adminError">{error}</div>}{message && <div className="adminSuccess"><CheckCircle2 size={16}/>{message}</div>}
   {tab==="overview" && <><div className="adminStats">{counts.map(([label,value])=><article key={String(label)}><small>{label}</small><strong>{value}</strong></article>)}</div><div className="adminPanel"><h2>Recent enquiries</h2>{data.inquiries.slice(0,6).map(x=><div className="adminListRow" key={x.id}><div><b>{x.name}</b><small>{x.email} · {x.service_interest || "General enquiry"}</small></div><span className={"status "+x.status}>{x.status}</span></div>)}{!data.inquiries.length && <p className="adminEmpty">No enquiries yet.</p>}</div><div className="adminPanel"><h2>Traffic snapshot</h2><p className="adminSub">{uniqueVisitors} anonymous visitors · {pageViews.length} page views · {data.events.length} total events in the latest 500 loaded.</p>{topPages.map(([path,total])=><div className="adminListRow" key={path}><b>{path}</b><small>{total} page views</small></div>)}{!pageViews.length && <p className="adminEmpty">Traffic data will appear after visitors open the website.</p>}</div></>}
+  {tab==="support" && <div className="adminSupportLayout"><div className="adminPanel adminSupportList"><div className="adminPanelHead"><div><h2>Live customer inbox</h2><p className="adminSub">New messages are checked every 5 seconds while this dashboard is open.</p></div><button className="adminExport" onClick={async()=>{if("Notification" in window){const permission=await Notification.requestPermission();setNotificationPermission(permission);setMessage(permission==="granted"?"Browser notifications enabled.":"Browser notifications were not enabled.");}}}><Bell size={14}/> Enable alerts</button></div>{supportConversations.map(item=><button key={item.id} className={"adminSupportConversation "+(selectedSupportId===item.id?"active":"")} onClick={()=>setSelectedSupportId(item.id)}><span className="adminSupportAvatar"><MessageSquare size={16}/></span><span><b>{item.customer_name}</b><small>{item.customer_email}</small><small>{new Date(item.last_message_at).toLocaleString()}</small></span><i className={"status "+item.status}>{item.status.replace("_"," ")}</i></button>)}{!supportConversations.length&&<p className="adminEmpty">No customer conversations yet. When a visitor asks for a person, they will appear here.</p>}</div><div className="adminPanel adminSupportThread"><div className="adminPanelHead"><div><h2>{supportConversations.find(x=>x.id===selectedSupportId)?.customer_name||"Select a conversation"}</h2><p className="adminSub">{supportConversations.find(x=>x.id===selectedSupportId)?.customer_email||"Customer messages will appear here."} {supportConversations.find(x=>x.id===selectedSupportId)?.customer_phone?" · "+supportConversations.find(x=>x.id===selectedSupportId)?.customer_phone:""}</p></div>{selectedSupportId&&<select value={supportConversations.find(x=>x.id===selectedSupportId)?.status||"open"} onChange={e=>void updateSupportStatus(e.target.value)}><option value="open">Open</option><option value="waiting_admin">Needs reply</option><option value="waiting_customer">Waiting customer</option><option value="closed">Closed</option></select>}</div><div className="adminSupportMessages">{supportMessages.map(item=><article key={item.id} className={"adminSupportMessage "+item.sender}><small>{item.sender==="admin"?"YOU":item.sender==="customer"?"CUSTOMER":"CONTEXT"}</small><p>{item.body}</p><time>{new Date(item.created_at).toLocaleString()}</time></article>)}{!supportMessages.length&&<p className="adminEmpty">Select a conversation to read the messages.</p>}</div><form className="adminSupportReply" onSubmit={sendSupportReply}><textarea value={supportReply} onChange={e=>setSupportReply(e.target.value)} placeholder="Write a reply to the customer…" rows={3} disabled={!selectedSupportId||supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"}/><button className="adminPrimary" disabled={!selectedSupportId||!supportReply.trim()||supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"}><Send size={15}/>{supportBusy?"Sending…":"Reply to customer"}</button></form><p className="adminSub">Keep the customer’s website chat open to exchange messages. The inbox does not send email or WhatsApp notifications.</p></div></div>}
   {tab==="inquiries" && <div className="adminPanel"><h2>Project enquiries</h2>{data.inquiries.map(x=><article className="adminRecord" key={x.id}><div><b>{x.name}</b><small>{x.email} · {x.phone || "No phone"} · {x.company || "No company"}</small><p>{x.message}</p><small>{x.service_interest} · {x.budget}</small></div><select value={x.status ?? "new"} onChange={e=>patch("inquiries",x.id,{status:e.target.value})}><option>new</option><option>contacted</option><option>qualified</option><option>won</option><option>lost</option><option>archived</option></select></article>)}{!data.inquiries.length && <p className="adminEmpty">No enquiries yet.</p>}</div>}
   {tab==="services" && <><form className="adminPanel adminAddForm" onSubmit={addService}><h2>Add a service</h2><input required placeholder="Service name" value={newService.name} onChange={e=>setNewService({...newService,name:e.target.value})}/><input placeholder="Category" value={newService.category} onChange={e=>setNewService({...newService,category:e.target.value})}/><input required type="number" min="0" placeholder="Starting price (EGP)" value={newService.price_egp} onChange={e=>setNewService({...newService,price_egp:e.target.value})}/><input placeholder="Short description" value={newService.description} onChange={e=>setNewService({...newService,description:e.target.value})}/><button className="adminPrimary">Add service</button></form><div className="adminPanel"><h2>Published service catalogue</h2>{data.services.map(x=><div className="adminService" key={x.id}><div><b>{x.name}</b><small>{x.category} · {x.description}</small></div><label>EGP <input type="number" min="0" defaultValue={x.price_egp} onBlur={e=>Number(e.target.value)!==Number(x.price_egp)&&patch("services",x.id,{price_egp:Number(e.target.value)})}/></label><label className="adminToggle"><input type="checkbox" checked={!!x.is_published} onChange={e=>patch("services",x.id,{is_published:e.target.checked})}/> Published</label></div>)}</div></>}
   {tab==="bookings" && <div className="adminPanel"><h2>Consultation requests</h2>{data.bookings.map(x=><article className="adminRecord" key={x.id}><div><b>{x.name}</b><small>{x.email} · {x.phone}</small><p>{x.service_interest} · {x.preferred_date || "Date flexible"} {x.preferred_time}</p><small>{x.notes}</small></div><select value={x.status} onChange={e=>patch("booking_requests",x.id,{status:e.target.value})}><option>pending</option><option>confirmed</option><option>completed</option><option>cancelled</option></select></article>)}{!data.bookings.length && <p className="adminEmpty">No booking requests yet.</p>}</div>}

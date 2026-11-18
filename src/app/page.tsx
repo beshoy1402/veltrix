@@ -85,8 +85,8 @@ export default function Home(){
    <div className="stormHeroImage" aria-hidden="true"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=2000&q=90" alt=""/></div>
    <div className="stormHeroNoise"/>
    <div className="stormHeroCopy">
-    <div className="stormEyebrow"><span/> {ar?"وكالة إبداعية للتجارب الرقمية":"CREATIVE DIGITAL STUDIO"} <b>— 01 / 04</b></div>
-    <h1>{ar?<>أفكار جريئة.<br/><em>تجارب بلا حدود.</em></>:<>Creative minds.<br/><em>Digital impact.</em></>}</h1>
+    <div className="stormEyebrow"><span/> {ar?"وكالة إبداعية للتجارب الرقمية":"INDEPENDENT CREATIVE COMPANY"} <b>— 01 / 04</b></div>
+    <h1>{ar?<>نصنع فرقاً رقمياً.<br/><em>بلا حدود.</em></>:<>We make digital<br/><em>feel different.</em></>}</h1>
     <p>{ar?"نحوّل طموح العلامات التجارية إلى تجارب رقمية قوية تجمع بين الاستراتيجية والإبداع والتكنولوجيا.":"We bring strategy, design and technology together to help ambitious brands stand out, connect with people and grow."}</p>
     <div className="stormHeroActions"><button onClick={()=>setQuote(true)}>{ar?"ابدأ مشروعك":"LET'S MAKE IT HAPPEN"}<ArrowUpRight size={17}/></button><a href="#work"><span>↘</span>{ar?"اكتشف أعمالنا":"EXPLORE OUR WORK"}</a></div>
    </div>

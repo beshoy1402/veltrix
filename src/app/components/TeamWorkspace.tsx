@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Bell, BriefcaseBusiness, CalendarDays, CheckCircle2, Circle, Code2, FileImage, LayoutDashboard, LogOut, Megaphone, Palette, RefreshCw, Send, ShieldCheck, Users, Wallet } from "lucide-react";
+import { Bell, CheckCircle2, Code2, LogOut, Megaphone, Palette, RefreshCw } from "lucide-react";
 
 type Role = "marketing" | "developer" | "designer";
 type Task = { id: string; title: string; description: string; status: string; priority: string; due_date: string | null; department: string };

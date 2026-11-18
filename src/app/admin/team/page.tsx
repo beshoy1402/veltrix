@@ -5,7 +5,7 @@ import { ArrowLeft, RefreshCw, ShieldCheck, UserPlus, Users } from "lucide-react
 type Member={id:string;email:string;name:string;role:string;created_at?:string;last_sign_in_at?:string|null;banned_until?:string|null};
 type Task=Record<string,unknown>;
 export default function TeamManagementPage(){
- const [token,setToken]=useState("");const [members,setMembers]=useState<Member[]>([]);const [tasks,setTasks]=useState<Task[]>([]);
+ const [token,setToken]=useState("");const [members,setMembers]=useState<Member[]>([]);const [tasks,setTasks]=useState<Task[]>([]);const [projects,setProjects]=useState<Array<{id:string;name:string}>>([]);
  const [form,setForm]=useState({name:"",email:"",password:"",role:"marketing"});
  const [taskForm,setTaskForm]=useState({title:"",description:"",department:"developer",assigned_to:"",priority:"normal",due_date:""});
  const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [createdCredentials,setCreatedCredentials]=useState<{email:string;password:string;role:string}|null>(null);
@@ -19,7 +19,7 @@ export default function TeamManagementPage(){
    const memberResult=await memberResponse.json();const taskResult=await taskResponse.json();
    if(!memberResponse.ok)throw new Error(memberResult.error||"Could not load team.");
    if(!taskResponse.ok)throw new Error(taskResult.error||"Could not load assignments.");
-   setMembers(memberResult.members||[]);setTasks(taskResult.tasks||[]);
+   setMembers(memberResult.members||[]);setTasks(taskResult.tasks||[]);setProjects(taskResult.projects||[]);
   }catch(e){setError(e instanceof Error?e.message:"Could not load team.");}
   finally{setLoading(false);}
  },[]);

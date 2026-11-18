@@ -33,7 +33,8 @@ async function hydrateAttachments(rows: any[]) {
     return { ...row, body: row.body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
   }));
 }
-\nexport async function GET(request: NextRequest) {
+
+export async function GET(request: NextRequest) {
   if (!(await isAdmin(request))) return NextResponse.json({ error: "Administrator access required." }, { status: 401 });
   if (!URL || !SECRET) return NextResponse.json({ error: "Support inbox is not configured on the server." }, { status: 503 });
   const id = request.nextUrl.searchParams.get("id");

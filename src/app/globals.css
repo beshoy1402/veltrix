@@ -1716,3 +1716,117 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
 .veltrixStudioEnd>a{grid-column:2/-1;display:flex;align-items:center;gap:12px;width:max-content;color:#E9E1D4;text-decoration:none;border-bottom:1px solid #A88F75;padding-bottom:12px;font:8px "DM Mono",monospace;letter-spacing:.14em}
 @media(max-width:800px){.veltrixStudioHero{min-height:620px;padding:85px 7vw}.veltrixStudioOrbit{width:350px;right:-90px;bottom:-110px;opacity:.7}.veltrixStudioManifesto,.veltrixFoundersHeading,.veltrixFounders article,.veltrixStudioMethod,.veltrixStudioEnd{grid-template-columns:1fr;padding:75px 7vw;gap:25px}.veltrixStudioMethod>div,.veltrixStudioEnd>a{grid-column:1}.veltrixFounderMonogram{height:260px}}
 @media(max-width:600px){.veltrixStudioHero{padding:70px 22px;min-height:590px}.veltrixStudioHero h1{font-size:clamp(58px,14vw,90px);margin:40px 0 24px}.veltrixStudioOrbit{width:260px;right:-85px;bottom:-80px}.veltrixStudioOrbit>div{width:110px}.veltrixStudioOrbit>div span{font-size:75px}.veltrixStudioManifesto,.veltrixFounders,.veltrixStudioMethod,.veltrixStudioEnd{padding:65px 22px}.veltrixFoundersHeading{padding:0;gap:20px}.veltrixFoundersHeading h2,.veltrixStudioMethod h2,.veltrixStudioEnd h2{font-size:clamp(44px,12vw,70px)}.veltrixFounders article{padding:28px 0;gap:25px}.veltrixFounderMonogram{height:230px}.veltrixFounders article h3{font-size:48px}.veltrixStudioMethod>div p{grid-template-columns:1fr;gap:8px}}
+
+
+/* VELTRIX — clearer, higher-contrast calls to action */
+.stormSite .stormHeaderCta,
+.stormSite .stormHeroActions>button,
+.stormSite .stormContactActions>button,
+.stormSite .stormMobileMenu>button,
+.stormSite .stormFooterTalk,
+.stormSite .estimatorNav .next,
+.stormSite .estimatorSend {
+  min-height:54px;
+  padding:0 23px;
+  border:1px solid #d8c2a5;
+  border-radius:3px;
+  background:#c2a98b;
+  color:#17130f;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.055em;
+  box-shadow:0 8px 22px #080d1830;
+  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.stormSite .stormHeaderCta:hover,
+.stormSite .stormHeroActions>button:hover,
+.stormSite .stormContactActions>button:hover,
+.stormSite .stormMobileMenu>button:hover,
+.stormSite .stormFooterTalk:hover,
+.stormSite .estimatorNav .next:hover,
+.stormSite .estimatorSend:hover {
+  background:#f1e5d5;
+  color:#17130f;
+  border-color:#f1e5d5;
+  transform:translateY(-2px);
+  box-shadow:0 13px 28px #080d1840;
+}
+.stormSite .stormHeroActions>button svg,
+.stormSite .stormHeaderCta svg,
+.stormSite .stormContactActions>button svg { flex:0 0 auto; }
+.stormSite .stormHeroActions>button:focus-visible,
+.stormSite .stormHeaderCta:focus-visible,
+.stormSite .stormContactActions>button:focus-visible,
+.stormSite .stormMobileMenu>button:focus-visible,
+.stormSite .stormFooterTalk:focus-visible,
+.stormSite .estimatorNav button:focus-visible,
+.stormSite .estimatorSend:focus-visible {
+  outline:3px solid #211f1b;
+  outline-offset:4px;
+}
+.stormSite .stormHeroActions>a,
+.stormSite .stormStudioCopy>a,
+.stormSite .stormServiceHero>a,
+.stormSite .stormStudioLinks>a,
+.stormSite .stormServiceCta>a {
+  min-height:44px;
+  font-weight:700;
+  text-decoration:underline;
+  text-decoration-color:#a88f75;
+  text-decoration-thickness:2px;
+  text-underline-offset:7px;
+}
+.stormSite .stormProjectOpen {
+  background:#c2a98b;
+  color:#17130f;
+  border:1px solid #f1e5d5;
+  font-weight:800;
+  padding:12px 15px;
+}
+.stormSite .stormProjectVisual:hover .stormProjectOpen {
+  background:#f1e5d5;
+  color:#17130f;
+}
+.stormSite .stormServiceCard>button,
+.stormSite .stormServiceCardActions>a,
+.stormSite .stormServiceCardActions>button {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  min-height:42px;
+  width:max-content;
+  max-width:100%;
+  padding:9px 12px;
+  border:1px solid #c2a98b;
+  background:#c2a98b;
+  color:#17130f;
+  font-weight:800;
+  text-decoration:none;
+  letter-spacing:.08em;
+  cursor:pointer;
+}
+.stormSite .stormServiceCard>button:hover,
+.stormSite .stormServiceCardActions>a:hover,
+.stormSite .stormServiceCardActions>button:hover {
+  background:#f1e5d5;
+  border-color:#f1e5d5;
+  color:#17130f;
+}
+.stormSite .stormServiceCard>button,
+.stormSite .stormServiceCardActions>button { margin-top:14px; }
+.stormSite .stormContactActions .stormSecondaryAction {
+  background:transparent;
+  color:#071324;
+  border:2px solid #071324;
+  box-shadow:none;
+}
+.stormSite .stormContactActions .stormSecondaryAction:hover {
+  background:#071324;
+  color:#fff;
+}
+@media(max-width:650px){
+  .stormSite .stormHeroActions>button { min-height:56px; padding:0 18px; }
+  .stormSite .stormServiceCard>button,
+  .stormSite .stormServiceCardActions>a,
+  .stormSite .stormServiceCardActions>button { min-height:46px; font-size:9px; }
+}

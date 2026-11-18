@@ -49,6 +49,7 @@ export async function POST(request:NextRequest){
   const key=process.env.GEMINI_API_KEY;
   if(!key) return NextResponse.json({error:"The VELTRIX assistant is being configured. Please use the contact form for now."},{status:503});
   const body=await request.json();
+  const language: "en" | "ar" = body.language === "ar" ? "ar" : "en";
   const raw=Array.isArray(body.messages)?body.messages.slice(-12):[];
   const messages:ChatMessage[]=raw.map((m:{role?:unknown;text?:unknown})=>({role:m.role==="assistant"||m.role==="model"?"model":"user",text:cleanText(m.text,1800)})).filter((m:ChatMessage)=>m.text);
   if(!messages.length||messages[messages.length-1].role!=="user") return NextResponse.json({error:"Send a message to begin."},{status:400});
@@ -56,7 +57,7 @@ export async function POST(request:NextRequest){
   const contents:Array<Record<string,unknown>>=messages.map(m=>({role:m.role,parts:[{text:m.text}]}));
   const endpoint=`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
   for(let turn=0;turn<3;turn++){
-   const response=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":key},body:JSON.stringify({systemInstruction:{parts:[{text:systemInstruction}]},contents,tools,toolConfig:{functionCallingConfig:{mode:"AUTO"}},generationConfig:{temperature:0.4,maxOutputTokens:650}}),cache:"no-store"});
+   const response=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":key},body:JSON.stringify({systemInstruction:{parts:[{text:(language === "ar" ? "LANGUAGE MODE: Arabic. You MUST respond only in Arabic, even if the visitor writes English. " : "LANGUAGE MODE: English. You MUST respond only in English, even if the visitor writes Arabic. ") + systemInstruction}]},contents,tools,toolConfig:{functionCallingConfig:{mode:"AUTO"}},generationConfig:{temperature:0.4,maxOutputTokens:650}}),cache:"no-store"});
    const result=await response.json();
    if(!response.ok){console.error("Gemini API error",response.status,result?.error?.message);return NextResponse.json({error:response.status===429?"The free AI quota is busy. Please try again later.":"The assistant is temporarily unavailable."},{status:response.status===429?429:503});}
    const candidate=result?.candidates?.[0]?.content,parts=Array.isArray(candidate?.parts)?candidate.parts:[];

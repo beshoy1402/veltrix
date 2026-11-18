@@ -48,7 +48,8 @@ export default function Home(){
     body:JSON.stringify({name:form.name,email:form.email,phone:form.phone,company:form.company,service_interest:form.service,budget:form.budget,message:form.message})
    });
    if(!response.ok){const detail=await response.text();throw new Error(detail||"Unable to submit your enquiry.");}
-   setSent(true);\n   try{let sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"inquiry_submit",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}
+   setSent(true);
+   try{let sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"inquiry_submit",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}
   }catch(error){setFormError(error instanceof Error?error.message:"Something went wrong. Please try again.");}
   finally{setSending(false);}
  }

@@ -50,13 +50,13 @@ export default function Home(){
    const result=await response.json();
    if(!response.ok)throw new Error(result.error||"Unable to submit your enquiry.");
    setSent(true);
-   try{let sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"inquiry_submit",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}
+   try{const sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"inquiry_submit",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}
   }catch(error){setFormError(error instanceof Error?error.message:"Something went wrong. Please try again.");}
   finally{setSending(false);}
  }
  const ar=lang==="ar";
  useEffect(()=>{document.documentElement.lang=ar?"ar":"en";document.documentElement.dir=ar?"rtl":"ltr";},[ar]);
- useEffect(()=>{if(!quote)return;try{let sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"quote_open",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}},[quote]);
+ useEffect(()=>{if(!quote)return;try{const sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"quote_open",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}},[quote]);
  const priceCategories:Record<string,string[]>={"01":["Business Websites"],"02":["E-commerce"],"03":["Business Systems","SaaS & APIs","Media & Portals","Education","Booking Platforms","Real Estate"],"05":["AI & Automation"]};
  const getStartingPrice=(service:(typeof services)[number])=>{const live=(priceCategories[service.n]??[]).map(category=>categoryPrices[category]).filter(value=>Number.isFinite(value));return live.length?Math.min(...live):Number(service.price.replace(/,/g,""));};
  useEffect(()=>{fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/services?select=category,price_egp&is_published=eq.true`,{headers:{"apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??""}}).then(r=>r.ok?r.json():[]).then((rows:Array<{category:string;price_egp:number|string}>)=>{const grouped:Record<string,number[]>={};rows.forEach(x=>{(grouped[x.category]??=[]).push(Number(x.price_egp));});const mins:Record<string,number>={};Object.entries(grouped).forEach(([k,v])=>{if(v.length)mins[k]=Math.min(...v);});setCategoryPrices(mins);}).catch(()=>{});},[]);

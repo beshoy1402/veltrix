@@ -7,7 +7,7 @@ const SECRET = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_R
 function headers() { return { apikey: SECRET || "", Authorization: `Bearer ${SECRET || ""}`, "Content-Type": "application/json" }; }
 async function hydrateAttachments(rows: any[]) {
   return Promise.all((rows || []).map(async (row) => {
-    const match = typeof row.body === "string" ? row.body.match(/^\\[\\[VELTRIX_IMAGE:([^|]+)\\|([^|]*)\\|([^|]*)\\]\\]\\n?/) : null;
+    const match = typeof row.body === "string" ? row.body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
     if (!match) return row;
     const path = match[1];
     const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: headers(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       attachmentPath = `${id}/${crypto.randomUUID()}-${name}`;
       const upload = await fetch(`${URL}/storage/v1/object/support-attachments/${attachmentPath.split("/").map(encodeURIComponent).join("/")}`, { method:"POST", headers:{apikey:SECRET,Authorization:`Bearer ${SECRET}`,"Content-Type":mime,"x-upsert":"false"}, body:bytes });
       if (!upload.ok) throw new Error("Image upload failed: " + await upload.text());
-      body = `[[VELTRIX_IMAGE:${attachmentPath}|${name}|${mime}]]\\n${body}`;
+      body = `[[VELTRIX_IMAGE:${attachmentPath}|${name}|${mime}]]\n${body}`;
     }
     const isAdmin = await admin(request);
     if (!id || (!body && !attachmentPath)) return NextResponse.json({ error: "Write a message or attach an image." }, { status: 400 });

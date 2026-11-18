@@ -45,6 +45,15 @@ export async function POST(request: NextRequest) {
     const reference = "VX-" + randomUUID().replaceAll("-","").slice(0,10).toUpperCase();
     const storagePath = new Date().toISOString().slice(0,10) + "/" + reference + "." + ext;
     const bytes = await file.arrayBuffer();
+    const signature = new Uint8Array(bytes.slice(0,12));
+    const validSignature = file.type === "image/jpeg"
+      ? signature[0] === 0xff && signature[1] === 0xd8 && signature[2] === 0xff
+      : file.type === "image/png"
+        ? signature[0] === 0x89 && signature[1] === 0x50 && signature[2] === 0x4e && signature[3] === 0x47 && signature[4] === 0x0d && signature[5] === 0x0a && signature[6] === 0x1a && signature[7] === 0x0a
+        : file.type === "image/webp"
+          ? String.fromCharCode(...signature.slice(0,4)) === "RIFF" && String.fromCharCode(...signature.slice(8,12)) === "WEBP"
+          : false;
+    if (!validSignature) return NextResponse.json({error:"The file contents do not match a supported image format."},{status:400});
     const upload = await fetch(URL + "/storage/v1/object/" + BUCKET + "/" + storagePath.split("/").map(encodeURIComponent).join("/"), {
       method:"POST", headers:serviceHeaders({"Content-Type":file.type,"x-upsert":"false"}), body:bytes, cache:"no-store"
     });

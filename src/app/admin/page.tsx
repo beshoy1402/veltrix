@@ -49,6 +49,8 @@ export default function AdminPage() {
   const [paymentSubmissions, setPaymentSubmissions] = useState<PaymentSubmission[]>([]);
   const [paymentNotes, setPaymentNotes] = useState<Record<string,string>>({});
   const [paymentBusy, setPaymentBusy] = useState(false);
+  const paymentSeen = useRef<Record<string,string>>({});
+  const paymentInitialized = useRef(false);
   const [supportConversations, setSupportConversations] = useState<SupportConversation[]>([]);
   const [selectedSupportId, setSelectedSupportId] = useState("");
   const [supportMessages, setSupportMessages] = useState<SupportMessage[]>([]);
@@ -78,7 +80,12 @@ export default function AdminPage() {
       const response = await fetch("/api/payment-submissions", { headers: { Authorization: `Bearer ${authToken}` }, cache: "no-store" });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Could not load payment proofs.");
-      setPaymentSubmissions(result.submissions || []);
+      const submissions: PaymentSubmission[] = result.submissions || [];
+      const newReceipt = paymentInitialized.current ? submissions.find(item => item.status === "pending" && !paymentSeen.current[item.id]) : undefined;
+      if (newReceipt) pageAdmin("New InstaPay receipt from " + newReceipt.customer_name);
+      paymentSeen.current = Object.fromEntries(submissions.map(item => [item.id,item.created_at]));
+      paymentInitialized.current = true;
+      setPaymentSubmissions(submissions);
       setPaymentNotes(Object.fromEntries((result.submissions || []).map((x:PaymentSubmission)=>[x.id,x.admin_notes||""])));
     } catch (e) { setError(e instanceof Error ? e.message : "Could not load payment proofs."); }
   }

@@ -8,7 +8,7 @@ export default function TeamManagementPage(){
  const [token,setToken]=useState("");const [members,setMembers]=useState<Member[]>([]);const [tasks,setTasks]=useState<Task[]>([]);
  const [form,setForm]=useState({name:"",email:"",password:"",role:"marketing"});
  const [taskForm,setTaskForm]=useState({title:"",description:"",department:"developer",assigned_to:"",priority:"normal",due_date:""});
- const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");
+ const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [createdCredentials,setCreatedCredentials]=useState<{email:string;password:string;role:string}|null>(null);
  const load=useCallback(async(authToken:string)=>{
   setLoading(true);setError("");
   try{
@@ -26,7 +26,7 @@ export default function TeamManagementPage(){
  useEffect(()=>{const saved=sessionStorage.getItem("veltrix-admin-token");if(!saved){window.location.replace("/admin");return;}setToken(saved);void load(saved);},[load]);
  async function create(event:FormEvent){
   event.preventDefault();if(!token)return;setBusy(true);setError("");setNotice("");
-  try{const response=await fetch("/api/admin/team-members",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(form)});const result=await response.json();if(!response.ok)throw new Error(result.error||"Could not create account.");setNotice("Team account created for "+form.email+". Share the temporary password privately.");setForm({name:"",email:"",password:"",role:"marketing"});await load(token);}
+  try{const response=await fetch("/api/admin/team-members",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(form)});const result=await response.json();if(!response.ok)throw new Error(result.error||"Could not create account.");setNotice("Team account created for "+form.email+". Copy the temporary login details and share them privately.");setCreatedCredentials({email:form.email,password:form.password,role:form.role});setForm({name:"",email:"",password:"",role:"marketing"});await load(token);}
   catch(e){setError(e instanceof Error?e.message:"Could not create account.");}finally{setBusy(false);}
  }
  async function assignTask(event:FormEvent){
@@ -38,7 +38,7 @@ export default function TeamManagementPage(){
   <header className="teamTop"><Link href="/admin" className="teamBrand">VEL<span>TRIX</span><small> / ADMIN TEAM</small></Link><Link href="/admin" className="teamBack"><ArrowLeft size={15}/> Admin dashboard</Link></header>
   <section className="teamAdminContent">
    <div className="teamPageHead"><div><small>VELTRIX / ADMIN / TEAM</small><h1>Team management.</h1><p>Create team accounts, assign roles and distribute work.</p></div><span className="teamRolePill"><ShieldCheck size={14}/> Admin only</span></div>
-   {error&&<div className="teamAlert error">{error}</div>}{notice&&<div className="teamAlert success">{notice}</div>}
+   {error&&<div className="teamAlert error">{error}</div>}{notice&&<div className="teamAlert success">{notice}</div>}{createdCredentials&&<div className="teamPanel teamCredentials"><div><b>New {createdCredentials.role} login</b><p>{createdCredentials.email}</p><small>Temporary password: {createdCredentials.password}</small></div><button className="teamRefresh" onClick={()=>navigator.clipboard.writeText("VELTRIX login: "+window.location.origin+"/admin\nEmail: "+createdCredentials.email+"\nTemporary password: "+createdCredentials.password)}>Copy login details</button><button className="teamRefresh" onClick={()=>setCreatedCredentials(null)}>Hide</button></div>}
    <div className="teamGrid">
     <article className="teamPanel"><div className="teamPanelHead"><h2><UserPlus size={18}/> Create team account</h2></div>
      <form className="teamForm" onSubmit={create}>

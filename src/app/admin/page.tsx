@@ -57,6 +57,7 @@ export default function AdminPage() {
   const [selectedSupportId, setSelectedSupportId] = useState("");
   const [supportMessages, setSupportMessages] = useState<SupportMessage[]>([]);
   const [supportReply, setSupportReply] = useState("");
+  const [supportAttachment,setSupportAttachment]=useState<File|null>(null);
   const [supportSearch, setSupportSearch] = useState("");
   const [supportFilter, setSupportFilter] = useState("all");
   const [supportBusy, setSupportBusy] = useState(false);
@@ -133,10 +134,10 @@ export default function AdminPage() {
   async function sendSupportReply(event: FormEvent) {
     event.preventDefault();
     const body = supportReply.trim();
-    if (!body || !selectedSupportId || supportBusy) return;
+    if ((!body && !supportAttachment) || !selectedSupportId || supportBusy) return;
     setSupportBusy(true); setError("");
     try {
-      const response = await fetch("/api/support/messages", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ id: selectedSupportId, body }) });
+      let attachment; if(supportAttachment){const data=await new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error("Could not read image."));reader.readAsDataURL(supportAttachment);});attachment={name:supportAttachment.name,type:supportAttachment.type,data};} const response = await fetch("/api/support/messages", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ id: selectedSupportId, body, attachment }) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Reply could not be sent.");
       setSupportReply("");
@@ -390,9 +391,9 @@ export default function AdminPage() {
       <div className="adminPanel adminSupportThread">
         {selectedSupportId ? <>
           <div className="adminSupportCustomerBar"><div><small className="adminEyebrow">CUSTOMER CONVERSATION</small><h2>{supportConversations.find(x=>x.id===selectedSupportId)?.customer_name||"Customer"}</h2><p>{supportConversations.find(x=>x.id===selectedSupportId)?.customer_email}{supportConversations.find(x=>x.id===selectedSupportId)?.customer_phone?" · "+supportConversations.find(x=>x.id===selectedSupportId)?.customer_phone:""}</p></div><select aria-label="Conversation status" value={supportConversations.find(x=>x.id===selectedSupportId)?.status||"open"} onChange={e=>void updateSupportStatus(e.target.value)}><option value="open">Open</option><option value="waiting_admin">Needs reply</option><option value="waiting_customer">Waiting for customer</option><option value="closed">Closed</option></select></div>
-          <div className="adminSupportMessages">{supportMessages.map(item=><article key={item.id} className={"adminSupportMessage "+item.sender}><small>{item.sender==="admin"?"YOU":item.sender==="customer"?"CUSTOMER":"CONTEXT"}</small><p>{item.body}</p><time>{new Date(item.created_at).toLocaleString()}</time></article>)}{!supportMessages.length&&<p className="adminEmpty">No messages in this conversation yet.</p>}</div>
+          <div className="adminSupportMessages">{supportMessages.map(item=><article key={item.id} className={"adminSupportMessage "+item.sender}><small>{item.sender==="admin"?"YOU":item.sender==="customer"?"CUSTOMER":"CONTEXT"}</small><p>{item.body}</p>{item.attachment?.url&&<a className="adminSupportImage" href={item.attachment.url} target="_blank" rel="noreferrer"><img src={item.attachment.url} alt={item.attachment.name}/><span>Open image ↗</span></a>}<time>{new Date(item.created_at).toLocaleString()}</time></article>)}{!supportMessages.length&&<p className="adminEmpty">No messages in this conversation yet.</p>}</div>
           <section className="adminQuickReplies"><div className="adminQuickRepliesHead"><div><b>Quick replies</b><small>Choose a response to send it instantly</small></div><span>ONE-CLICK</span></div><div className="adminQuickReplyGrid">{quickReplies.map(item=><button type="button" key={item.label} disabled={supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"} onClick={()=>void sendQuickReply(item.body)}><span>{item.icon}</span>{item.label}</button>)}</div></section>
-          <form className="adminSupportReply" onSubmit={sendSupportReply}><textarea value={supportReply} onChange={e=>setSupportReply(e.target.value)} placeholder="Type your message here…" rows={3} disabled={supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"}/><button className="adminPrimary" disabled={!supportReply.trim()||supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"}><Send size={15}/>{supportBusy?"Sending…":"Send message"}</button></form>
+          <form className="adminSupportReply" onSubmit={sendSupportReply}><textarea value={supportReply} onChange={e=>setSupportReply(e.target.value)} placeholder="Type your message here…" rows={3} disabled={supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"}/><div className="adminSupportComposerActions"><label className="adminSupportAttach"><input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setSupportAttachment(e.target.files?.[0]||null)}/><span>＋ Attach image</span></label>{supportAttachment&&<small>{supportAttachment.name} <button type="button" onClick={()=>setSupportAttachment(null)}>Remove</button></small>}<button className="adminPrimary" disabled={(!supportReply.trim()&&!supportAttachment)||supportBusy||supportConversations.find(x=>x.id===selectedSupportId)?.status==="closed"}><Send size={15}/>{supportBusy?"Sending…":"Send message"}</button></div></form>
           <p className="adminSub">Replies appear in the customer’s website chat. Email and WhatsApp are not sent.</p>
         </> : <div className="adminSupportEmpty adminSupportThreadEmpty"><MessageSquare size={28}/><b>Choose a conversation</b><span>Select a customer from the inbox to read and reply to their messages.</span></div>}
       </div>

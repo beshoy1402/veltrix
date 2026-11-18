@@ -1830,3 +1830,27 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
   .stormSite .stormServiceCardActions>a,
   .stormSite .stormServiceCardActions>button { min-height:46px; font-size:9px; }
 }
+
+
+/* Usability and accessibility refinements */
+.veltrixSkipLink{position:fixed;z-index:1000;top:12px;left:12px;padding:13px 18px;background:#211F1B;color:#E9E1D4;border:2px solid #A88F75;transform:translateY(-160%);transition:transform .2s ease;font-weight:700}
+.veltrixSkipLink:focus{transform:translateY(0);outline:3px solid #A88F75;outline-offset:3px}
+.stormSite :is(a,button,input,select,textarea):focus-visible{outline:3px solid #A88F75;outline-offset:4px}
+.stormSite input,.stormSite select,.stormSite textarea{min-height:48px}
+.stormSite textarea{min-height:110px;resize:vertical}
+.stormSite button:disabled{opacity:.65;cursor:wait}
+.stormSite .stormMobileMenu{max-height:calc(100dvh - 86px);overflow-y:auto;overscroll-behavior:contain;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+.stormSite .stormMobileMenu a,.stormSite .stormMobileMenu button{min-height:52px;display:flex;align-items:center}
+.stormSite .stormMobileMenu a:focus-visible,.stormSite .stormMobileMenu button:focus-visible{background:#e1d5c5}
+.stormSite .overlay{overflow-y:auto;overscroll-behavior:contain}
+.stormSite .quoteModal,.stormSite .previewModal{max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain}
+.stormSite .inquiryForm label,.stormSite .veltrixInlineForm label{line-height:1.5}
+.stormSite .inquiryForm input,.stormSite .inquiryForm select,.stormSite .inquiryForm textarea,.stormSite .veltrixInlineForm input,.stormSite .veltrixInlineForm select,.stormSite .veltrixInlineForm textarea{width:100%;border-radius:2px}
+@media(max-width:680px){
+ .stormSite .stormHeader{padding-left:20px;padding-right:20px}
+ .stormSite .stormMenu{width:46px;height:46px;display:grid;place-items:center;border:1px solid #A88F75;background:#211F1B;color:#E9E1D4}
+ .stormSite .stormMobileMenu{left:0;right:0}
+ .stormSite .stormContactActions{display:grid;grid-template-columns:1fr;gap:12px}
+ .stormSite .stormContactActions>button{width:100%;justify-content:space-between}
+}
+@media(prefers-reduced-motion:reduce){.veltrixSkipLink{transition:none}}

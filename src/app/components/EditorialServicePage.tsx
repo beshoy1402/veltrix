@@ -13,7 +13,7 @@ export default function EditorialServicePage({service}:{service:Service}){
   <section className="veltrixServiceIntro" id="service-details"><span>01 / OVERVIEW</span><h2>{ar?"نبدأ بالهدف. ونبني ما يخدمه.":"Built around<br/>what matters."}</h2><p>{service.intro}</p></section>
   <section className="veltrixServiceOutcomes"><span>02 / WHAT WE DELIVER</span><h2>Thoughtful at<br/><em>every layer.</em></h2><div>{service.outcomes.map((item,i)=><p key={item}><Check size={16}/><b>0{i+1}</b>{item}</p>)}</div></section>
   <section className="veltrixServiceProcess"><span>03 / HOW WE WORK</span><h2>From first thought<br/>to <em>finished work.</em></h2><div>{service.process.map((item,i)=><article key={item}><b>0{i+1}</b><h3>{item}</h3><span>VELTRIX / PROCESS</span></article>)}</div></section>
-  <section className="veltrixServiceCta"><span>04 / LET'S BUILD</span><h2>Have something<br/><em>in mind?</em></h2><p>{service.starting} <small>Indicative starting price. Final scope is confirmed in a project proposal.</small></p><Link href={"/quote-estimator?service="+service.slug}>CONFIGURE YOUR PROJECT <ArrowUpRight size={16}/></Link></section>
+  <section className="veltrixServiceCta"><span>04 / LET&apos;S BUILD</span><h2>Have something<br/><em>in mind?</em></h2><p>{service.starting} <small>Indicative starting price. Final scope is confirmed in a project proposal.</small></p><Link href={"/quote-estimator?service="+service.slug}>CONFIGURE YOUR PROJECT <ArrowUpRight size={16}/></Link></section>
   <footer className="veltrixEditorialFooter"><Link href="/">VELTRIX®</Link><span>CAIRO / EVERYWHERE</span><Link href="/#contact">START A PROJECT <ArrowUpRight size={14}/></Link></footer>
  </main>;
 }

@@ -39,7 +39,10 @@ export async function GET(request: NextRequest) {
       result.campaigns = await read("marketing_campaigns?select=*&order=created_at.desc&limit=100");
     }
     if (session.role === "designer" || session.role === "admin") result.assets = await read("design_assets?select=*&order=created_at.desc&limit=100");
-    if (session.role === "developer" || session.role === "admin") {\n      const projectIds = [...new Set((tasks as Array<Record<string, unknown>>).map(task => String(task.project_id || "")).filter(Boolean))];\n      result.projects = projectIds.length ? await read("client_projects?select=id,name,summary,status,progress,due_date,updated_at&id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=updated_at.desc") : [];\n    }
+    if (session.role === "developer" || session.role === "admin") {
+      const projectIds = [...new Set((tasks as Array<Record<string, unknown>>).map(task => String(task.project_id || "")).filter(Boolean))];
+      result.projects = projectIds.length ? await read("client_projects?select=id,name,summary,status,progress,due_date,updated_at&id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=updated_at.desc") : [];
+    }
     return NextResponse.json(result);
   } catch (error) {
     console.error("Team workspace load failed", error);

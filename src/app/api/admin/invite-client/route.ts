@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const summary = String(input.summary || "").trim();
     const dueDate = input.due_date ? String(input.due_date) : null;
     if (!name || !email || !projectName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: "Enter a valid client name, email, and project name." }, { status: 400 });
+      return NextResponse.json({ error: "Enter a valid client name, email, project name, and password with at least 8 characters." }, { status: 400 });
     }
 
     const createUser = await fetch(`${url}/auth/v1/admin/users`, {
@@ -49,8 +49,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: detail }, { status: createUser.status });
     }
 
-    const userId = invited.id;
-    if (!userId) return NextResponse.json({ error: "Invitation was accepted by Auth, but no user ID was returned. Check Supabase Auth users before retrying." }, { status: 502 });
+    const userId = invited.id || invited.user?.id;
+    if (!userId) return NextResponse.json({ error: "Auth created the account, but no user ID was returned. Check Supabase Auth users before retrying." }, { status: 502 });
 
     const projectResponse = await fetch(`${url}/rest/v1/client_projects`, {
       method: "POST",

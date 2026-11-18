@@ -3,7 +3,7 @@ export const runtime = "nodejs";
 const SUPABASE_URL=process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY=process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 const GEMINI_API_KEY=process.env.GEMINI_API_KEY;
-const MODEL="gemini-2.5-flash-lite";
+const MODEL="gemini-3.5-flash-lite";
 async function isAdmin(request:NextRequest){
  const authorization=request.headers.get("authorization")||"";
  if(!authorization.startsWith("Bearer ")||!SUPABASE_URL||!SUPABASE_KEY)return false;

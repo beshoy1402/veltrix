@@ -311,7 +311,8 @@ export default function AdminPage() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Could not invite client.");
       setInviteDraft({ name: "", email: "", password: "", project_name: "", summary: "", due_date: "" });
-      setClientCredentials({email:inviteDraft.email,password:inviteDraft.password,portal:window.location.origin+"/client"});\n      setMessage(result.message || "Client account and project created.");
+      setClientCredentials({email:inviteDraft.email,password:inviteDraft.password,portal:window.location.origin+"/client"});
+      setMessage(result.message || "Client account and project created.");
       await loadAll(token);
     } catch (e) { setError(e instanceof Error ? e.message : "Could not invite client."); }
     finally { setLoading(false); }

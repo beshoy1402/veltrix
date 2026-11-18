@@ -1943,3 +1943,60 @@ html:before{content:"";position:fixed;z-index:999;top:0;left:0;height:2px;width:
  .stormSite .storm3dOrbit,.stormSite .storm3dCore,.stormSite .storm3dCube,.stormSite .storm3dShard{animation:none!important}
  .stormSite .stormProjectVisual{transform:none!important;transition:none!important}
 }
+
+
+/* VELTRIX admin — expanded studio workspace */
+.adminShell{--admin-accent:#a88f75;--admin-ink:#211f1b;--admin-paper:#e9e1d4;background:#f0ece5;color:var(--admin-ink)}
+.adminMark{background:var(--admin-ink);color:var(--admin-paper)}
+.adminPrimary{background:var(--admin-ink);color:var(--admin-paper);display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;cursor:pointer}
+.adminPrimary:hover{background:#756653}
+.adminBrand span{color:#c1a98c}
+.adminSide button.selected,.adminSide button:hover{background:#211f1b;color:#e9e1d4}
+.adminSide button{cursor:pointer;border-radius:2px}
+.adminSide a:hover{color:#211f1b}
+.adminPanelHead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.adminPanelHead h2{margin:0}
+.adminExport{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #c9c0b3;background:#f8f5ef;color:#302b24;padding:10px 13px;font-size:10px;cursor:pointer}
+.adminExport:hover{background:#e7ddce;border-color:#a88f75}
+.adminExportGrid{display:flex;gap:10px;flex-wrap:wrap}
+.adminMetricRow{display:grid;grid-template-columns:minmax(110px,1fr) minmax(100px,2fr) 42px;align-items:center;gap:16px;border-top:1px solid #ecebe5;padding:13px 0;font-size:11px}
+.adminMetricRow>div{height:7px;background:#eeeae2;overflow:hidden}
+.adminMetricRow i{display:block;height:100%;background:#a88f75}
+.adminMetricRow>b{text-align:right;font:11px var(--mono)}
+.adminAI{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.adminAIIntro,.adminAIChat{background:#fff;border:1px solid #e1e0d9;padding:24px}
+.adminAIIntro{background:#211f1b;color:#e9e1d4;position:sticky;top:20px}
+.adminAIIntro>span{display:flex;align-items:center;gap:8px;font:9px var(--mono);letter-spacing:.14em;color:#c1a98c}
+.adminAIIntro h2{font:700 clamp(30px,4vw,45px)/.98 var(--display);letter-spacing:-.07em;margin:35px 0 14px}
+.adminAIIntro p{font-size:12px;line-height:1.8;color:#c1b4a2}
+.adminAIStatus{display:inline-flex;align-items:center;gap:8px;font:9px var(--mono);letter-spacing:.06em;color:#547d55;background:#e9f1e7;padding:8px 10px}
+.adminAIStatus i{width:7px;height:7px;border-radius:50%;background:#5b965f}
+.adminAIStatus.offline{color:#996044;background:#f5eae1}
+.adminAIStatus.offline i{background:#bc7951}
+.adminAIChat{min-width:0}
+.adminAIQuick{display:grid;gap:8px;padding-bottom:20px;border-bottom:1px solid #ecebe5}
+.adminAIQuick>small{font:9px var(--mono);letter-spacing:.12em;color:#8a8175;margin-bottom:4px}
+.adminAIQuick button{display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;border:1px solid #e7e2d9;background:#faf8f4;color:#494238;padding:11px 13px;font-size:10px;line-height:1.5;cursor:pointer}
+.adminAIQuick button:hover{border-color:#a88f75;background:#f2ece3}
+.adminAIQuick button:disabled{opacity:.45;cursor:not-allowed}
+.adminAIQuick button span{color:#a88f75}
+.adminAIConversation{min-height:260px;max-height:520px;overflow:auto;padding:18px 0;display:flex;flex-direction:column;gap:13px}
+.adminAIEmpty{min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;color:#a88f75}
+.adminAIEmpty b{font:600 18px var(--display);color:#302b24}
+.adminAIEmpty span{font-size:10px;color:#8a877f;max-width:260px;line-height:1.6}
+.adminAIConversation article{max-width:94%;padding:13px 15px;background:#f4f1eb;border:1px solid #e8e3da}
+.adminAIConversation article.fromUser{align-self:flex-end;background:#211f1b;color:#e9e1d4;border-color:#211f1b}
+.adminAIConversation article small{font:8px var(--mono);letter-spacing:.12em;color:#a88f75}
+.adminAIConversation article p{font-size:11px;line-height:1.75;white-space:pre-wrap;margin:7px 0 0;overflow-wrap:anywhere}
+.adminAIConversation .fromUser small{color:#d2bda3}
+.adminAIThinking{font:10px var(--mono);color:#8b8175}
+.adminAIComposer{display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px;border-top:1px solid #ecebe5;padding-top:15px}
+.adminAIComposer textarea{width:100%;resize:vertical;border:1px solid #d8d2c8;background:#fcfbf8;padding:13px;font:11px/1.6 var(--body);color:#211f1b}
+.adminAIComposer .adminPrimary{min-width:95px}
+.adminAIPrivacy{font-size:9px;line-height:1.6;color:#8a877f;margin:12px 0 0}
+.adminSetupSteps{padding-left:20px;margin:18px 0 22px;display:grid;gap:13px;font-size:11px;line-height:1.65;color:#66645e}
+.adminSetupSteps a{color:#8c7257;text-decoration:underline}
+.adminSetupSteps code{background:#f1eee8;padding:3px 6px;color:#554735}
+.adminLogin input:focus,.adminAddForm input:focus,.adminAIComposer textarea:focus{outline:2px solid #a88f75;outline-offset:1px}
+@media(max-width:900px){.adminAI{grid-template-columns:1fr}.adminAIIntro{position:static}.adminAIIntro h2{margin:22px 0 10px}}
+@media(max-width:560px){.adminAIIntro,.adminAIChat{padding:18px}.adminAIComposer{grid-template-columns:1fr}.adminAIComposer .adminPrimary{width:100%}.adminMetricRow{grid-template-columns:90px minmax(50px,1fr) 32px;gap:9px}.adminPanelHead{align-items:flex-start;flex-direction:column}}

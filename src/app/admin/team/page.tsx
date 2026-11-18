@@ -7,7 +7,7 @@ type Task=Record<string,unknown>;
 export default function TeamManagementPage(){
  const [token,setToken]=useState("");const [members,setMembers]=useState<Member[]>([]);const [tasks,setTasks]=useState<Task[]>([]);const [projects,setProjects]=useState<Array<{id:string;name:string}>>([]);
  const [form,setForm]=useState({name:"",email:"",password:"",role:"marketing"});
- const [taskForm,setTaskForm]=useState({title:"",description:"",department:"developer",assigned_to:"",priority:"normal",due_date:""});
+ const [taskForm,setTaskForm]=useState({title:"",description:"",department:"developer",assigned_to:"",priority:"normal",due_date:"",project_id:""});
  const [loading,setLoading]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [createdCredentials,setCreatedCredentials]=useState<{email:string;password:string;role:string}|null>(null);
  const load=useCallback(async(authToken:string)=>{
   setLoading(true);setError("");
@@ -31,7 +31,7 @@ export default function TeamManagementPage(){
  }
  async function assignTask(event:FormEvent){
   event.preventDefault();if(!token)return;setBusy(true);setError("");setNotice("");
-  try{const response=await fetch("/api/admin/team-tasks",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(taskForm)});const result=await response.json();if(!response.ok)throw new Error(result.error||"Could not assign task.");setNotice(result.message||"Task assigned.");setTaskForm({title:"",description:"",department:"developer",assigned_to:"",priority:"normal",due_date:""});await load(token);}
+  try{const response=await fetch("/api/admin/team-tasks",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:JSON.stringify(taskForm)});const result=await response.json();if(!response.ok)throw new Error(result.error||"Could not assign task.");setNotice(result.message||"Task assigned.");setTaskForm({title:"",description:"",department:"developer",assigned_to:"",priority:"normal",due_date:"",project_id:""});await load(token);}
   catch(e){setError(e instanceof Error?e.message:"Could not assign task.");}finally{setBusy(false);}
  }
  return <main className="teamShell">

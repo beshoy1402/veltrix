@@ -24,7 +24,7 @@ function clean(value: unknown, max: number) {
 
 async function hydrateAttachments(rows: any[]) {
   return Promise.all((rows || []).map(async (row) => {
-    const match = typeof row.body === "string" ? row.body.match(/^\\[\\[VELTRIX_IMAGE:([^|]+)\\|([^|]*)\\|([^|]*)\\]\\]\\n?/) : null;
+    const match = typeof row.body === "string" ? row.body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
     if (!match) return row;
     const path = match[1];
     const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: dbHeaders(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });

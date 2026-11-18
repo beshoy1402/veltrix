@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     const name = clean(input.name, 120);
     const email = clean(input.email, 254).toLowerCase();
     const phone = clean(input.phone, 40);
-    const context = clean(input.context, 5000);
+    const context = clean(input.context, 3800);
     if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: "Enter your name and a valid email address." }, { status: 400 });
     const created = await fetch(URL + "/rest/v1/support_conversations", {
       method: "POST", headers: { ...dbHeaders(), Prefer: "return=representation" },

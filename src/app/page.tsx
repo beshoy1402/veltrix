@@ -36,19 +36,19 @@ export default function Home(){
  const [sent,setSent]=useState(false);
  const [formError,setFormError]=useState("");
  const [form,setForm]=useState({name:"",email:"",phone:"",company:"",service:"Business website",budget:"EGP 20,000–40,000",message:""});
- async function submitBooking(event:FormEvent<HTMLFormElement>){event.preventDefault();setBookingSending(true);setBookingError("");try{const response=await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/booking_requests`,{method:"POST",headers:{"Content-Type":"application/json","apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??"","Prefer":"return=minimal"},body:JSON.stringify({name:booking.name,email:booking.email,phone:booking.phone,service_interest:booking.service,preferred_date:booking.date||null,preferred_time:booking.time,notes:booking.notes})});if(!response.ok)throw new Error(await response.text()||"Could not send booking request.");setBookingSent(true);}catch(e){setBookingError(e instanceof Error?e.message:"Booking request failed.");}finally{setBookingSending(false);}}
- async function subscribe(event:FormEvent<HTMLFormElement>){event.preventDefault();setNewsletterState("Sending...");try{const response=await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/newsletter_subscribers`,{method:"POST",headers:{"Content-Type":"application/json","apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??"","Prefer":"return=minimal"},body:JSON.stringify({email:newsletterEmail})});if(!response.ok)throw new Error(await response.text()||"Subscription failed.");setNewsletterState("You are subscribed.");setNewsletterEmail("");}catch(e){setNewsletterState(e instanceof Error&&e.message.includes("duplicate")?"This email is already subscribed.":"Could not subscribe right now. Please try again.");}}
+ async function submitBooking(event:FormEvent<HTMLFormElement>){event.preventDefault();setBookingSending(true);setBookingError("");try{const response=await fetch("/api/public/bookings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:booking.name,email:booking.email,phone:booking.phone,service_interest:booking.service,preferred_date:booking.date||null,preferred_time:booking.time,notes:booking.notes})});if(!response.ok)throw new Error(await response.text()||"Could not send booking request.");setBookingSent(true);}catch(e){setBookingError(e instanceof Error?e.message:"Booking request failed.");}finally{setBookingSending(false);}}
+ async function subscribe(event:FormEvent<HTMLFormElement>){event.preventDefault();setNewsletterState("Sending...");try{const response=await fetch("/api/public/newsletter",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:newsletterEmail})});if(!response.ok)throw new Error(await response.text()||"Subscription failed.");setNewsletterState("You are subscribed.");setNewsletterEmail("");}catch(e){setNewsletterState(e instanceof Error&&e.message.includes("duplicate")?"This email is already subscribed.":"Could not subscribe right now. Please try again.");}}
  async function submitInquiry(event:FormEvent<HTMLFormElement>){
   event.preventDefault();
   setSending(true);setFormError("");
   try{
-   const response=await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/inquiries`,{
+   const response=await fetch("/api/public/inquiries",{
     method:"POST",
-    headers:{"Content-Type":"application/json","apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??"","Prefer":"return=minimal"},
+    headers:{"Content-Type":"application/json"},
     body:JSON.stringify({name:form.name,email:form.email,phone:form.phone,company:form.company,service_interest:form.service,budget:form.budget,message:form.message})
    });
    if(!response.ok){const detail=await response.text();throw new Error(detail||"Unable to submit your enquiry.");}
-   setSent(true);
+   setSent(true);\n   try{let sid=sessionStorage.getItem("veltrix-session");if(sid)fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"inquiry_submit",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}
   }catch(error){setFormError(error instanceof Error?error.message:"Something went wrong. Please try again.");}
   finally{setSending(false);}
  }
@@ -57,7 +57,7 @@ export default function Home(){
  const priceCategories:Record<string,string[]>={"01":["Business Websites"],"02":["E-commerce"],"03":["Business Systems","SaaS & APIs","Media & Portals","Education","Booking Platforms","Real Estate"],"05":["AI & Automation"]};
  const getStartingPrice=(service:(typeof services)[number])=>{const live=(priceCategories[service.n]??[]).map(category=>categoryPrices[category]).filter(value=>Number.isFinite(value));return live.length?Math.min(...live):Number(service.price.replace(/,/g,""));};
  useEffect(()=>{fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/services?select=category,price_egp&is_published=eq.true`,{headers:{"apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??""}}).then(r=>r.ok?r.json():[]).then((rows:Array<{category:string;price_egp:number|string}>)=>{const grouped:Record<string,number[]>={};rows.forEach(x=>{(grouped[x.category]??=[]).push(Number(x.price_egp));});const mins:Record<string,number>={};Object.entries(grouped).forEach(([k,v])=>{if(v.length)mins[k]=Math.min(...v);});setCategoryPrices(mins);}).catch(()=>{});},[]);
- useEffect(()=>{try{let sid=sessionStorage.getItem("veltrix-session");if(!sid){sid=crypto.randomUUID();sessionStorage.setItem("veltrix-session",sid);}fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/site_events`,{method:"POST",headers:{"Content-Type":"application/json","apikey":process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY??"","Prefer":"return=minimal"},body:JSON.stringify({event_type:"page_view",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}} ,[]);
+ useEffect(()=>{try{let sid=sessionStorage.getItem("veltrix-session");if(!sid){sid=crypto.randomUUID();sessionStorage.setItem("veltrix-session",sid);}fetch("/api/public/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event_type:"page_view",path:window.location.pathname,session_id:sid})}).catch(()=>{});}catch{}} ,[]);
  const copy=ar?{
   nav:["خدماتنا","أعمالنا","من نحن","مقالات"],cta:"ابدأ مشروعك",eyebrow:"استوديو مستقل للابتكار الرقمي",
   intro:"نحوّل الأفكار الطموحة إلى تجارب رقمية مؤثرة، من خلال الجمع بين الاستراتيجية والتصميم والتكنولوجيا لدفع الأعمال إلى الأمام.",

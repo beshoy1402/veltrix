@@ -1507,3 +1507,162 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#a99a7f}
  .stormProjectMeta h3{font-size:16px}
  .stormContactActions button{font-size:8px}
 }
+
+
+/* VELTRIX — CINEMATIC EXPERIENCE, CASE STUDIES & ESTIMATOR */
+:root{--v-ink:#211F1B;--v-paper:#E9E1D4;--v-metal:#A88F75;--v-sand:#C1B4A2;--v-muted:#777066}
+.veltrixAtmosphere{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.veltrixAtmosphere span{position:absolute;border:1px solid #E9E1D41c;border-radius:50%;width:44vw;aspect-ratio:1;right:-14vw;top:12%;animation:vAtmosphere 22s linear infinite}
+.veltrixAtmosphere span:nth-child(2){width:32vw;right:-8vw;top:22%;animation-duration:28s;animation-direction:reverse}
+.veltrixAtmosphere span:nth-child(3){width:20vw;right:-2vw;top:32%;animation-duration:34s}
+.stormHero{isolation:isolate}
+.stormHeroCopy,.stormHeroAside,.stormHeroBottom,.stormEyebrow{position:relative;z-index:2}
+.storm3dScene{transform:perspective(1000px) rotateX(calc(var(--pointer-y,0)*-8deg)) rotateY(calc(var(--pointer-x,0)*10deg));transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.storm3dCore{transform:translateZ(42px);box-shadow:0 30px 90px #0005, inset 0 1px #fff8}
+.storm3dCube{transform:translateZ(70px) rotateX(calc(var(--pointer-y,0)*-12deg)) rotateY(calc(var(--pointer-x,0)*15deg))}
+.storm3dOrbit{filter:drop-shadow(0 0 12px #A88F7540)}
+.veltrix-reveal{opacity:.01;transform:translateY(34px);transition:opacity .9s ease,transform 1s cubic-bezier(.16,1,.3,1)}
+.veltrix-reveal.veltrix-in-view{opacity:1;transform:translateY(0)}
+.stormProjectMetaActions{display:flex;align-items:center;gap:12px}
+.stormProjectMetaActions>a,.stormServiceCardActions>a{display:inline-flex;align-items:center;gap:7px;color:#777066;font:8px "DM Mono",monospace;letter-spacing:.12em;text-decoration:none;transition:color .25s}
+.stormProjectMetaActions>a:hover,.stormServiceCardActions>a:hover{color:#A88F75}
+.stormServiceCardActions{grid-column:2/-1;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.stormServiceCardActions>button{display:flex;align-items:center;gap:8px}
+.stormServiceCardActions>a{padding:8px 0}
+.stormMobileMenu a[href="/quote-estimator"]{color:#A88F75}
+.veltrixEditorial,.veltrixEstimator{min-height:100vh;background:var(--v-paper);color:var(--v-ink);font-family:"Manrope","DM Sans",sans-serif}
+.veltrixEditorialHeader{height:82px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #211F1B22}
+.veltrixEditorialHeader>div{display:flex;align-items:center;gap:25px}
+.veltrixEditorialHeader>div>span,.veltrixEditorialHeader>div>a,.veltrixEditorialHeader button{font:8px "DM Mono",monospace;letter-spacing:.13em;color:var(--v-muted);text-decoration:none}
+.veltrixEditorialHeader button{display:flex;align-items:center;gap:7px;background:none;border:0;cursor:pointer}
+.veltrixEditorialHeader>div>a{display:flex;align-items:center;gap:8px;color:var(--v-ink)}
+.veltrixCaseHero{background:#211F1B;color:#E9E1D4;min-height:690px;padding:9vh 7vw 75px;display:grid;grid-template-columns:1fr 1.05fr;gap:5vw;align-items:center;position:relative;overflow:hidden}
+.veltrixCaseHero:before{content:"";position:absolute;width:55vw;aspect-ratio:1;border:1px solid #E9E1D41b;border-radius:50%;right:-15vw;top:-20vw;box-shadow:0 0 0 5vw #E9E1D408,0 0 0 10vw #E9E1D405}
+.veltrixCaseHeroCopy{position:relative;z-index:1}
+.veltrixCaseHeroCopy>span,.veltrixCaseIntro>span,.veltrixCaseSplit>div>span,.veltrixCaseFeature>div>span,.veltrixDeliverables>span,.veltrixNextProject>span,.veltrixServiceHero>span,.veltrixServiceIntro>span,.veltrixServiceOutcomes>span,.veltrixServiceProcess>span,.veltrixServiceCta>span{font:8px "DM Mono",monospace;letter-spacing:.16em;color:var(--v-metal)}
+.veltrixCaseHero h1{font-size:clamp(58px,8.6vw,142px);line-height:.86;letter-spacing:-.09em;margin:38px 0 26px;max-width:720px}
+.veltrixCaseHero h1 i,.veltrixServiceHero h1 i{color:var(--v-metal);font-style:normal}
+.veltrixCaseHeroCopy>p{max-width:470px;color:#E9E1D4a8;font-size:14px;line-height:1.9}
+.veltrixCaseHeroCopy>div{display:flex;gap:20px;flex-wrap:wrap;margin-top:38px}
+.veltrixCaseHeroCopy>div b{font:8px "DM Mono",monospace;letter-spacing:.12em;color:#E9E1D480}
+.veltrixCaseVisual{height:470px;position:relative;z-index:1;overflow:hidden;background:#A88F75}
+.veltrixCaseVisual img{width:100%;height:100%;object-fit:cover;filter:saturate(.78);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.veltrixCaseVisual:hover img{transform:scale(1.045)}
+.veltrixCaseVisual>span{position:absolute;bottom:20px;left:20px;color:#fff;font:8px "DM Mono",monospace;letter-spacing:.15em;text-shadow:0 2px 12px #000}
+.veltrixScrollCue{position:absolute;bottom:27px;left:7vw;display:flex;align-items:center;gap:10px;color:#E9E1D4a8;text-decoration:none;font:8px "DM Mono",monospace;letter-spacing:.14em}
+.veltrixCaseIntro{padding:130px 12vw;display:grid;grid-template-columns:.5fr 1.2fr .8fr;gap:35px;align-items:start}
+.veltrixCaseIntro h2,.veltrixCaseSplit h2,.veltrixCaseFeature h2,.veltrixDeliverables h2,.veltrixServiceIntro h2,.veltrixServiceOutcomes h2,.veltrixServiceProcess h2,.veltrixServiceCta h2{font-size:clamp(42px,5.6vw,82px);letter-spacing:-.075em;line-height:.94;margin:0}
+.veltrixCaseIntro>p,.veltrixCaseSplit>p,.veltrixCaseFeature p,.veltrixServiceIntro>p{font-size:13px;line-height:1.9;color:#777066;margin:0}
+.veltrixCaseSplit{background:#D8CDBD;padding:110px 12vw;display:grid;grid-template-columns:1fr .7fr;gap:10vw;align-items:end}
+.veltrixCaseSplit h2{margin-top:35px}.veltrixCaseSplit h2 em,.veltrixCaseFeature h2 em,.veltrixDeliverables h2 em,.veltrixServiceOutcomes h2 em,.veltrixServiceProcess h2 em,.veltrixServiceCta h2 em{font-family:Georgia,serif;font-weight:400}
+.veltrixCaseFeature{padding:120px 7vw;display:grid;grid-template-columns:1.15fr .85fr;gap:8vw;align-items:center}
+.veltrixCaseFeature>img{width:100%;height:520px;object-fit:cover}
+.veltrixCaseFeature h2{margin:35px 0 24px}
+.veltrixDeliverables{background:#211F1B;color:#E9E1D4;padding:110px 12vw;display:grid;grid-template-columns:.6fr 1fr 1fr;gap:5vw;align-items:start}
+.veltrixDeliverables h2{font-size:clamp(42px,5vw,74px)}
+.veltrixDeliverables>div{border-top:1px solid #E9E1D433}
+.veltrixDeliverables>div p{display:grid;grid-template-columns:35px 1fr 18px;gap:12px;align-items:center;padding:19px 0;border-bottom:1px solid #E9E1D433;font-size:11px}
+.veltrixDeliverables>div b{font:8px "DM Mono",monospace;color:var(--v-metal)}
+.veltrixNextProject{padding:70px 12vw}
+.veltrixNextProject>a{display:flex;flex-direction:column;gap:14px;text-decoration:none;color:var(--v-ink);margin-top:35px}
+.veltrixNextProject>a small{font:8px "DM Mono",monospace;color:var(--v-muted);letter-spacing:.13em}
+.veltrixNextProject>a b{font-size:clamp(42px,8vw,100px);letter-spacing:-.08em;display:flex;justify-content:space-between;align-items:center}
+.veltrixEditorialFooter{background:#211F1B;color:#E9E1D4;padding:27px 5vw;display:flex;justify-content:space-between;align-items:center;font:8px "DM Mono",monospace;letter-spacing:.12em}
+.veltrixEditorialFooter a{color:inherit;text-decoration:none}
+.veltrixServiceHero{min-height:650px;padding:110px 10vw;background:#211F1B;color:#E9E1D4;position:relative;overflow:hidden}
+.veltrixServiceHero h1{position:relative;z-index:1;font-size:clamp(58px,10vw,150px);letter-spacing:-.09em;line-height:.87;max-width:1050px;margin:45px 0 28px}
+.veltrixServiceHero>p{position:relative;z-index:1;max-width:510px;color:#E9E1D4a6;font-size:14px;line-height:1.8}
+.veltrixServiceHero>a{position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;margin-top:36px;color:#E9E1D4;text-decoration:none;font:8px "DM Mono",monospace;letter-spacing:.14em}
+.veltrixServiceOrb{position:absolute;right:5vw;bottom:-140px;width:430px;aspect-ratio:1;border:1px solid #A88F7555;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 0 35px #A88F7508,0 0 0 70px #A88F7505}
+.veltrixServiceOrb:before,.veltrixServiceOrb:after{content:"";position:absolute;inset:13%;border:1px solid #A88F7540;border-radius:50%;transform:rotateX(65deg) rotate(-25deg)}
+.veltrixServiceOrb:after{transform:rotateX(65deg) rotate(55deg)}
+.veltrixServiceOrb span{font:italic 180px Georgia,serif;color:#A88F75;transform:translateZ(60px)}
+.veltrixServiceIntro{padding:120px 12vw;display:grid;grid-template-columns:.5fr 1fr .8fr;gap:4vw;align-items:start}
+.veltrixServiceOutcomes{padding:110px 12vw;background:#D8CDBD;display:grid;grid-template-columns:.6fr 1fr 1fr;gap:5vw}
+.veltrixServiceOutcomes>div{border-top:1px solid #211F1B33}
+.veltrixServiceOutcomes>div p{display:flex;align-items:center;gap:13px;padding:19px 0;border-bottom:1px solid #211F1B33;font-size:11px}
+.veltrixServiceOutcomes>div svg{color:#8d806d}
+.veltrixServiceOutcomes>div b{font:8px "DM Mono",monospace;color:#8d806d}
+.veltrixServiceProcess{padding:110px 12vw;display:grid;grid-template-columns:.6fr 1fr 1fr;gap:5vw}
+.veltrixServiceProcess>div{grid-column:2/-1;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#211F1B24;border:1px solid #211F1B24}
+.veltrixServiceProcess article{background:var(--v-paper);padding:28px;min-height:180px}
+.veltrixServiceProcess article>b{font:9px "DM Mono",monospace;color:var(--v-metal)}
+.veltrixServiceProcess article h3{font-size:21px;letter-spacing:-.05em;margin:30px 0}
+.veltrixServiceProcess article span{font:7px "DM Mono",monospace;color:var(--v-muted);letter-spacing:.13em}
+.veltrixServiceCta{background:#211F1B;color:#E9E1D4;padding:110px 12vw;display:grid;grid-template-columns:.6fr 1fr .8fr;gap:4vw;align-items:start}
+.veltrixServiceCta h2{font-size:clamp(48px,6vw,90px)}
+.veltrixServiceCta>p{font-size:12px;line-height:1.8;color:#E9E1D4b0}
+.veltrixServiceCta>p small{display:block;margin-top:14px;color:#E9E1D470;font-size:9px}
+.veltrixServiceCta>a{grid-column:2/-1;display:inline-flex;align-items:center;gap:12px;width:max-content;color:#E9E1D4;text-decoration:none;border-bottom:1px solid #A88F75;padding:0 0 13px;font:8px "DM Mono",monospace;letter-spacing:.14em}
+.veltrixEstimator{background:#E9E1D4;min-height:100vh}
+.veltrixEstimator>header,.veltrixEstimator>footer{display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;border-bottom:1px solid #211F1B22}
+.veltrixEstimator>header>span,.veltrixEstimator>header>a:not(.stormLogo),.veltrixEstimator>footer{font:8px "DM Mono",monospace;letter-spacing:.13em;color:#777066;text-decoration:none}
+.veltrixEstimator>header>a:not(.stormLogo){display:flex;gap:8px;align-items:center}
+.estimatorIntro{padding:95px 12vw 55px;background:#211F1B;color:#E9E1D4}
+.estimatorIntro>span,.estimatorStep>span{font:8px "DM Mono",monospace;letter-spacing:.15em;color:#A88F75}
+.estimatorIntro h1{font-size:clamp(58px,9vw,125px);line-height:.86;letter-spacing:-.09em;margin:35px 0 25px}
+.estimatorIntro h1 em{font-family:Georgia,serif;font-weight:400}
+.estimatorIntro>p{max-width:550px;color:#E9E1D4a6;font-size:13px;line-height:1.8}
+.estimatorPanel{max-width:1100px;margin:-1px auto 90px;background:#F1EADF;padding:45px 5vw 35px;box-shadow:0 25px 80px #211F1B12}
+.estimatorProgress{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #211F1B25;padding-bottom:20px;font:8px "DM Mono",monospace;letter-spacing:.13em;color:#777066}
+.estimatorProgress>div{display:flex;gap:7px;flex:1;max-width:260px}
+.estimatorProgress i{height:3px;flex:1;background:#C1B4A2}
+.estimatorProgress i.active{background:#A88F75}
+.estimatorStep{padding:45px 0 30px;min-height:400px}
+.estimatorStep h2{font-size:clamp(35px,5vw,62px);letter-spacing:-.07em;line-height:.95;margin:22px 0 35px}
+.estimatorChoices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.estimatorChoices button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:13px;text-align:left;padding:22px;background:transparent;border:1px solid #211F1B28;min-height:112px;cursor:pointer;transition:background .25s,border .25s}
+.estimatorChoices button.selected,.estimatorFeatures button.selected,.estimatorTimeline button.selected{background:#E1D5C5;border-color:#A88F75}
+.estimatorChoices button>span{font-size:16px;font-weight:650;letter-spacing:-.04em}
+.estimatorChoices button>small{font:8px "DM Mono",monospace;color:#777066;letter-spacing:.08em}
+.estimatorChoices button>svg{position:absolute;right:17px;top:17px;color:#A88F75}
+.estimatorChoices.three{grid-template-columns:repeat(3,1fr)}
+.estimatorChoices.three button{min-height:145px}
+.estimatorChoices.three button>small{font:10px "DM Sans",sans-serif;line-height:1.5;letter-spacing:0}
+.estimatorStep h3{font-size:14px;margin:35px 0 14px}
+.estimatorFeatures{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.estimatorFeatures button{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:12px;text-align:left;padding:17px 14px;border:1px solid #211F1B25;background:transparent;cursor:pointer}
+.estimatorFeatures button>i{width:17px;height:17px;border:1px solid #A88F75;display:grid;place-items:center;color:#211F1B}
+.estimatorFeatures button>span{font-size:11px}
+.estimatorFeatures button>small{font:8px "DM Mono",monospace;color:#777066}
+.estimatorTimeline{display:flex;gap:10px;flex-wrap:wrap}
+.estimatorTimeline button{padding:13px 16px;background:transparent;border:1px solid #211F1B28;font:9px "DM Mono",monospace;cursor:pointer}
+.estimatePrice{background:#211F1B;color:#E9E1D4;padding:27px;margin:25px 0}
+.estimatePrice>small{font:8px "DM Mono",monospace;color:#A88F75;letter-spacing:.14em}
+.estimatePrice strong{display:block;font-size:clamp(24px,4.5vw,52px);letter-spacing:-.07em;margin:17px 0}
+.estimatePrice strong i{font-style:normal;color:#A88F75}
+.estimatePrice p{font:8px "DM Mono",monospace;color:#E9E1D477;letter-spacing:.1em}
+.estimateSummary{border-top:1px solid #211F1B2c;padding:15px 0}
+.estimateSummary p{font-size:11px;padding:7px 0;color:#777066}
+.estimateContact{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px 0}
+.estimateContact label{display:flex;flex-direction:column;gap:8px;font:8px "DM Mono",monospace;letter-spacing:.1em;color:#777066}
+.estimateContact input{padding:13px;background:transparent;border:1px solid #211F1B35;color:#211F1B;font:12px "DM Sans",sans-serif}
+.estimatorSend{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;background:#211F1B;color:#E9E1D4;text-decoration:none;font:9px "DM Mono",monospace;letter-spacing:.1em}
+.estimatorCopy{margin-top:12px;background:transparent;border:0;color:#777066;cursor:pointer;font:8px "DM Mono",monospace}
+.estimatorNav{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #211F1B25;padding-top:22px}
+.estimatorNav button,.estimatorNav>a{display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#211F1B;text-decoration:none;cursor:pointer;font:8px "DM Mono",monospace;letter-spacing:.12em}
+.estimatorNav .next{background:#211F1B;color:#E9E1D4;padding:15px 20px}
+@keyframes vAtmosphere{to{transform:rotate(360deg)}}
+@media(max-width:850px){
+ .veltrixCaseHero{grid-template-columns:1fr;min-height:0;padding:80px 7vw 75px}.veltrixCaseVisual{height:390px}.veltrixCaseHero h1{font-size:clamp(58px,12vw,100px)}
+ .veltrixCaseIntro,.veltrixCaseSplit,.veltrixCaseFeature,.veltrixDeliverables,.veltrixServiceIntro,.veltrixServiceOutcomes,.veltrixServiceProcess,.veltrixServiceCta{grid-template-columns:1fr;padding:75px 7vw;gap:25px}
+ .veltrixServiceProcess>div,.veltrixServiceCta>a{grid-column:1}
+ .veltrixCaseFeature>img{height:380px}
+ .veltrixServiceOrb{width:300px;right:-80px;opacity:.45}
+}
+@media(max-width:600px){
+ .veltrixAtmosphere span{width:75vw;right:-40vw}
+ .veltrixEditorialHeader{height:68px;padding:0 18px}.veltrixEditorialHeader>div{gap:12px}.veltrixEditorialHeader>div>span{display:none}.veltrixEditorialHeader>div>a{font-size:7px}
+ .veltrixCaseHero{padding:65px 22px 75px;gap:28px}.veltrixCaseHero h1{font-size:clamp(55px,14vw,84px);margin:30px 0 20px}.veltrixCaseHeroCopy>p{font-size:12px}.veltrixCaseVisual{height:280px}.veltrixScrollCue{left:22px}
+ .veltrixCaseIntro,.veltrixCaseSplit,.veltrixCaseFeature,.veltrixDeliverables,.veltrixNextProject{padding:65px 22px}.veltrixCaseIntro h2,.veltrixCaseSplit h2,.veltrixCaseFeature h2,.veltrixDeliverables h2{font-size:clamp(40px,11vw,62px)}.veltrixCaseFeature>img{height:270px}
+ .veltrixNextProject>a b{font-size:clamp(38px,11vw,65px)}.veltrixEditorialFooter{padding:22px;gap:15px;flex-wrap:wrap;font-size:7px}
+ .veltrixServiceHero{padding:75px 22px;min-height:570px}.veltrixServiceHero h1{font-size:clamp(54px,13vw,82px)}.veltrixServiceOrb{width:230px;bottom:-85px}
+ .veltrixServiceIntro,.veltrixServiceOutcomes,.veltrixServiceProcess,.veltrixServiceCta{padding:65px 22px;gap:25px}.veltrixServiceIntro h2,.veltrixServiceOutcomes h2,.veltrixServiceProcess h2,.veltrixServiceCta h2{font-size:clamp(42px,11vw,65px)}
+ .veltrixServiceProcess>div{grid-template-columns:1fr}.veltrixServiceProcess article{min-height:140px}
+ .veltrixEstimator>header,.veltrixEstimator>footer{padding:18px 16px;gap:12px;font-size:7px}.veltrixEstimator>header>span{display:none}.veltrixEstimator>header>a:not(.stormLogo){font-size:7px}
+ .estimatorIntro{padding:70px 22px 45px}.estimatorIntro h1{font-size:clamp(52px,13vw,78px)}
+ .estimatorPanel{margin:0;padding:25px 20px 22px}.estimatorProgress{gap:9px;font-size:7px}.estimatorProgress>div{max-width:90px}
+ .estimatorStep{padding:34px 0 20px;min-height:0}.estimatorStep h2{font-size:39px}.estimatorChoices,.estimatorChoices.three,.estimatorFeatures{grid-template-columns:1fr}.estimatorChoices button{min-height:85px;padding:17px}.estimatorChoices.three button{min-height:90px}
+ .estimatorFeatures button{padding:15px 10px}.estimateContact{grid-template-columns:1fr}.estimatePrice{padding:20px}.estimatePrice strong{font-size:28px}.estimatorNav{gap:10px}.estimatorNav .next{padding:14px}
+}
+@media(prefers-reduced-motion:reduce){.veltrixAtmosphere span{animation:none}.storm3dScene{transition:none}.veltrix-reveal{opacity:1;transform:none;transition:none}}

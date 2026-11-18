@@ -878,3 +878,219 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline-color:#5877ff}
  .stormSite.arabic .veltrixFacts>div{border-left:0}
  .stormSite.arabic .veltrixFacts>div:nth-child(odd){padding-right:0}
 }
+
+
+/* VELTRIX — NEW ART DIRECTION: editorial / kinetic / high-contrast */
+.stormSite{
+ --storm-blue:#c7ff35;--storm-cyan:#d6ff70;--storm-bg:#10110f;--storm-paper:#f1f0e9;--storm-ink:#11120f;
+ background:#f1f0e9;color:#11120f;overflow:hidden;
+}
+.stormSite *{scroll-margin-top:90px}
+.stormAnnouncement{background:#c7ff35;color:#10110f;font-weight:700;letter-spacing:.16em}
+.stormLiveDot{background:#10110f;box-shadow:0 0 0 5px #10110f20}
+.stormAnnouncementLine{background:#10110f55}
+.stormAnnouncementRight{color:#10110f}
+.stormHeader{height:82px;padding:0 5.5%;background:#f1f0e9;color:#11120f;border-bottom:1px solid #11120f22}
+.stormLogo{font-size:25px;letter-spacing:-.09em;font-weight:900;color:#11120f}
+.stormLogo span{color:#7ca900}
+.stormNav{gap:35px;color:#41423d;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.stormNav a{transition:color .25s,transform .25s}
+.stormNav a:hover{color:#7ca900;transform:translateY(-2px)}
+.stormLang{color:#11120f}
+.stormHeaderCta{background:#11120f;color:#c7ff35;border-radius:0;padding:15px 19px}
+.stormHeaderCta:hover{background:#c7ff35;color:#11120f}
+.stormMenu{color:#11120f}
+.stormHero{position:relative;min-height:790px;padding:90px 7% 115px;display:grid;grid-template-columns:1fr;align-items:center;background:#11120f;color:#f1f0e9;isolation:isolate}
+.stormHeroImage{inset:0;opacity:.13;mix-blend-mode:screen}
+.stormHeroImage img{filter:grayscale(1) contrast(1.3);object-position:center 42%}
+.stormHero:before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,#11120ff5 0%,#11120fc9 65%,#11120f80 100%)}
+.stormHeroNoise{z-index:1;opacity:.13;background-image:radial-gradient(#c7ff35 0.7px,transparent .7px);background-size:5px 5px;mask-image:linear-gradient(90deg,transparent,#000)}
+.stormHeroCopy{position:relative;z-index:3;max-width:1100px}
+.stormEyebrow{color:#c7ff35;font-size:10px;letter-spacing:.2em}
+.stormEyebrow>span{background:#c7ff35}
+.stormHero h1{max-width:1100px;margin:45px 0 32px;font-size:clamp(76px,12.2vw,178px);line-height:.79;letter-spacing:-.105em;font-weight:850;text-transform:uppercase}
+.stormHero h1 em{color:#c7ff35;font-style:normal;display:inline-block;animation:veltrixTitleIn 1s cubic-bezier(.16,1,.3,1) both}
+.stormHeroCopy>p{max-width:440px;color:#b8b9af;font-size:15px;line-height:1.85;margin-left:5px}
+.stormHeroActions{margin:35px 0 0 5px}
+.stormHeroActions button{background:#c7ff35;color:#11120f;border-radius:0;font-weight:800;padding:17px 23px;transition:transform .3s,box-shadow .3s}
+.stormHeroActions button:hover{background:#d9ff7c;transform:translateY(-5px);box-shadow:0 14px 35px #c7ff3530}
+.stormHeroActions a{color:#f1f0e9}
+.stormHeroAside{position:absolute;z-index:2;right:8%;bottom:7%;width:310px;height:310px;border:1px solid #c7ff3540;background:radial-gradient(circle at 50% 50%,#c7ff351c,transparent 65%);border-radius:50%;box-shadow:none;overflow:visible;opacity:.95}
+.stormHeroAside:before,.stormHeroAside:after{border-color:#c7ff3540;border-radius:50%}
+.stormHeroAsideTop{color:#c7ff35}
+.stormHeroAsideBottom{color:#e7e7dd}
+.storm3dScene{transform:scale(.85)}
+.storm3dCore{background:linear-gradient(145deg,#f4ffc8,#c7ff35 42%,#557b00);box-shadow:inset 10px 10px 24px #ffffff90,inset -18px -22px 30px #263800,0 20px 70px #c7ff3540,0 0 100px #c7ff3525}
+.storm3dOrbit--one{border-color:#c7ff3590}.storm3dOrbit--two{border-color:#e9ff9a80}.storm3dOrbit--three{border-color:#c7ff3550}
+.storm3dShard{background:linear-gradient(135deg,#f3ffbe,#c7ff35 55%,#6f9700)}
+.storm3dLabel{color:#c7ff35}
+.stormHeroBottom{color:#a6a79c;left:7%;right:7%}
+.stormHeroBottom i{background:#c7ff35}
+.stormMarquee{height:75px;background:#c7ff35;color:#11120f;transform:rotate(-1.5deg) scale(1.04);margin:0;position:relative;z-index:4}
+.stormMarquee div{font-size:16px;font-weight:800;letter-spacing:.12em}
+.stormMarquee b{color:#11120f}
+.veltrixFacts{background:#f1f0e9;padding:55px 7%;border-bottom:1px solid #11120f25}
+.veltrixFacts>div{border-color:#11120f25}
+.veltrixFacts strong{color:#11120f;font-size:clamp(42px,5vw,66px)}
+.veltrixFacts span{color:#696a61;font-size:8px}
+.stormSection{padding:135px 7%}
+.stormSectionTop{border-color:#11120f35;color:#77786f;font-size:9px;letter-spacing:.16em}
+.stormWork{background:#f1f0e9}
+.stormWorkIntro{display:grid;grid-template-columns:1.25fr .55fr;align-items:end;gap:8%;margin:55px 0 65px}
+.stormWorkIntro h2,.stormServicesIntro h2,.stormProcessIntro h2{font-size:clamp(66px,9.2vw,132px);line-height:.82;letter-spacing:-.1em;color:#11120f;text-transform:uppercase}
+.stormWorkIntro h2 em,.stormServicesIntro h2 em,.stormProcessIntro h2 em{color:#7ca900}
+.stormWorkIntro p,.stormServicesIntro p,.stormProcessIntro p{color:#686960;font-size:14px;line-height:1.9;max-width:360px}
+.stormProjectGrid{grid-template-columns:1.12fr .88fr;gap:55px 28px}
+.stormProject:nth-child(2){margin-top:130px}
+.stormProject:nth-child(3){grid-column:1/2;margin-top:-60px}
+.stormProjectVisual,.stormProject--feature .stormProjectVisual{aspect-ratio:1.18;border-radius:0;background:#d8d8cc;overflow:hidden}
+.stormProjectVisual:after{background:linear-gradient(180deg,transparent 35%,#11120f99)}
+.stormProjectVisual img{filter:grayscale(.2) saturate(.75);transition:transform 1s cubic-bezier(.16,1,.3,1),filter .8s}
+.stormProjectVisual:hover img{transform:scale(1.08) rotate(-1deg);filter:grayscale(0) saturate(1.1)}
+.stormProjectOverlay b{font-size:clamp(34px,5vw,64px);letter-spacing:-.07em}
+.stormProjectMeta h3{color:#11120f;font-size:23px;letter-spacing:-.05em}
+.stormProjectMeta>div>span{color:#77786f}
+.stormProjectMeta>button{border-color:#11120f45;color:#11120f;border-radius:0}
+.stormProjectMeta>button:hover{background:#c7ff35;color:#11120f;border-color:#c7ff35}
+.stormWorkFoot{border-color:#11120f30;color:#6b6c63}
+.stormWorkFoot a{color:#7ca900}
+.stormServices{background:#11120f;color:#f1f0e9;position:relative}
+.stormServices:before{border-color:#c7ff3518;box-shadow:0 0 0 55px #c7ff3508,0 0 0 110px #c7ff3505}
+.stormServices .stormSectionTop{border-color:#ffffff30;color:#aaa99e}
+.stormServicesIntro{display:grid;grid-template-columns:1.15fr .55fr;align-items:end;gap:8%;margin:55px 0 65px}
+.stormServicesIntro h2{color:#f1f0e9}
+.stormServicesIntro h2 em{color:#c7ff35}
+.stormServicesIntro p{color:#a6a79c}
+.stormServiceGrid{display:block;background:transparent;border:0;border-top:1px solid #ffffff45}
+.stormServiceCard{display:grid;grid-template-columns:55px 1.1fr 1.25fr 130px 175px;align-items:center;gap:22px;min-height:0;padding:27px 12px;background:transparent;color:#f1f0e9;border:0;border-bottom:1px solid #ffffff45;border-radius:0;box-shadow:none;transition:background .35s,padding .35s}
+.stormServiceCard:hover{background:#c7ff35;color:#11120f;transform:none;padding-left:25px;padding-right:25px}
+.stormServiceTop{color:#c7ff35}
+.stormServiceCard:hover .stormServiceTop,.stormServiceCard:hover h3,.stormServiceCard:hover p,.stormServiceCard:hover .stormServiceBottom span,.stormServiceCard:hover .stormServiceBottom b,.stormServiceCard:hover>button{color:#11120f}
+.stormServiceCard h3{font-size:22px;color:#f1f0e9;margin:0}
+.stormServiceCard p{color:#a6a79c;font-size:12px;line-height:1.7;margin:0}
+.stormServiceBottom{border:0;display:flex;flex-direction:column;gap:5px}
+.stormServiceBottom span{color:#9c9d92}
+.stormServiceBottom b{color:#f1f0e9;font-size:13px}
+.stormServiceCard>button{border:0;color:#c7ff35;justify-content:flex-end}
+.stormPriceNote{color:#999a90}
+.stormStudio{background:#deded3}
+.stormStudio .stormSectionTop{border-color:#11120f30}
+.stormStudioGrid{grid-template-columns:1fr 1fr;gap:9%}
+.stormStudioArt{background:#c7ff35;border-radius:0;min-height:580px;overflow:hidden}
+.stormStudioArt:before{border-color:#11120f35}
+.stormStudioWord{color:#11120f;font-size:clamp(150px,22vw,300px)}
+.stormStudioCoordinates,.stormStudioCaption{color:#11120f}
+.stormStudioTorus{border-color:#11120f;background:transparent}
+.stormStudioTorus--two{border-color:#11120f80}
+.stormStudioGlass{background:linear-gradient(145deg,#f7ffd9,#a6d92b 45%,#516c0d);box-shadow:inset 12px 12px 20px #ffffff99,0 20px 60px #31480050}
+.stormStudioGlass span{color:#11120f}
+.stormStudioCopy h2{color:#11120f;font-size:clamp(58px,7vw,95px);line-height:.88;letter-spacing:-.09em;text-transform:uppercase}
+.stormStudioCopy h2 em{color:#7ca900}
+.stormStudioCopy>p{color:#5f6058;line-height:1.9}
+.stormPeople>div>span{background:#11120f;color:#c7ff35}
+.stormPeople b{color:#11120f}
+.stormPeople small{color:#66675e}
+.stormStudioCopy>a{border-color:#11120f;color:#11120f}
+.stormProcess{background:#f1f0e9}
+.stormProcessIntro{display:grid;grid-template-columns:1.15fr .55fr;align-items:end;gap:8%;margin:55px 0 65px}
+.stormSteps{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #11120f45}
+.stormSteps article{padding:25px 18px 20px 0;border-right:1px solid #11120f30}
+.stormSteps article+article{padding-left:18px}
+.stormSteps article>span{color:#7ca900}
+.stormSteps article>i{background:#d0d0c5}
+.stormSteps article>i:after{background:#9cc91e}
+.stormSteps h3{color:#11120f}
+.stormSteps p{color:#696a61}
+.stormContact{background:#c7ff35;color:#11120f;grid-template-columns:.8fr 1.2fr;gap:8%;padding-top:110px;padding-bottom:120px}
+.stormContact .stormSectionTop{color:#11120f;border-color:#11120f55}
+.stormContactOrb{opacity:.22;filter:grayscale(1)}
+.stormContactContent .stormMiniLabel{color:#11120f}
+.stormContact h2{color:#11120f;font-size:clamp(65px,8vw,112px);line-height:.82;letter-spacing:-.1em;text-transform:uppercase}
+.stormContact h2 em{color:#f1f0e9}
+.stormContactContent>p{color:#34372b}
+.stormContactActions button{background:#11120f;color:#c7ff35;border-radius:0}
+.stormContactActions button:hover{background:#f1f0e9;color:#11120f}
+.stormContactActions .stormSecondaryAction{background:transparent;color:#11120f;border:1px solid #11120f70}
+.stormContactContent>small{color:#34372b}
+.veltrixInlineForm{background:#f1f0e9;border:1px solid #11120f35;padding:34px;box-shadow:15px 15px 0 #11120f;border-radius:0}
+.veltrixFormTitle{color:#11120f;border-color:#11120f30}
+.veltrixFormTitle b{color:#7ca900}
+.veltrixInlineForm label{color:#5f6058}
+.veltrixInlineForm input,.veltrixInlineForm select,.veltrixInlineForm textarea{border:1px solid #c9c9bd;background:#fff;color:#11120f;border-radius:0}
+.veltrixInlineForm input:focus,.veltrixInlineForm select:focus,.veltrixInlineForm textarea:focus{border-color:#7ca900;box-shadow:0 0 0 3px #c7ff3540}
+.veltrixFormSubmit{background:#11120f;color:#c7ff35;border-radius:0}
+.veltrixFormSubmit:hover{background:#33352d}
+.stormFooter{background:#11120f;color:#f1f0e9}
+.stormFooterSignup p,.stormFooterTop p{color:#a6a79c}
+.stormFooterSignup form{border-color:#ffffff45}
+.stormFooterSignup input{color:#f1f0e9}
+.stormFooterBottom{border-color:#ffffff30;color:#9d9e93}
+.stormFooterTalk{color:#c7ff35;border-color:#c7ff35}
+.stormSite.arabic .stormHeroCopy>p{margin-right:5px;margin-left:0}
+.stormSite.arabic .stormProject:nth-child(2){margin-top:130px}
+.stormSite.arabic .stormServiceCard:hover{padding-right:25px;padding-left:25px}
+.stormSite.arabic .stormServiceCard{direction:rtl}
+.stormSite.arabic .stormStudioCopy{text-align:right}
+.stormSite.arabic .stormSteps article{padding:25px 0 20px 18px;border-right:0;border-left:1px solid #11120f30}
+.stormSite.arabic .stormSteps article+article{padding-right:18px;padding-left:0}
+.stormSite.arabic .stormContact{text-align:right}
+.stormSite.arabic .stormContactActions{justify-content:flex-start}
+@keyframes veltrixTitleIn{from{opacity:0;transform:translateY(45px) skewY(5deg);filter:blur(12px)}to{opacity:1;transform:translateY(0) skewY(0);filter:blur(0)}}
+@keyframes veltrixFloat{0%,100%{transform:translate3d(0,0,0) rotate(-5deg)}50%{transform:translate3d(0,-18px,0) rotate(5deg)}}
+.stormHeroAside{animation:veltrixFloat 8s ease-in-out infinite}
+.stormSectionTop,.stormWorkIntro,.stormServicesIntro,.stormStudioGrid,.stormProcessIntro,.stormSteps,.stormProject,.stormServiceCard,.veltrixInlineForm{animation:veltrixReveal .8s cubic-bezier(.16,1,.3,1) both}
+.stormProject:nth-child(2),.stormServiceCard:nth-child(2){animation-delay:.08s}
+.stormProject:nth-child(3),.stormServiceCard:nth-child(3){animation-delay:.16s}
+@keyframes veltrixReveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.stormProjectVisual,.stormServiceCard,.stormHeaderCta,.stormHeroActions button,.stormStudioCopy>a,.veltrixFormSubmit{transition:all .4s cubic-bezier(.16,1,.3,1)}
+.stormProjectVisual:hover{transform:translateY(-8px)}
+@media(max-width:1000px){
+ .stormHero{min-height:700px;padding:80px 6% 110px}
+ .stormHeroAside{right:4%;width:250px;height:250px;opacity:.55}
+ .stormServiceCard{grid-template-columns:40px 1fr 1fr 110px}
+ .stormServiceCard>button{grid-column:2/-1;justify-content:flex-start}
+ .stormProjectGrid{gap:38px 20px}
+ .stormProject:nth-child(2){margin-top:80px}
+}
+@media(max-width:700px){
+ .stormHeader{height:70px;padding:0 20px}
+ .stormAnnouncement{font-size:8px;letter-spacing:.08em}
+ .stormAnnouncementRight{display:none}
+ .stormHero{min-height:740px;padding:70px 22px 105px;align-items:start}
+ .stormHero h1{font-size:clamp(66px,15vw,104px);margin:55px 0 28px;line-height:.82}
+ .stormHeroCopy>p{font-size:13px;max-width:90%}
+ .stormHeroAside{width:190px;height:190px;right:14px;bottom:85px;opacity:.38}
+ .stormHeroBottom{left:22px;right:22px;font-size:8px}
+ .stormMarquee{height:56px}.stormMarquee div{font-size:11px}
+ .veltrixFacts{grid-template-columns:1fr 1fr;padding:25px 22px}
+ .veltrixFacts>div{padding:15px 10px}
+ .stormSection{padding:82px 22px}
+ .stormWorkIntro,.stormServicesIntro,.stormProcessIntro{display:block;margin:40px 0}
+ .stormWorkIntro h2,.stormServicesIntro h2,.stormProcessIntro h2{font-size:clamp(58px,13vw,90px)}
+ .stormWorkIntro p,.stormServicesIntro p,.stormProcessIntro p{margin-top:24px}
+ .stormProjectGrid{grid-template-columns:1fr;gap:35px}
+ .stormProject:nth-child(2),.stormProject:nth-child(3){grid-column:auto;margin-top:0}
+ .stormProjectVisual,.stormProject--feature .stormProjectVisual{aspect-ratio:1.05}
+ .stormServiceCard{grid-template-columns:34px 1fr;gap:12px;padding:23px 4px}
+ .stormServiceTop{grid-row:1/3;align-self:start}
+ .stormServiceCard h3{font-size:19px}
+ .stormServiceCard p{grid-column:2;font-size:12px}
+ .stormServiceBottom{grid-column:2;display:flex;flex-direction:row;align-items:center;gap:10px}
+ .stormServiceCard>button{grid-column:2}
+ .stormServiceCard:hover{padding-left:12px;padding-right:12px}
+ .stormStudioGrid{grid-template-columns:1fr;gap:42px}
+ .stormStudioArt{min-height:390px}
+ .stormStudioCopy h2{font-size:clamp(58px,13vw,82px)}
+ .stormSteps{grid-template-columns:1fr;border-top:0}
+ .stormSteps article,.stormSteps article+article{display:grid;grid-template-columns:40px 16px 1fr;gap:10px;align-items:center;padding:18px 0;border:0;border-bottom:1px solid #11120f30}
+ .stormSteps article>i{grid-column:2;grid-row:1/3}
+ .stormSteps h3{margin:0}.stormSteps p{grid-column:3;margin:0}
+ .stormContact{grid-template-columns:1fr;gap:35px;padding-top:85px;padding-bottom:85px}
+ .stormContact h2{font-size:clamp(62px,14vw,88px)}
+ .veltrixInlineForm{padding:22px;box-shadow:8px 8px 0 #11120f}
+ .veltrixInlineForm .formPair{grid-template-columns:1fr}
+ .stormSite.arabic .stormSteps article,.stormSite.arabic .stormSteps article+article{grid-template-columns:1fr 16px 40px;text-align:right}
+}
+@media(prefers-reduced-motion:reduce){
+ .stormHeroAside,.stormHero h1 em,.stormSectionTop,.stormWorkIntro,.stormServicesIntro,.stormStudioGrid,.stormProcessIntro,.stormSteps,.stormProject,.stormServiceCard,.veltrixInlineForm{animation:none!important}
+}

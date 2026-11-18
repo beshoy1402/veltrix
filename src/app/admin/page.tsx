@@ -334,7 +334,7 @@ export default function AdminPage() {
       setMessage("Project estimate pricing saved. The public estimator will use these prices immediately.");
     } catch(e) { setError(e instanceof Error ? e.message : "Could not save estimator pricing."); }
   }
-\n  async function saveAgentKnowledge(event: FormEvent) {
+  async function saveAgentKnowledge(event: FormEvent) {
     event.preventDefault(); setError(""); setMessage("");
     try { await api("site_settings?on_conflict=key", token, { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ key: "agent_knowledge_base", value: { content: agentKnowledge } }) }); setMessage("VELTRIX agent knowledge saved. New conversations will use the updated information."); }
     catch (e) { setError(e instanceof Error ? e.message : "Could not save agent knowledge."); }

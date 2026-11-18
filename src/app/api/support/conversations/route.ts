@@ -22,15 +22,16 @@ function clean(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
-async function hydrateAttachments(rows: any[]) {
+async function hydrateAttachments(rows: Record<string, unknown>[]) {
   return Promise.all((rows || []).map(async (row) => {
-    const match = typeof row.body === "string" ? row.body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
+    const body = typeof row.body === "string" ? row.body : "";
+    const match = body.match(/^\[\[VELTRIX_IMAGE:([^|]+)\|([^|]*)\|([^|]*)\]\]\n?/) : null;
     if (!match) return row;
     const path = match[1];
     const signed = await fetch(`${URL}/storage/v1/object/sign/support-attachments/${path.split("/").map(encodeURIComponent).join("/")}`, { method: "POST", headers: dbHeaders(), body: JSON.stringify({ expiresIn: 3600 }), cache: "no-store" });
     const result = await signed.json().catch(() => ({}));
     const url = signed.ok ? (result.signedURL?.startsWith("http") ? result.signedURL : URL + "/storage/v1" + result.signedURL) : null;
-    return { ...row, body: row.body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
+    return { ...row, body: body.replace(match[0], "").trim(), attachment: { url, name: match[2], mime: match[3] } };
   }));
 }
 

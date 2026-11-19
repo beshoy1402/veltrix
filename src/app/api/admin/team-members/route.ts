@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const email = String(input.email || "").trim().toLowerCase();
     const password = String(input.password || "");
     const role = String(input.role || "");
-    if (name.length < 2 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || password.length < 12 || !ROLES.has(role)) {
+    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 12 || !ROLES.has(role)) {
       return NextResponse.json({ error: "Enter a name, valid email, password of at least 12 characters, and a valid team role." }, { status: 400 });
     }
     const response = await fetch(URL + "/auth/v1/admin/users", {

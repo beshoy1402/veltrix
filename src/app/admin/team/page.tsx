@@ -39,8 +39,6 @@ export default function TeamManagementPage(){
   <section className="teamAdminContent">
    <div className="teamPageHead"><div><small>VELTRIX / ADMIN / TEAM</small><h1>Team management.</h1><p>Create team accounts, assign roles and distribute work.</p></div><span className="teamRolePill"><ShieldCheck size={14}/> Admin only</span></div>
    {error&&<div className="teamAlert error">{error}</div>}{notice&&<div className="teamAlert success">{notice}</div>}{createdCredentials&&<div className="teamPanel teamCredentials"><div><b>New {createdCredentials.role} login</b><p>{createdCredentials.email}</p><small>Temporary password: {createdCredentials.password}</small></div><button className="teamRefresh" onClick={()=>navigator.clipboard.writeText(["VELTRIX login: "+window.location.origin+"/admin","Email: "+createdCredentials.email,"Temporary password: "+createdCredentials.password].join("\n"))}>Copy login details</button><button className="teamRefresh" onClick={()=>setCreatedCredentials(null)}>Hide</button></div>}
-Email: "+createdCredentials.email+"
-Temporary password: "+createdCredentials.password)}>Copy login details</button><button className="teamRefresh" onClick={()=>setCreatedCredentials(null)}>Hide</button></div>}
    <div className="teamGrid">
     <article className="teamPanel"><div className="teamPanelHead"><h2><UserPlus size={18}/> Create team account</h2></div>
      <form className="teamForm" onSubmit={create}>

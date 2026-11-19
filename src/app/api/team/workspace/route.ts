@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
     const result: Record<string, unknown> = { role: session.role, profile: { id: session.user.id, email: session.user.email, name: session.user.user_metadata?.full_name || "" }, tasks, announcements };
     if (session.role === "marketing" || session.role === "admin") {
       result.inquiries = await read("inquiries?select=id,name,email,phone,company,service_interest,budget,status,created_at&order=created_at.desc&limit=100");
+      result.activities = await read("inquiry_activities?select=id,inquiry_id,activity_type,body,due_at,created_at&order=created_at.desc&limit=300");
       result.campaigns = await read("marketing_campaigns?select=*&order=created_at.desc&limit=100");
     }
     if (session.role === "designer" || session.role === "admin") result.assets = await read("design_assets?select=*&order=created_at.desc&limit=100");
@@ -55,6 +56,25 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({ error: "Team sign-in required." }, { status: 401 });
   try {
     const input = await request.json();
+    if (input.kind === "lead_activity" && (session.role === "marketing" || session.role === "admin")) {
+      const inquiryId = String(input.inquiry_id || "");
+      const body = String(input.body || "").trim().slice(0, 2000);
+      const activityType = String(input.activity_type || "note");
+      const allowedTypes = ["note", "follow_up", "call", "email", "meeting"];
+      if (!inquiryId || body.length < 2 || !allowedTypes.includes(activityType)) return NextResponse.json({ error: "Enter a note or follow-up detail." }, { status: 400 });
+      const dueAt = input.due_at ? new Date(String(input.due_at)) : null;
+      if (input.due_at && (!dueAt || Number.isNaN(dueAt.getTime()))) return NextResponse.json({ error: "Enter a valid follow-up date." }, { status: 400 });
+      const exists = await read("inquiries?select=id&id=eq." + encodeURIComponent(inquiryId) + "&limit=1");
+      if (!exists.length) return NextResponse.json({ error: "Lead not found." }, { status: 404 });
+      const response = await fetch(URL + "/rest/v1/inquiry_activities", {
+        method: "POST",
+        headers: headers({ "Content-Type": "application/json", Prefer: "return=representation" }),
+        body: JSON.stringify({ inquiry_id: inquiryId, activity_type: activityType, body, due_at: dueAt ? dueAt.toISOString() : null, created_by: session.user.id }),
+      });
+      const rows = await response.json();
+      if (!response.ok) return NextResponse.json({ error: "CRM activity could not be saved." }, { status: 502 });
+      return NextResponse.json({ activity: rows[0], message: "CRM activity saved." }, { status: 201 });
+    }
     if (input.kind === "campaign" && session.role === "marketing") {
       const name = String(input.name || "").trim().slice(0, 180);
       const channel = String(input.channel || "Instagram").trim().slice(0, 80);

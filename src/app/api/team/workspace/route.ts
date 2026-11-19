@@ -42,7 +42,8 @@ export async function GET(request: NextRequest) {
     if (session.role === "designer" || session.role === "admin") result.assets = await read("design_assets?select=*&order=created_at.desc&limit=100");
     if (session.role === "developer" || session.role === "admin") {
       const projectIds = [...new Set((tasks as Array<Record<string, unknown>>).map(task => String(task.project_id || "")).filter(Boolean))];
-      result.projects = projectIds.length ? await read("client_projects?select=id,name,summary,status,progress,due_date,updated_at&id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=updated_at.desc") : [];\n      result.milestones = projectIds.length ? await read("project_milestones?select=id,project_id,title,status,due_date,sort_order&project_id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=sort_order.asc,due_date.asc.nullslast") : [];
+      result.projects = projectIds.length ? await read("client_projects?select=id,name,summary,status,progress,due_date,updated_at&id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=updated_at.desc") : [];
+      result.milestones = projectIds.length ? await read("project_milestones?select=id,project_id,title,status,due_date,sort_order&project_id=in.(" + projectIds.map(encodeURIComponent).join(",") + ")&order=sort_order.asc,due_date.asc.nullslast") : [];
     }
     return NextResponse.json(result);
   } catch (error) {

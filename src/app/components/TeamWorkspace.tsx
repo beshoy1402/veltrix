@@ -25,6 +25,8 @@ export default function TeamWorkspace({ expectedRole }: { expectedRole: Role }) 
   const [campaign, setCampaign] = useState({ name: "", channel: "Instagram", budget_egp: "0", notes: "" });
   const [asset, setAsset] = useState({ name: "", description: "", file_url: "" });
   const [busy, setBusy] = useState(false);
+  const [leadSearch, setLeadSearch] = useState("");
+  const [leadFilter, setLeadFilter] = useState("all");
   const current = config[expectedRole];
   const Icon = current.icon;
 
@@ -65,6 +67,23 @@ export default function TeamWorkspace({ expectedRole }: { expectedRole: Role }) 
     finally { setBusy(false); }
   }
 
+  async function updateLead(lead: Item, status: string) {
+    if (!token || expectedRole !== "marketing") return;
+    setBusy(true); setError(""); setNotice("");
+    try {
+      const response = await fetch("/api/team/workspace", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+        body: JSON.stringify({ kind: "lead_status", id: String(lead.id || ""), status }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Lead could not be updated.");
+      setNotice(result.message || "Lead updated.");
+      await load(token);
+    } catch (e) { setError(e instanceof Error ? e.message : "Lead could not be updated."); }
+    finally { setBusy(false); }
+  }
+
   async function createItem(event: React.FormEvent) {
     event.preventDefault(); if (!token) return;
     setBusy(true); setError(""); setNotice("");
@@ -98,7 +117,22 @@ export default function TeamWorkspace({ expectedRole }: { expectedRole: Role }) 
           <div className="teamGrid"><article className="teamPanel"><div className="teamPanelHead"><h2>Priority work</h2><span>{open} open</span></div>{tasks.slice(0,5).map(task => <div className="teamRow" key={task.id}><div><b>{task.title}</b><small>{task.description || "No additional details"}</small></div><span className={"teamStatus " + task.status}>{task.status.replace("_"," ")}</span></div>)}{!tasks.length && <p className="teamMuted">No tasks assigned yet. Your admin can assign work from Team Management.</p>}</article><article className="teamPanel"><div className="teamPanelHead"><h2>Team announcements</h2><Bell size={17}/></div>{data.announcements.map((item,i)=><div className="teamAnnouncement" key={String(item.id || i)}><b>{String(item.title || "Announcement")}</b><p>{String(item.body || "")}</p><small>{item.created_at ? new Date(String(item.created_at)).toLocaleString() : ""}</small></div>)}{!data.announcements.length && <p className="teamMuted">No announcements yet.</p>}</article></div>
         </>}
         {!loading && data && (section === "My tasks" || section === "Technical notes") && <div className="teamPanel"><div className="teamPanelHead"><h2>My assigned tasks</h2><span>{tasks.length} total</span></div>{tasks.map(task=><div className="teamTask" key={task.id}><div><b>{task.title}</b><p>{task.description}</p><small>{task.priority.toUpperCase()} · {task.due_date ? new Date(task.due_date).toLocaleDateString() : "No deadline"}</small></div><select value={task.status} disabled={busy} onChange={e=>updateTask(task,e.target.value)}><option value="todo">To do</option><option value="in_progress">In progress</option><option value="review">Ready for review</option><option value="done">Completed</option></select></div>)}{!tasks.length&&<p className="teamMuted">No tasks assigned yet.</p>}</div>}
-        {!loading && data && section === "Leads" && <div className="teamPanel"><div className="teamPanelHead"><h2>Recent customer leads</h2><span>{data.inquiries?.length || 0} leads</span></div>{(data.inquiries || []).map(item=><div className="teamRow" key={String(item.id)}><div><b>{String(item.name || "New lead")}</b><small>{String(item.email || "")} · {String(item.service_interest || "General enquiry")} · {String(item.budget || "Budget not specified")}</small></div><span className={"teamStatus " + String(item.status || "new")}>{String(item.status || "new")}</span></div>)}{!data.inquiries?.length&&<p className="teamMuted">No leads available.</p>}</div>}
+        {!loading && data && section === "Leads" && <div className="teamPanel">
+          <div className="teamPanelHead"><h2>CRM · Lead pipeline</h2><span>{data.inquiries?.length || 0} leads</span></div>
+          <div className="teamStats">{["new","contacted","qualified","won"].map(status=><article key={status}><small>{status.replace("_"," ")}</small><strong>{(data.inquiries || []).filter(item=>String(item.status||"new")===status).length}</strong></article>)}</div>
+          <div className="teamLeadToolbar"><input aria-label="Search leads" placeholder="Search name, email, company or service…" value={leadSearch} onChange={e=>setLeadSearch(e.target.value)}/><select aria-label="Filter leads by status" value={leadFilter} onChange={e=>setLeadFilter(e.target.value)}><option value="all">All statuses</option>{["new","contacted","qualified","won","lost","archived"].map(status=><option key={status} value={status}>{status}</option>)}</select></div>
+          {(data.inquiries || []).filter(item=>{
+            const status=String(item.status||"new");
+            const query=leadSearch.trim().toLowerCase();
+            const matchesStatus=leadFilter==="all"||status===leadFilter;
+            const matchesQuery=!query||[item.name,item.email,item.company,item.service_interest].some(value=>String(value||"").toLowerCase().includes(query));
+            return matchesStatus&&matchesQuery;
+          }).map(item=><div className="teamRow" key={String(item.id)}>
+            <div><b>{String(item.name || "New lead")}</b><small>{String(item.email || "")} · {String(item.company || "No company")} · {String(item.service_interest || "General enquiry")} · {String(item.budget || "Budget not specified")}</small></div>
+            <select aria-label={"Update lead status for "+String(item.name||"lead")} value={String(item.status||"new")} disabled={busy} onChange={e=>void updateLead(item,e.target.value)}><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="won">Won</option><option value="lost">Lost</option><option value="archived">Archived</option></select>
+          </div>)}
+          {!data.inquiries?.length&&<p className="teamMuted">No leads available.</p>}
+        </div>}
         {!loading && data && section === "Campaigns" && <div className="teamGrid"><article className="teamPanel"><h2>Create campaign</h2><form className="teamForm" onSubmit={createItem}><label>Campaign name<input required value={campaign.name} onChange={e=>setCampaign({...campaign,name:e.target.value})}/></label><label>Channel<select value={campaign.channel} onChange={e=>setCampaign({...campaign,channel:e.target.value})}><option>Instagram</option><option>Facebook</option><option>Website</option><option>Referral</option><option>Google</option><option>Other</option></select></label><label>Budget (EGP)<input type="number" min="0" value={campaign.budget_egp} onChange={e=>setCampaign({...campaign,budget_egp:e.target.value})}/></label><label>Notes<textarea value={campaign.notes} onChange={e=>setCampaign({...campaign,notes:e.target.value})}/></label><button disabled={busy}>Create campaign</button></form></article><article className="teamPanel"><h2>Campaign list</h2>{(data.campaigns || []).map((item,i)=><div className="teamRow" key={String(item.id || i)}><div><b>{String(item.name || "")}</b><small>{String(item.channel || "")} · EGP {String(item.budget_egp || 0)}</small></div><span className={"teamStatus " + String(item.status || "draft")}>{String(item.status || "draft")}</span></div>)}{!data.campaigns?.length&&<p className="teamMuted">No campaigns created.</p>}</article></div>}
         {!loading && data && section === "Design library" && <div className="teamGrid"><article className="teamPanel"><h2>Add design item</h2><form className="teamForm" onSubmit={createItem}><label>Asset / project name<input required value={asset.name} onChange={e=>setAsset({...asset,name:e.target.value})}/></label><label>Description<textarea value={asset.description} onChange={e=>setAsset({...asset,description:e.target.value})}/></label><label>Figma or file link<input type="url" value={asset.file_url} onChange={e=>setAsset({...asset,file_url:e.target.value})}/></label><button disabled={busy}>Save design item</button></form></article><article className="teamPanel"><h2>Design library</h2>{(data.assets || []).map((item,i)=><div className="teamRow" key={String(item.id || i)}><div><b>{String(item.name || "")}</b><small>{String(item.description || "")}</small>{Boolean(item.file_url)&&<a href={String(item.file_url)} target="_blank" rel="noreferrer">Open design ↗</a>}</div><span className={"teamStatus " + String(item.status || "working")}>{String(item.status || "working")}</span></div>)}{!data.assets?.length&&<p className="teamMuted">No design items yet.</p>}</article></div>}
         {!loading && data && section === "Projects" && <div className="teamPanel"><h2>Development projects</h2>{(data.projects || []).map((item,i)=><div className="teamRow" key={String(item.id || i)}><div><b>{String(item.name || "")}</b><small>{String(item.summary || "")}</small></div><span className="teamStatus">{String(item.status || "")} · {String(item.progress || 0)}%</span></div>)}{!data.projects?.length&&<p className="teamMuted">Project records appear here when assigned.</p>}</div>}

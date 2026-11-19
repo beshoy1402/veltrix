@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Bell, CheckCircle2, Code2, LogOut, Megaphone, Palette, RefreshCw } from "lucide-react";
 
 type Role = "marketing" | "developer" | "designer";
-type Task = { id: string; title: string; description: string; status: string; priority: string; due_date: string | null; department: string; project_id?: string | null; milestone_id?: string | null };\ntype Milestone = { id: string; project_id: string; title: string; status: string; due_date: string | null; sort_order: number };
+type Task = { id: string; title: string; description: string; status: string; priority: string; due_date: string | null; department: string; project_id?: string | null; milestone_id?: string | null };
+type Milestone = { id: string; project_id: string; title: string; status: string; due_date: string | null; sort_order: number };
 type Item = Record<string, unknown>;
 type WorkspaceData = { role: Role; profile: { id: string; email: string; name: string }; tasks: Task[]; announcements: Item[]; inquiries?: Item[]; activities?: Item[]; campaigns?: Item[]; assets?: Item[]; projects?: Item[]; milestones?: Milestone[] };
 type LeadDraft = { body: string; due_at: string; activity_type: string };

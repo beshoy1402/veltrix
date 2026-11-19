@@ -2201,3 +2201,18 @@ html:before{content:"";position:fixed;z-index:999;top:0;left:0;height:2px;width:
 /* Client portal project milestones */
 
 .portalMilestones{margin-top:24px;padding-top:20px;border-top:1px solid #d9d0c4}.portalMilestones h3{font:600 15px var(--display);margin:0 0 12px;color:#302a24}.portalMilestone{display:flex;gap:12px;padding:12px 0;border-top:1px solid #e8e1d8}.portalMilestoneMark{width:25px;height:25px;display:grid;place-items:center;flex:none;border-radius:50%;background:#eee8df;color:#776b5d;font-weight:700}.portalMilestoneMark.completed{background:#e0eee3;color:#39764c}.portalMilestoneMark.in_progress{background:#f2e8d8;color:#9a6b2f}.portalMilestoneMark.blocked{background:#f4e1df;color:#a64c43}.portalMilestone b{font-size:12px;color:#302a24}.portalMilestone small{display:block;color:#82796f;font-size:10px;margin-top:4px;text-transform:capitalize}.portalMilestone p{font-size:11px;color:#746c63;line-height:1.6;margin:5px 0 0}
+
+
+/* Team delivery tracking: milestone-linked assignments */
+.teamProjectDelivery{padding:14px 0;border-top:1px solid #ffffff18}
+.teamDeliveryMeta{display:flex;justify-content:space-between;gap:12px;margin:14px 0 8px;color:#b9a78f;font-size:11px}
+.teamDeliveryMeta span{color:#c9c2b7}
+.teamMilestoneRow{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;background:#ffffff08;margin:5px 0}
+.teamMilestoneDot{width:8px;height:8px;border-radius:50%;background:#8e887e;flex:none}
+.teamMilestoneDot.in_progress{background:#c3a16f}.teamMilestoneDot.completed{background:#7fa88a}.teamMilestoneDot.blocked{background:#c87970}
+.teamMilestoneRow b{font-size:11px;color:#eeeae2}.teamMilestoneRow small{display:block;color:#99948b;font-size:10px;margin-top:3px;text-transform:capitalize}
+.teamProjectTasks{margin:12px 0 0;padding-top:10px;border-top:1px solid #ffffff12}
+.teamProjectTasks>b{font-size:10px;color:#b9a78f;text-transform:uppercase;letter-spacing:.08em}
+.teamProjectTasks>div{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:11px;color:#e9e1d4}
+.teamProjectTasks small{color:#99948b;text-transform:capitalize}
+@media(max-width:600px){.teamDeliveryMeta{align-items:flex-start}.teamProjectTasks>div{flex-wrap:wrap}}

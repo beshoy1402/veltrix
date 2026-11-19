@@ -7,7 +7,8 @@ import { Bell, CheckCircle2, Code2, LogOut, Megaphone, Palette, RefreshCw } from
 type Role = "marketing" | "developer" | "designer";
 type Task = { id: string; title: string; description: string; status: string; priority: string; due_date: string | null; department: string };
 type Item = Record<string, unknown>;
-type WorkspaceData = { role: Role; profile: { id: string; email: string; name: string }; tasks: Task[]; announcements: Item[]; inquiries?: Item[]; campaigns?: Item[]; assets?: Item[]; projects?: Item[] };
+type WorkspaceData = { role: Role; profile: { id: string; email: string; name: string }; tasks: Task[]; announcements: Item[]; inquiries?: Item[]; activities?: Item[]; campaigns?: Item[]; assets?: Item[]; projects?: Item[] };
+type LeadDraft = { body: string; due_at: string; activity_type: string };
 
 const config = {
   marketing: { title: "Marketing Studio", subtitle: "Turn conversations into customers.", icon: Megaphone, accent: "Marketing / Growth", sections: ["Overview", "Leads", "Campaigns", "Follow-ups"] },
@@ -27,6 +28,7 @@ export default function TeamWorkspace({ expectedRole }: { expectedRole: Role }) 
   const [busy, setBusy] = useState(false);
   const [leadSearch, setLeadSearch] = useState("");
   const [leadFilter, setLeadFilter] = useState("all");
+  const [leadDrafts, setLeadDrafts] = useState<Record<string, LeadDraft>>({});
   const current = config[expectedRole];
   const Icon = current.icon;
 
@@ -84,6 +86,28 @@ export default function TeamWorkspace({ expectedRole }: { expectedRole: Role }) 
     finally { setBusy(false); }
   }
 
+  async function addLeadActivity(event: React.FormEvent<HTMLFormElement>, lead: Item) {
+    event.preventDefault();
+    if (!token || expectedRole !== "marketing") return;
+    const id = String(lead.id || "");
+    const draft = leadDrafts[id] || { body: "", due_at: "", activity_type: "note" };
+    if (draft.body.trim().length < 2) return;
+    setBusy(true); setError(""); setNotice("");
+    try {
+      const response = await fetch("/api/team/workspace", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+        body: JSON.stringify({ kind: "lead_activity", inquiry_id: id, body: draft.body, due_at: draft.due_at || null, activity_type: draft.activity_type }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "CRM activity could not be saved.");
+      setLeadDrafts(current => ({ ...current, [id]: { body: "", due_at: "", activity_type: "note" } }));
+      setNotice(result.message || "CRM activity saved.");
+      await load(token);
+    } catch (e) { setError(e instanceof Error ? e.message : "CRM activity could not be saved."); }
+    finally { setBusy(false); }
+  }
+
   async function createItem(event: React.FormEvent) {
     event.preventDefault(); if (!token) return;
     setBusy(true); setError(""); setNotice("");
@@ -127,10 +151,24 @@ export default function TeamWorkspace({ expectedRole }: { expectedRole: Role }) 
             const matchesStatus=leadFilter==="all"||status===leadFilter;
             const matchesQuery=!query||[item.name,item.email,item.company,item.service_interest].some(value=>String(value||"").toLowerCase().includes(query));
             return matchesStatus&&matchesQuery;
-          }).map(item=><div className="teamRow" key={String(item.id)}>
-            <div><b>{String(item.name || "New lead")}</b><small>{String(item.email || "")} · {String(item.company || "No company")} · {String(item.service_interest || "General enquiry")} · {String(item.budget || "Budget not specified")}</small></div>
-            <select aria-label={"Update lead status for "+String(item.name||"lead")} value={String(item.status||"new")} disabled={busy} onChange={e=>void updateLead(item,e.target.value)}><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="won">Won</option><option value="lost">Lost</option><option value="archived">Archived</option></select>
-          </div>)}
+          }).map(item=>{
+            const id=String(item.id||"");
+            const draft=leadDrafts[id]||{body:"",due_at:"",activity_type:"note"};
+            const activities=(data.activities||[]).filter(activity=>String(activity.inquiry_id)===id);
+            return <article className="teamLeadCard" key={id}>
+              <div className="teamRow">
+                <div><b>{String(item.name || "New lead")}</b><small>{String(item.email || "")} · {String(item.company || "No company")} · {String(item.service_interest || "General enquiry")} · {String(item.budget || "Budget not specified")}</small></div>
+                <select aria-label={"Update lead status for "+String(item.name||"lead")} value={String(item.status||"new")} disabled={busy} onChange={e=>void updateLead(item,e.target.value)}><option value="new">New</option><option value="contacted">Contacted</option><option value="qualified">Qualified</option><option value="won">Won</option><option value="lost">Lost</option><option value="archived">Archived</option></select>
+              </div>
+              <form className="teamLeadActivity" onSubmit={e=>void addLeadActivity(e,item)}>
+                <select aria-label="Activity type" value={draft.activity_type} onChange={e=>setLeadDrafts(current=>({...current,[id]:{...draft,activity_type:e.target.value}}))}><option value="note">Note</option><option value="follow_up">Follow-up</option><option value="call">Call</option><option value="email">Email</option><option value="meeting">Meeting</option></select>
+                <input aria-label="CRM note or follow-up" placeholder="Add a note or follow-up detail…" value={draft.body} onChange={e=>setLeadDrafts(current=>({...current,[id]:{...draft,body:e.target.value}}))} maxLength={2000}/>
+                <input aria-label="Follow-up date" type="datetime-local" value={draft.due_at} onChange={e=>setLeadDrafts(current=>({...current,[id]:{...draft,due_at:e.target.value}}))}/>
+                <button type="submit" disabled={busy||draft.body.trim().length<2}>Save activity</button>
+              </form>
+              {activities.length>0&&<div className="teamLeadHistory"><b>Activity history</b>{activities.slice(0,4).map(activity=><div key={String(activity.id)}><span>{String(activity.activity_type).replace("_"," ")}</span><p>{String(activity.body)}</p><small>{activity.due_at?("Follow up: "+new Date(String(activity.due_at)).toLocaleString()+" · "):""}{new Date(String(activity.created_at)).toLocaleString()}</small></div>)}</div>}
+            </article>;
+          })}
           {!data.inquiries?.length&&<p className="teamMuted">No leads available.</p>}
         </div>}
         {!loading && data && section === "Campaigns" && <div className="teamGrid"><article className="teamPanel"><h2>Create campaign</h2><form className="teamForm" onSubmit={createItem}><label>Campaign name<input required value={campaign.name} onChange={e=>setCampaign({...campaign,name:e.target.value})}/></label><label>Channel<select value={campaign.channel} onChange={e=>setCampaign({...campaign,channel:e.target.value})}><option>Instagram</option><option>Facebook</option><option>Website</option><option>Referral</option><option>Google</option><option>Other</option></select></label><label>Budget (EGP)<input type="number" min="0" value={campaign.budget_egp} onChange={e=>setCampaign({...campaign,budget_egp:e.target.value})}/></label><label>Notes<textarea value={campaign.notes} onChange={e=>setCampaign({...campaign,notes:e.target.value})}/></label><button disabled={busy}>Create campaign</button></form></article><article className="teamPanel"><h2>Campaign list</h2>{(data.campaigns || []).map((item,i)=><div className="teamRow" key={String(item.id || i)}><div><b>{String(item.name || "")}</b><small>{String(item.channel || "")} · EGP {String(item.budget_egp || 0)}</small></div><span className={"teamStatus " + String(item.status || "draft")}>{String(item.status || "draft")}</span></div>)}{!data.campaigns?.length&&<p className="teamMuted">No campaigns created.</p>}</article></div>}

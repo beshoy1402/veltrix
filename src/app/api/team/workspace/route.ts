@@ -85,6 +85,22 @@ export async function PATCH(request: NextRequest) {
   if (!session) return NextResponse.json({ error: "Team sign-in required." }, { status: 401 });
   try {
     const input = await request.json();
+    if (input.kind === "lead_status") {
+      if (session.role !== "marketing" && session.role !== "admin") return NextResponse.json({ error: "Marketing or admin access required." }, { status: 403 });
+      const leadId = String(input.id || "");
+      const leadStatus = String(input.status || "");
+      if (!leadId || !["new", "contacted", "qualified", "won", "lost", "archived"].includes(leadStatus)) return NextResponse.json({ error: "Invalid lead status." }, { status: 400 });
+      const update = await fetch(URL + "/rest/v1/inquiries?id=eq." + encodeURIComponent(leadId), {
+        method: "PATCH",
+        headers: headers({ "Content-Type": "application/json", Prefer: "return=representation" }),
+        body: JSON.stringify({ status: leadStatus, updated_at: new Date().toISOString() }),
+        cache: "no-store",
+      });
+      const rows = await update.json();
+      if (!update.ok) return NextResponse.json({ error: "Lead status could not be updated." }, { status: 502 });
+      if (!rows.length) return NextResponse.json({ error: "Lead not found." }, { status: 404 });
+      return NextResponse.json({ lead: rows[0], message: "Lead status updated." });
+    }
     const id = String(input.id || "");
     const status = String(input.status || "");
     if (!id || !["todo", "in_progress", "review", "done"].includes(status)) return NextResponse.json({ error: "Invalid task update." }, { status: 400 });
